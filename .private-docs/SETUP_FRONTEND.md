@@ -400,19 +400,18 @@ src/
 
 ```bash
 npm install @tanstack/router-devtools
-npm install -D @tanstack/router-vite-plugin
 ```
 
-### `vite.config.ts` atualizado
+> **Nota:** `@tanstack/router-vite-plugin` é para **file-based routing** (pasta `src/routes`). Como usamos **code-based routing** (`src/router/index.tsx`), o plugin **não é necessário** e não deve ser adicionado ao vite.config.ts.
+
+### `vite.config.ts` (sem o router plugin)
 ```ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { tanstackRouter } from '@tanstack/router-vite-plugin'
 
 export default defineConfig({
   plugins: [
-    tanstackRouter(),
     react(),
     tailwindcss(),
   ],

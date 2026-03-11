@@ -1,0 +1,18 @@
+{
+  "version": "0.2",
+  "language": "en,pt-BR",
+  "dictionaries": ["pt-BR"],
+  "dictionaryDefinitions": [
+    {
+      "name": "pt-BR",
+      "addWords": true,
+      "path": ".cspell-words.txt"
+    }
+  ],
+  "ignorePaths": [
+    "node_modules",
+    "dist",
+    "*.lock",
+    "package-lock.json"
+  ]
+}
