@@ -5,6 +5,7 @@ import AppLayout from '@/components/layout/AppLayout'
 import DashboardPage from '@/features/dashboard/pages/DashboardPage'
 import LoginPage from '@/features/auth/pages/LoginPage'
 import DesignSystemPage from '@/features/dashboard/pages/DesignSystemPage'
+import CarsPage from '@/features/cars/pages/CarsPage'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -36,7 +37,7 @@ const dashboardRoute = createRoute({
 const carsRoute = createRoute({
   getParentRoute: () => appRoute,
   path: '/cars',
-  component: () => <div className="p-4 text-foreground">Cars (em breve)</div>,
+  component: CarsPage,
 })
 
 const designSystemRoute = createRoute({
