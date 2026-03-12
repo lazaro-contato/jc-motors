@@ -6,6 +6,8 @@ import DashboardPage from '@/features/dashboard/pages/DashboardPage'
 import LoginPage from '@/features/auth/pages/LoginPage'
 import DesignSystemPage from '@/features/dashboard/pages/DesignSystemPage'
 import CarsPage from '@/features/cars/pages/CarsPage'
+import ProvidersPage from '@/features/providers/pages/ProvidersPage'
+import ProviderCreatePage from '@/features/providers/pages/ProviderCreatePage'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -46,12 +48,26 @@ const designSystemRoute = createRoute({
   component: DesignSystemPage,
 })
 
+const providersRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: '/providers',
+  component: ProvidersPage,
+})
+
+const providerCreateRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: '/providers/new',
+  component: ProviderCreatePage,
+})
+
 const routeTree = rootRoute.addChildren([
   loginRoute,
   appRoute.addChildren([
     dashboardRoute,
     carsRoute,
     designSystemRoute,
+    providersRoute,
+    providerCreateRoute,
   ]),
 ])
 

@@ -1,0 +1,173 @@
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { Building2 } from "lucide-react"
+import { z } from "zod"
+
+import { AppButton } from "@/components/shared/AppButton"
+import { AppInput } from "@/components/shared/AppInput"
+import { AppSelect } from "@/components/shared/AppSelect"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
+
+/* ── Schema ──────────────────────────────────────────────────────────────── */
+
+const providerSchema = z.object({
+  name:    z.string().min(2, "Razão Social é obrigatória"),
+  cnpj:    z.string().min(18, "CNPJ inválido"),
+  contact: z.string().min(2, "Nome do responsável é obrigatório"),
+  email:   z.string().email("E-mail inválido"),
+  phone:   z.string().min(10, "Telefone inválido"),
+  city:    z.string().min(2, "Cidade é obrigatória"),
+  state:   z.string().length(2, "UF inválida"),
+  status:  z.enum(["active", "inactive"]),
+})
+
+export type ProviderFormData = z.infer<typeof providerSchema>
+
+/* ── Opções ──────────────────────────────────────────────────────────────── */
+
+const STATUS_OPTIONS = [
+  { label: "Ativo",   value: "active" },
+  { label: "Inativo", value: "inactive" },
+]
+
+const STATE_OPTIONS = [
+  "AC","AL","AM","AP","BA","CE","DF","ES","GO","MA",
+  "MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN",
+  "RO","RR","RS","SC","SE","SP","TO",
+].map((uf) => ({ label: uf, value: uf }))
+
+/* ── Component ───────────────────────────────────────────────────────────── */
+
+interface ProviderFormProps {
+  onSubmit: (data: ProviderFormData) => void
+  onCancel: () => void
+  isSubmitting?: boolean
+}
+
+export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: ProviderFormProps) {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<ProviderFormData>({
+    resolver: zodResolver(providerSchema),
+    defaultValues: { status: "active" },
+  })
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      {/* Dados da empresa */}
+      <Card>
+        <CardHeader className="pb-4">
+          <div className="flex items-center gap-3">
+            <div className="flex size-9 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/15">
+              <Building2 className="size-4 text-brand-500 dark:text-brand-300" />
+            </div>
+            <div>
+              <CardTitle className="text-base">Dados da Empresa</CardTitle>
+              <CardDescription>Informações jurídicas do fornecedor</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <Separator />
+        <CardContent className="grid gap-5 pt-6 sm:grid-cols-2">
+          <div className="sm:col-span-2">
+            <AppInput
+              label="Razão Social"
+              placeholder="Ex.: Auto Peças São Paulo Ltda."
+              error={errors.name?.message}
+              {...register("name")}
+            />
+          </div>
+          <AppInput
+            label="CNPJ"
+            placeholder="00.000.000/0000-00"
+            error={errors.cnpj?.message}
+            {...register("cnpj")}
+          />
+          <AppSelect
+            label="Status"
+            options={STATUS_OPTIONS}
+            value={watch("status")}
+            onChange={(v) => setValue("status", v as "active" | "inactive", { shouldValidate: true })}
+            error={errors.status?.message}
+          />
+        </CardContent>
+      </Card>
+
+      {/* Contato */}
+      <Card>
+        <CardHeader className="pb-4">
+          <CardTitle className="text-base">Contato</CardTitle>
+          <CardDescription>Responsável e informações de contato</CardDescription>
+        </CardHeader>
+        <Separator />
+        <CardContent className="grid gap-5 pt-6 sm:grid-cols-2">
+          <div className="sm:col-span-2">
+            <AppInput
+              label="Nome do Responsável"
+              placeholder="Ex.: João da Silva"
+              error={errors.contact?.message}
+              {...register("contact")}
+            />
+          </div>
+          <AppInput
+            label="E-mail"
+            type="email"
+            placeholder="contato@empresa.com.br"
+            error={errors.email?.message}
+            {...register("email")}
+          />
+          <AppInput
+            label="Telefone"
+            type="tel"
+            placeholder="(00) 00000-0000"
+            error={errors.phone?.message}
+            {...register("phone")}
+          />
+        </CardContent>
+      </Card>
+
+      {/* Localização */}
+      <Card>
+        <CardHeader className="pb-4">
+          <CardTitle className="text-base">Localização</CardTitle>
+          <CardDescription>Cidade e estado de operação</CardDescription>
+        </CardHeader>
+        <Separator />
+        <CardContent className="grid gap-5 pt-6 sm:grid-cols-3">
+          <div className="sm:col-span-2">
+            <AppInput
+              label="Cidade"
+              placeholder="Ex.: São Paulo"
+              error={errors.city?.message}
+              {...register("city")}
+            />
+          </div>
+          <AppSelect
+            label="UF"
+            options={STATE_OPTIONS}
+            value={watch("state") ?? ""}
+            onChange={(v) => setValue("state", v, { shouldValidate: true })}
+            placeholder="Estado"
+            error={errors.state?.message}
+          />
+        </CardContent>
+      </Card>
+
+      {/* Actions */}
+      <div className="flex justify-end gap-3">
+        <Button type="button" variant="outline" onClick={onCancel}>
+          Cancelar
+        </Button>
+        <AppButton type="submit" isLoading={isSubmitting}>
+          Salvar Fornecedor
+        </AppButton>
+      </div>
+    </form>
+  )
+}
