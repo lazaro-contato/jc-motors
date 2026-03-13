@@ -1,30 +1,30 @@
 import { useNavigate } from "@tanstack/react-router"
 
 import { AppPageHeader } from "@/components/shared/AppPageHeader"
-import { ProviderForm, type ProviderFormData } from "../components/ProviderForm"
+import { CustomerForm, type CustomerFormData } from "../components/CustomerForm"
 
-export default function ProviderCreatePage() {
+export function CustomerCreatePage() {
   const navigate = useNavigate()
 
-  function handleSubmit(data: ProviderFormData) {
+  function handleSubmit(data: CustomerFormData) {
     // TODO: conectar ao serviço real
-    console.warn("Criar fornecedor:", data)
-    navigate({ to: "/providers" })
+    console.warn("Criar cliente:", data)
+    navigate({ to: "/customers" })
   }
 
   function handleCancel() {
-    navigate({ to: "/providers" })
+    navigate({ to: "/customers" })
   }
 
   return (
     <div className="space-y-6">
       <AppPageHeader
-        title="Novo Fornecedor"
-        subtitle="Preencha os dados para cadastrar um novo fornecedor."
+        title="Novo Cliente"
+        subtitle="Preencha os dados para cadastrar um novo cliente."
         onBack={handleCancel}
       />
 
-      <ProviderForm
+      <CustomerForm
         onSubmit={handleSubmit}
         onCancel={handleCancel}
       />

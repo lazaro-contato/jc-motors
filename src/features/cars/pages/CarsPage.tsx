@@ -6,6 +6,7 @@ import {
   type AppDataTableColumn,
 } from "@/components/shared/AppDataTable";
 import { AppButton } from "@/components/shared/AppButton";
+import { AppPageHeader } from "@/components/shared/AppPageHeader";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -271,21 +272,16 @@ export default function CarsPage() {
 
   return (
     <div className="space-y-6">
-      {/* Page header */}
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            Veículos
-          </h1>
-          <p className="mt-0.5 text-sm text-muted-foreground">
-            Gerencie o estoque de veículos da concessionária.
-          </p>
-        </div>
-        <AppButton intent="default" className="gap-2">
-          <Plus className="size-4" />
-          Novo Veículo
-        </AppButton>
-      </div>
+      <AppPageHeader
+        title="Veículos"
+        subtitle="Gerencie o estoque de veículos da concessionária."
+        action={
+          <AppButton intent="default" className="gap-2">
+            <Plus className="size-4" />
+            Novo Veículo
+          </AppButton>
+        }
+      />
 
       {/* Table */}
       <AppDataTable
