@@ -7,29 +7,29 @@
 
 /* ─── Design Tokens do projeto JG Motors ─────────────────────────────────── */
 @theme {
-  /* Brand – Violet/Purple */
-  --color-brand-50:  #f4f1ff;
-  --color-brand-100: #ede8ff;
-  --color-brand-200: #ddd5ff;
-  --color-brand-300: #c3b4fe;
-  --color-brand-400: #a688fc;
-  --color-brand-500: #7551ff;
-  --color-brand-600: #4318ff;
-  --color-brand-700: #3a0dd8;
-  --color-brand-800: #2f0aae;
-  --color-brand-900: #280c8e;
+  /* Brand – Blue */
+  --color-brand-50:  #F0F9FF;
+  --color-brand-100: #DBEAFE;
+  --color-brand-200: #BFDBFE;
+  --color-brand-300: #93C5FD;
+  --color-brand-400: #60A5FA;
+  --color-brand-500: #3B82F6;
+  --color-brand-600: #2563EB;
+  --color-brand-700: #1D4ED8;
+  --color-brand-800: #1E40AF;
+  --color-brand-900: #1E3A8A;
 
-  /* Navy – Dark palette */
-  --color-navy-50:  #eef2f7;
-  --color-navy-100: #d0d9f0;
-  --color-navy-200: #a3b4d4;
-  --color-navy-300: #7b8db8;
-  --color-navy-400: #4a5b8c;
-  --color-navy-500: #2d3748;
-  --color-navy-600: #1b2559;
-  --color-navy-700: #111c44;
-  --color-navy-800: #0b1437;
-  --color-navy-900: #070e2b;
+  /* Navy – Dark blue-gray */
+  --color-navy-50:  #F8FAFC;
+  --color-navy-100: #E2E8F0;
+  --color-navy-200: #CBD5E1;
+  --color-navy-300: #94A3B8;
+  --color-navy-400: #64748B;
+  --color-navy-500: #475569;
+  --color-navy-600: #334155;
+  --color-navy-700: #1E293B;
+  --color-navy-800: #1F2937;
+  --color-navy-900: #0F172A;
 
   /* Semantic – Status (fixed palette, bg adapts via CSS vars below) */
   --color-success:      #01b574;
@@ -49,38 +49,38 @@
   --danger-bg:               #fde8e6;
   --info-bg:                 #e1f5ff;
 
-  --background:              oklch(0.977 0.007 252);   /* #F4F7FE */
-  --foreground:              oklch(0.225 0.058 264);   /* #1B2559 */
+  --background:              oklch(0.98 0.005 250);    /* #F8FAFC */
+  --foreground:              oklch(0.21 0.034 264);    /* #1E293B */
   --card:                    oklch(1 0 0);              /* #FFFFFF */
-  --card-foreground:         oklch(0.225 0.058 264);   /* #1B2559 */
+  --card-foreground:         oklch(0.21 0.034 264);    /* #1E293B */
   --popover:                 oklch(1 0 0);
-  --popover-foreground:      oklch(0.225 0.058 264);
-  --primary:                 oklch(0.53 0.244 278);    /* #7551FF */
+  --popover-foreground:      oklch(0.21 0.034 264);
+  --primary:                 oklch(0.623 0.214 259);   /* #3B82F6 */
   --primary-foreground:      oklch(1 0 0);             /* white */
-  --secondary:               oklch(0.945 0.015 255);   /* #EEF2F7 */
-  --secondary-foreground:    oklch(0.225 0.058 264);
-  --muted:                   oklch(0.945 0.015 255);
-  --muted-foreground:        oklch(0.715 0.055 255);   /* #A3AED0 */
-  --accent:                  oklch(0.945 0.015 255);
-  --accent-foreground:       oklch(0.225 0.058 264);
+  --secondary:               oklch(0.945 0.012 250);   /* #EFF6FF */
+  --secondary-foreground:    oklch(0.21 0.034 264);
+  --muted:                   oklch(0.945 0.012 250);
+  --muted-foreground:        oklch(0.556 0.03 257);    /* #64748B */
+  --accent:                  oklch(0.945 0.012 250);
+  --accent-foreground:       oklch(0.21 0.034 264);
   --destructive:             oklch(0.585 0.195 27);    /* #EE5D50 */
-  --border:                  oklch(0.906 0.021 255);   /* #E0E5F2 */
-  --input:                   oklch(0.906 0.021 255);
-  --ring:                    oklch(0.53 0.244 278);    /* brand purple */
+  --border:                  oklch(0.916 0.015 255);   /* #E2E8F0 */
+  --input:                   oklch(0.916 0.015 255);
+  --ring:                    oklch(0.623 0.214 259);   /* brand blue */
   --radius:                  1rem;                     /* 16px rounded cards */
-  --chart-1:                 oklch(0.53 0.244 278);    /* brand purple */
+  --chart-1:                 oklch(0.623 0.214 259);   /* brand blue */
   --chart-2:                 oklch(0.72 0.18 200);     /* teal */
   --chart-3:                 oklch(0.75 0.16 55);      /* amber */
   --chart-4:                 oklch(0.62 0.21 30);      /* red */
   --chart-5:                 oklch(0.68 0.19 145);     /* green */
   --sidebar:                 oklch(1 0 0);
-  --sidebar-foreground:      oklch(0.225 0.058 264);
-  --sidebar-primary:         oklch(0.53 0.244 278);
+  --sidebar-foreground:      oklch(0.21 0.034 264);
+  --sidebar-primary:         oklch(0.623 0.214 259);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent:          oklch(0.945 0.015 255);
-  --sidebar-accent-foreground: oklch(0.225 0.058 264);
-  --sidebar-border:          oklch(0.906 0.021 255);
-  --sidebar-ring:            oklch(0.53 0.244 278);
+  --sidebar-accent:          oklch(0.945 0.012 250);
+  --sidebar-accent-foreground: oklch(0.21 0.034 264);
+  --sidebar-border:          oklch(0.916 0.015 255);
+  --sidebar-ring:            oklch(0.623 0.214 259);
 }
 
 /* ─── Dark Mode ──────────────────────────────────────────────────────────── */
@@ -91,37 +91,37 @@
   --danger-bg:               oklch(0.22 0.04 25);
   --info-bg:                 oklch(0.22 0.04 240);
 
-  --background:              oklch(0.135 0.05 263);    /* #0B1437 */
-  --foreground:              oklch(0.96 0.015 255);    /* near white */
-  --card:                    oklch(0.175 0.057 263);   /* #111C44 */
-  --card-foreground:         oklch(0.96 0.015 255);
-  --popover:                 oklch(0.175 0.057 263);
-  --popover-foreground:      oklch(0.96 0.015 255);
-  --primary:                 oklch(0.53 0.244 278);    /* #7551FF (same) */
+  --background:              oklch(0.145 0.02 260);    /* #0F172A */
+  --foreground:              oklch(0.96 0.008 250);    /* near white */
+  --card:                    oklch(0.19 0.02 260);     /* #1E293B */
+  --card-foreground:         oklch(0.96 0.008 250);
+  --popover:                 oklch(0.19 0.02 260);
+  --popover-foreground:      oklch(0.96 0.008 250);
+  --primary:                 oklch(0.623 0.214 259);   /* #3B82F6 */
   --primary-foreground:      oklch(1 0 0);
-  --secondary:               oklch(0.22 0.05 264);
-  --secondary-foreground:    oklch(0.96 0.015 255);
-  --muted:                   oklch(0.22 0.05 264);
-  --muted-foreground:        oklch(0.715 0.055 255);   /* #A3AED0 */
-  --accent:                  oklch(0.25 0.05 264);
-  --accent-foreground:       oklch(0.96 0.015 255);
+  --secondary:               oklch(0.24 0.02 260);
+  --secondary-foreground:    oklch(0.96 0.008 250);
+  --muted:                   oklch(0.24 0.02 260);
+  --muted-foreground:        oklch(0.60 0.02 255);     /* #94A3B8 */
+  --accent:                  oklch(0.27 0.025 260);
+  --accent-foreground:       oklch(0.96 0.008 250);
   --destructive:             oklch(0.63 0.21 27);
-  --border:                  oklch(0.25 0.05 265);
-  --input:                   oklch(0.25 0.05 265);
-  --ring:                    oklch(0.53 0.244 278);
-  --chart-1:                 oklch(0.53 0.244 278);
+  --border:                  oklch(0.27 0.025 260);
+  --input:                   oklch(0.27 0.025 260);
+  --ring:                    oklch(0.623 0.214 259);
+  --chart-1:                 oklch(0.623 0.214 259);
   --chart-2:                 oklch(0.72 0.18 200);
   --chart-3:                 oklch(0.75 0.16 55);
   --chart-4:                 oklch(0.62 0.21 30);
   --chart-5:                 oklch(0.68 0.19 145);
-  --sidebar:                 oklch(0.175 0.057 263);   /* same as card */
-  --sidebar-foreground:      oklch(0.96 0.015 255);
-  --sidebar-primary:         oklch(0.53 0.244 278);
+  --sidebar:                 oklch(0.19 0.02 260);     /* same as card */
+  --sidebar-foreground:      oklch(0.96 0.008 250);
+  --sidebar-primary:         oklch(0.623 0.214 259);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent:          oklch(0.22 0.05 264);
-  --sidebar-accent-foreground: oklch(0.96 0.015 255);
-  --sidebar-border:          oklch(0.25 0.05 265);
-  --sidebar-ring:            oklch(0.53 0.244 278);
+  --sidebar-accent:          oklch(0.24 0.02 260);
+  --sidebar-accent-foreground: oklch(0.96 0.008 250);
+  --sidebar-border:          oklch(0.27 0.025 260);
+  --sidebar-ring:            oklch(0.623 0.214 259);
 }
 
 /* ─── Tailwind inline mappings (shadcn) ─────────────────────────────────── */

@@ -369,7 +369,7 @@ formatMileage(32500)       // "32.500 km"
 ### Código
 - ❌ **Não usar `any`** em nenhum tipo ou asserção
 - ❌ **Não usar `style={{}}`** inline para layout — apenas Tailwind classes
-- ❌ **Não usar cores hardcoded** como `bg-[#7551FF]` quando existe token equivalente (`bg-brand-500`)
+- ❌ **Não usar cores hardcoded** como `bg-[#3B82F6]` quando existe token equivalente (`bg-brand-500`)
 - ❌ **Não usar `console.log`** — apenas `console.warn` e `console.error`
 - ❌ **Não usar caminhos relativos para imports** dentro de `src/` — sempre usar o alias `@/`
 - ❌ **Não suprimir warnings do ESLint** com `// eslint-disable-line` sem justificativa explícita
@@ -586,7 +586,7 @@ Antes de criar algo novo, leia como foi feito em features já implementadas:
 
 | Token | Uso |
 |---|---|
-| `bg-brand-500` / `text-brand-500` | Cor primária da plataforma (roxo) |
+| `bg-brand-500` / `text-brand-500` | Cor primária da plataforma (azul) |
 | `bg-navy-700` / `bg-navy-800` | Fundos escuros (sidebar dark) |
 | `text-success` / `bg-success-bg` | Status: aprovado, disponível, concluído |
 | `text-warning` / `bg-warning-bg` | Status: pendente, em revisão, atenção |
