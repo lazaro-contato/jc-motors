@@ -26,7 +26,7 @@ export function TaskList() {
           <div
             key={task.id}
             className={cn(
-              "flex items-start gap-3 px-5 py-3.5 transition-colors hover:bg-muted/40",
+              "flex items-start gap-3 px-3 py-3 transition-colors hover:bg-muted/40 md:px-5 md:py-3.5",
               task.status === "done" && "opacity-50",
             )}
           >

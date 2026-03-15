@@ -21,12 +21,13 @@ const columns: AppDataTableColumn<RecentSale>[] = [
       </div>
     ),
   },
-  { key: "customer", header: "Cliente", className: "text-sm text-muted-foreground" },
-  { key: "employee", header: "Vendedor", className: "text-sm text-muted-foreground" },
+  { key: "customer", header: "Cliente", className: "hidden sm:table-cell text-sm text-muted-foreground" },
+  { key: "employee", header: "Vendedor", className: "hidden md:table-cell text-sm text-muted-foreground" },
   { key: "price", header: "Valor", align: "right", className: "font-semibold text-foreground text-sm" },
   {
     key: "status",
     header: "Status",
+    className: "hidden sm:table-cell",
     render: (value) => {
       const cfg = SALE_STATUS[value as SaleStatus]
       return (

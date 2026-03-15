@@ -25,6 +25,7 @@ export const customerColumns: AppDataTableColumn<Customer>[] = [
   {
     key: "person_type",
     header: "Tipo",
+    className: "hidden sm:table-cell",
     render: (value) => {
       const cfg = PERSON_TYPE_CONFIG[value as "PF" | "PJ"]
       const isPF = value === "PF"
@@ -43,11 +44,12 @@ export const customerColumns: AppDataTableColumn<Customer>[] = [
   {
     key: "document",
     header: "Documento",
-    className: "font-mono text-sm text-muted-foreground",
+    className: "hidden md:table-cell font-mono text-sm text-muted-foreground",
   },
   {
     key: "phone",
     header: "Telefone",
+    className: "hidden lg:table-cell",
     render: (value) => (
       <span className="text-sm text-muted-foreground">{(value as string | null) ?? "—"}</span>
     ),

@@ -3,7 +3,7 @@ import { TOP_SELLERS } from "../data/dashboard.mock"
 
 export function TopSellersCard() {
   return (
-    <Card className="xl:col-span-2">
+    <Card className="lg:col-span-1 xl:col-span-2">
       <CardHeader className="flex-row items-center justify-between space-y-0 border-b border-border pb-3">
         <CardTitle className="text-base font-semibold">Desempenho por Vendedor</CardTitle>
         <span className="text-xs text-muted-foreground">Março 2026</span>

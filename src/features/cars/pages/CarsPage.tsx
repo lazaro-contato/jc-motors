@@ -183,6 +183,7 @@ const columns: AppDataTableColumn<Vehicle>[] = [
   {
     key: "plate",
     header: "Placa",
+    className: "hidden sm:table-cell",
     render: (_, row) => (
       <span className="rounded-md bg-muted px-2 py-0.5 font-mono text-xs font-medium text-foreground">
         {row.plate}
@@ -193,12 +194,12 @@ const columns: AppDataTableColumn<Vehicle>[] = [
     key: "year",
     header: "Ano",
     align: "center",
-    className: "text-muted-foreground",
+    className: "hidden md:table-cell text-muted-foreground",
   },
   {
     key: "fuel",
     header: "Combustível",
-    className: "text-muted-foreground text-sm",
+    className: "hidden lg:table-cell text-muted-foreground text-sm",
   },
   {
     key: "status",

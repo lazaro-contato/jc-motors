@@ -57,14 +57,14 @@ export function StatCard({
   className,
 }: StatCardProps) {
   return (
-    <Card className={cn("flex-1 min-w-[160px]", className)}>
+    <Card className={cn("flex-1 min-w-0", className)}>
       <CardContent className="pt-5 pb-5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <p className="text-xs font-medium text-muted-foreground truncate">
               {label}
             </p>
-            <p className="mt-1.5 text-2xl font-bold tracking-tight text-foreground">
+            <p className="mt-1.5 text-xl font-bold tracking-tight text-foreground md:text-2xl">
               {value}
             </p>
             {trend && (

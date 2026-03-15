@@ -59,8 +59,8 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
           </div>
         </CardHeader>
         <Separator />
-        <CardContent className="grid gap-5 pt-6 sm:grid-cols-2">
-          <div className="sm:col-span-2">
+        <CardContent className="grid gap-4 pt-5 md:grid-cols-2 md:gap-5 md:pt-6">
+          <div className="md:col-span-2">
             <AppInput
               label="Nome Completo / Razão Social"
               placeholder="Ex.: João da Silva ou Empresa ABC Ltda."
@@ -93,7 +93,7 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
           <CardDescription>E-mail e telefone para comunicação</CardDescription>
         </CardHeader>
         <Separator />
-        <CardContent className="grid gap-5 pt-6 sm:grid-cols-2">
+        <CardContent className="grid gap-4 pt-5 md:grid-cols-2 md:gap-5 md:pt-6">
           <AppInput
             label="E-mail"
             type="email"
@@ -118,8 +118,8 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
           <CardDescription>Localização e situação cadastral</CardDescription>
         </CardHeader>
         <Separator />
-        <CardContent className="grid gap-5 pt-6 sm:grid-cols-3">
-          <div className="sm:col-span-2">
+        <CardContent className="grid gap-4 pt-5 md:grid-cols-3 md:gap-5 md:pt-6">
+          <div className="md:col-span-2">
             <AppTextarea
               label="Endereço"
               placeholder="Rua, número, bairro, cidade - UF"
@@ -140,11 +140,11 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
       </Card>
 
       {/* Actions */}
-      <div className="flex justify-end gap-3">
-        <Button type="button" variant="outline" onClick={onCancel}>
+      <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+        <Button type="button" variant="outline" onClick={onCancel} className="w-full sm:w-auto">
           Cancelar
         </Button>
-        <AppButton type="submit" isLoading={isSubmitting}>
+        <AppButton type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
           Salvar Cliente
         </AppButton>
       </div>

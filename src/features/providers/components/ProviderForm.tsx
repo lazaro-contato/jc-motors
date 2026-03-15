@@ -74,8 +74,8 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
           </div>
         </CardHeader>
         <Separator />
-        <CardContent className="grid gap-5 pt-6 sm:grid-cols-2">
-          <div className="sm:col-span-2">
+        <CardContent className="grid gap-4 pt-5 md:grid-cols-2 md:gap-5 md:pt-6">
+          <div className="md:col-span-2">
             <AppInput
               label="Razão Social"
               placeholder="Ex.: Auto Peças São Paulo Ltda."
@@ -106,8 +106,8 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
           <CardDescription>Responsável e informações de contato</CardDescription>
         </CardHeader>
         <Separator />
-        <CardContent className="grid gap-5 pt-6 sm:grid-cols-2">
-          <div className="sm:col-span-2">
+        <CardContent className="grid gap-4 pt-5 md:grid-cols-2 md:gap-5 md:pt-6">
+          <div className="md:col-span-2">
             <AppInput
               label="Nome do Responsável"
               placeholder="Ex.: João da Silva"
@@ -139,8 +139,8 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
           <CardDescription>Cidade e estado de operação</CardDescription>
         </CardHeader>
         <Separator />
-        <CardContent className="grid gap-5 pt-6 sm:grid-cols-3">
-          <div className="sm:col-span-2">
+        <CardContent className="grid gap-4 pt-5 md:grid-cols-3 md:gap-5 md:pt-6">
+          <div className="md:col-span-2">
             <AppInput
               label="Cidade"
               placeholder="Ex.: São Paulo"
@@ -160,11 +160,11 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
       </Card>
 
       {/* Actions */}
-      <div className="flex justify-end gap-3">
-        <Button type="button" variant="outline" onClick={onCancel}>
+      <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+        <Button type="button" variant="outline" onClick={onCancel} className="w-full sm:w-auto">
           Cancelar
         </Button>
-        <AppButton type="submit" isLoading={isSubmitting}>
+        <AppButton type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
           Salvar Fornecedor
         </AppButton>
       </div>

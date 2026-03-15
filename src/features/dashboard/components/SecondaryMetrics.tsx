@@ -11,7 +11,7 @@ const METRICS = [
 
 export function SecondaryMetrics() {
   return (
-    <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 xl:grid-cols-4">
       {METRICS.map((m) => (
         <Card key={m.label}>
           <CardContent className="flex items-center gap-3 pb-4 pt-4">

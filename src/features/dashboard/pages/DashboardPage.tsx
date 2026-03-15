@@ -25,11 +25,11 @@ export default function DashboardPage() {
   })
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Greeting */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+          <h1 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
             {greeting}, {firstName}!
           </h1>
           <p className="mt-0.5 text-sm capitalize text-muted-foreground">{dateLabel}</p>
@@ -41,7 +41,7 @@ export default function DashboardPage() {
       </div>
 
       {/* KPI Stat Cards */}
-      <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-4 xl:grid-cols-4">
         <StatCard
           label="Veículos Disponíveis"
           value="6"
@@ -80,15 +80,15 @@ export default function DashboardPage() {
       <SecondaryMetrics />
 
       {/* Sales table + Tasks */}
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-        <div className="xl:col-span-2">
+      <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2 xl:grid-cols-3">
+        <div className="lg:col-span-1 xl:col-span-2">
           <RecentSalesTable />
         </div>
         <TaskList />
       </div>
 
       {/* Inventory + Top sellers */}
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2 xl:grid-cols-3">
         <InventoryCard />
         <TopSellersCard />
       </div>

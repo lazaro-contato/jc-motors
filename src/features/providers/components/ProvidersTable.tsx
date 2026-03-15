@@ -35,11 +35,12 @@ export const providerColumns: AppDataTableColumn<Provider>[] = [
   {
     key: "phone",
     header: "Telefone",
-    className: "text-sm text-muted-foreground",
+    className: "hidden md:table-cell text-sm text-muted-foreground",
   },
   {
     key: "city",
     header: "Localidade",
+    className: "hidden lg:table-cell",
     render: (_, row) => (
       <span className="text-sm text-muted-foreground">
         {row.city}, {row.state}
