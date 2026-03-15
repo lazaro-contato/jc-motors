@@ -85,7 +85,7 @@ function SkeletonRow({ cols }: { cols: number }) {
   return (
     <tr>
       {Array.from({ length: cols }).map((_, i) => (
-        <td key={i} className="px-5 py-3.5">
+        <td key={i} className="px-3 py-2.5 md:px-5 md:py-3.5">
           <div className={cn("h-4 animate-pulse rounded bg-muted", i === 0 ? "w-40" : "w-24")} />
         </td>
       ))}
@@ -133,7 +133,7 @@ export function AppDataTable<T extends Record<string, unknown>>({
     <Card className={cn("overflow-hidden", className)}>
       {/* ── Header ── */}
       {(title || onSearch || headerAction) && (
-        <CardHeader className="flex-row items-center justify-between space-y-0 border-b border-border py-3">
+        <CardHeader className="flex-col gap-3 border-b border-border py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
           {title && (
             <CardTitle className="text-base font-semibold">{title}</CardTitle>
           )}
@@ -142,7 +142,7 @@ export function AppDataTable<T extends Record<string, unknown>>({
               <div className="relative">
                 <Search className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
                 <Input
-                  className="h-8 w-44 pl-8 text-xs"
+                  className="h-8 w-full pl-8 text-xs sm:w-44"
                   placeholder={searchPlaceholder}
                   onChange={(e) => onSearch(e.target.value)}
                 />
@@ -163,8 +163,9 @@ export function AppDataTable<T extends Record<string, unknown>>({
                   <th
                     key={col.key}
                     className={cn(
-                      "px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground",
+                      "px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground md:px-5 md:py-3",
                       col.align ? alignClass[col.align] : "text-left",
+                      col.className,
                     )}
                   >
                     {col.header}
@@ -181,7 +182,7 @@ export function AppDataTable<T extends Record<string, unknown>>({
                 <tr>
                   <td
                     colSpan={columns.length}
-                    className="px-5 py-12 text-center text-sm text-muted-foreground"
+                    className="px-3 py-12 text-center text-sm text-muted-foreground md:px-5"
                   >
                     {emptyText}
                   </td>
@@ -202,7 +203,7 @@ export function AppDataTable<T extends Record<string, unknown>>({
                         <td
                           key={col.key}
                           className={cn(
-                            "px-5 py-3.5",
+                            "px-3 py-2.5 md:px-5 md:py-3.5",
                             col.align ? alignClass[col.align] : "text-left",
                             col.className,
                           )}
@@ -220,7 +221,7 @@ export function AppDataTable<T extends Record<string, unknown>>({
 
         {/* ── Pagination ── */}
         {(hasPagination || total !== undefined) && (
-          <div className="flex items-center justify-between border-t border-border px-5 py-3">
+          <div className="flex flex-col items-center gap-2 border-t border-border px-3 py-3 sm:flex-row sm:justify-between sm:px-5">
             <p className="text-xs text-muted-foreground">
               {from !== undefined && to !== undefined && total !== undefined
                 ? `Exibindo ${from}–${to} de ${total} registros`
@@ -236,26 +237,31 @@ export function AppDataTable<T extends Record<string, unknown>>({
                   onClick={() => onPageChange?.(page - 1)}
                 >
                   <ChevronLeft className="size-3.5" />
-                  Anterior
+                  <span className="hidden sm:inline">Anterior</span>
                 </Button>
 
-                {getPageButtons(page, totalPages).map((p, i) =>
-                  p === "..." ? (
-                    <span key={`ellipsis-${i}`} className="px-1 text-xs text-muted-foreground">
-                      …
-                    </span>
-                  ) : (
-                    <Button
-                      key={p}
-                      variant={p === page ? "default" : "ghost"}
-                      size="sm"
-                      className="h-7 w-7 p-0 text-xs"
-                      onClick={() => onPageChange?.(p as number)}
-                    >
-                      {p}
-                    </Button>
-                  ),
-                )}
+                <span className="hidden sm:contents">
+                  {getPageButtons(page, totalPages).map((p, i) =>
+                    p === "..." ? (
+                      <span key={`ellipsis-${i}`} className="px-1 text-xs text-muted-foreground">
+                        …
+                      </span>
+                    ) : (
+                      <Button
+                        key={p}
+                        variant={p === page ? "default" : "ghost"}
+                        size="sm"
+                        className="h-7 w-7 p-0 text-xs"
+                        onClick={() => onPageChange?.(p as number)}
+                      >
+                        {p}
+                      </Button>
+                    ),
+                  )}
+                </span>
+                <span className="text-xs text-muted-foreground sm:hidden">
+                  {page} / {totalPages}
+                </span>
 
                 <Button
                   variant="outline"
@@ -264,7 +270,7 @@ export function AppDataTable<T extends Record<string, unknown>>({
                   disabled={page >= totalPages}
                   onClick={() => onPageChange?.(page + 1)}
                 >
-                  Próximo
+                  <span className="hidden sm:inline">Próximo</span>
                   <ChevronRight className="size-3.5" />
                 </Button>
               </div>

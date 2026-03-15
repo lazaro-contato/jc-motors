@@ -25,8 +25,8 @@ export function AppPageHeader({
     <div
       className={cn(
         onBack
-          ? "flex items-center gap-4"
-          : "flex items-start justify-between",
+          ? "flex items-center gap-3 md:gap-4"
+          : "flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between",
         className,
       )}
     >
@@ -42,7 +42,7 @@ export function AppPageHeader({
       )}
 
       <div className="min-w-0 flex-1">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
+        <h1 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
           {title}
         </h1>
         {subtitle && (
