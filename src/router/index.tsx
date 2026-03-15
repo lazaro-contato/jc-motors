@@ -12,6 +12,8 @@ import { CustomersPage } from '@/features/customers/pages/CustomersPage'
 import { CustomerCreatePage } from '@/features/customers/pages/CustomerCreatePage'
 import { EmployeesPage } from '@/features/employees/pages/EmployeesPage'
 import { EmployeeCreatePage } from '@/features/employees/pages/EmployeeCreatePage'
+import { SalesPage } from '@/features/sales/pages/SalesPage'
+import { SaleCreatePage } from '@/features/sales/pages/SaleCreatePage'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -88,6 +90,18 @@ const employeeCreateRoute = createRoute({
   component: EmployeeCreatePage,
 })
 
+const salesRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: '/sales',
+  component: SalesPage,
+})
+
+const saleCreateRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: '/sales/new',
+  component: SaleCreatePage,
+})
+
 const routeTree = rootRoute.addChildren([
   loginRoute,
   appRoute.addChildren([
@@ -100,6 +114,8 @@ const routeTree = rootRoute.addChildren([
     customerCreateRoute,
     employeesRoute,
     employeeCreateRoute,
+    salesRoute,
+    saleCreateRoute,
   ]),
 ])
 
