@@ -47,8 +47,8 @@ export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormPro
       <Card>
         <CardHeader className="pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/15">
-              <Car className="size-4 text-brand-500 dark:text-brand-300" />
+            <div className="flex size-9 items-center justify-center rounded-md bg-silver-100 dark:bg-silver-800">
+              <Car className="size-4 text-brand-600 dark:text-silver-300" />
             </div>
             <div>
               <CardTitle className="text-base">Informações do Veículo</CardTitle>
@@ -154,8 +154,8 @@ export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormPro
       <Card>
         <CardHeader className="pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/15">
-              <DollarSign className="size-4 text-brand-500 dark:text-brand-300" />
+            <div className="flex size-9 items-center justify-center rounded-md bg-silver-100 dark:bg-silver-800">
+              <DollarSign className="size-4 text-brand-600 dark:text-silver-300" />
             </div>
             <div>
               <CardTitle className="text-base">Financeiro</CardTitle>
@@ -217,8 +217,8 @@ export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormPro
       <Card>
         <CardHeader className="pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/15">
-              <FileText className="size-4 text-brand-500 dark:text-brand-300" />
+            <div className="flex size-9 items-center justify-center rounded-md bg-silver-100 dark:bg-silver-800">
+              <FileText className="size-4 text-brand-600 dark:text-silver-300" />
             </div>
             <div>
               <CardTitle className="text-base">Detalhes Adicionais</CardTitle>

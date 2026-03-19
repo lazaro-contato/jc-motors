@@ -73,7 +73,7 @@ function ColorSwatch({
   return (
     <div className="flex flex-col gap-1.5">
       <div
-        className="h-14 w-full rounded-xl border border-border/30 shadow-sm"
+        className="h-14 w-full rounded-md border border-border/30 shadow-sm"
         style={{ backgroundColor: hex }}
       />
       <p
@@ -105,7 +105,7 @@ function ProgressBar({
             gradient ??
             (color
               ? color
-              : "linear-gradient(90deg, #7551FF 0%, #39B8FF 100%)"),
+              : "linear-gradient(90deg, #3F3F46 0%, #A1A1AA 100%)"),
         }}
       />
     </div>
@@ -115,36 +115,49 @@ function ProgressBar({
 /* ─── Data ────────────────────────────────────────────────────────────────── */
 
 const brandPalette = [
-  { name: "50", hex: "#f4f1ff" },
-  { name: "100", hex: "#ede8ff" },
-  { name: "200", hex: "#ddd5ff" },
-  { name: "300", hex: "#c3b4fe" },
-  { name: "400", hex: "#a688fc" },
-  { name: "500", hex: "#7551ff" },
-  { name: "600", hex: "#4318ff" },
-  { name: "700", hex: "#3a0dd8" },
-  { name: "800", hex: "#2f0aae" },
-  { name: "900", hex: "#280c8e" },
+  { name: "50", hex: "#F7F7F8" },
+  { name: "100", hex: "#EBEBED" },
+  { name: "200", hex: "#D4D4D8" },
+  { name: "300", hex: "#A1A1AA" },
+  { name: "400", hex: "#71717A" },
+  { name: "500", hex: "#3F3F46" },
+  { name: "600", hex: "#2E2E33" },
+  { name: "700", hex: "#27272A" },
+  { name: "800", hex: "#1C1C1F" },
+  { name: "900", hex: "#131316" },
+];
+
+const silverPalette = [
+  { name: "50", hex: "#FAFAFA" },
+  { name: "100", hex: "#F4F4F5" },
+  { name: "200", hex: "#E4E4E7" },
+  { name: "300", hex: "#D4D4D8" },
+  { name: "400", hex: "#A1A1AA" },
+  { name: "500", hex: "#71717A" },
+  { name: "600", hex: "#52525B" },
+  { name: "700", hex: "#3F3F46" },
+  { name: "800", hex: "#27272A" },
+  { name: "900", hex: "#18181B" },
 ];
 
 const navyPalette = [
-  { name: "50", hex: "#eef2f7" },
-  { name: "100", hex: "#d0d9f0" },
-  { name: "200", hex: "#a3b4d4" },
-  { name: "300", hex: "#7b8db8" },
-  { name: "400", hex: "#4a5b8c" },
-  { name: "500", hex: "#2d3748" },
-  { name: "600", hex: "#1b2559" },
-  { name: "700", hex: "#111c44" },
-  { name: "800", hex: "#0b1437" },
-  { name: "900", hex: "#070e2b" },
+  { name: "50", hex: "#FAFAFA" },
+  { name: "100", hex: "#F4F4F5" },
+  { name: "200", hex: "#E4E4E7" },
+  { name: "300", hex: "#A1A1AA" },
+  { name: "400", hex: "#71717A" },
+  { name: "500", hex: "#52525B" },
+  { name: "600", hex: "#3F3F46" },
+  { name: "700", hex: "#27272A" },
+  { name: "800", hex: "#1C1C1F" },
+  { name: "900", hex: "#0F0F12" },
 ];
 
 const semanticColors = [
-  { name: "Success", hex: "#01b574", bg: "#c9f7e6", label: "success" },
-  { name: "Warning", hex: "#ffb547", bg: "#fff5dc", label: "warning" },
-  { name: "Danger", hex: "#ee5d50", bg: "#fde8e6", label: "danger" },
-  { name: "Info", hex: "#39b8ff", bg: "#e1f5ff", label: "info" },
+  { name: "Success", hex: "#22C55E", bg: "#DCFCE7", label: "success" },
+  { name: "Warning", hex: "#F59E0B", bg: "#FEF9C3", label: "warning" },
+  { name: "Danger", hex: "#EF4444", bg: "#FEE2E2", label: "danger" },
+  { name: "Info", hex: "#3B82F6", bg: "#DBEAFE", label: "info" },
 ];
 
 const tableData = [
@@ -192,8 +205,8 @@ const tableDataColumns: AppDataTableColumn<TableRow>[] = [
     header: "Veículo",
     render: (_, row) => (
       <div className="flex items-center gap-2.5">
-        <div className="flex size-8 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-500/15">
-          <Car className="size-4 text-brand-500 dark:text-brand-300" />
+        <div className="flex size-8 items-center justify-center rounded-lg bg-silver-100 dark:bg-silver-800">
+          <Car className="size-4 text-brand-600 dark:text-silver-300" />
         </div>
         <span className="font-medium text-foreground">{row.name}</span>
       </div>
@@ -702,10 +715,27 @@ export default function DesignSystemPage() {
         <div className="space-y-8">
           <div>
             <p className="mb-3 text-sm font-semibold text-foreground">
-              Brand — Violet
+              Brand — Charcoal / Graphite
             </p>
             <div className="grid grid-cols-5 gap-3 sm:grid-cols-10">
               {brandPalette.map((c) => (
+                <ColorSwatch
+                  key={c.name}
+                  name={c.name}
+                  hex={c.hex}
+                  dark={["50", "100", "200", "300"].includes(c.name)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Silver */}
+          <div>
+            <p className="mb-3 text-sm font-semibold text-foreground">
+              Silver — Metallic
+            </p>
+            <div className="grid grid-cols-5 gap-3 sm:grid-cols-10">
+              {silverPalette.map((c) => (
                 <ColorSwatch
                   key={c.name}
                   name={c.name}
@@ -1361,7 +1391,7 @@ export default function DesignSystemPage() {
               </div>
               <ProgressBar
                 value={75}
-                gradient="linear-gradient(90deg, #7551FF 0%, #39B8FF 100%)"
+                gradient="linear-gradient(90deg, #27272A 0%, #71717A 100%)"
               />
             </div>
 
@@ -1374,7 +1404,7 @@ export default function DesignSystemPage() {
               </div>
               <ProgressBar
                 value={55}
-                gradient="linear-gradient(90deg, #01b574 0%, #39B8FF 100%)"
+                gradient="linear-gradient(90deg, #22C55E 0%, #3B82F6 100%)"
               />
             </div>
 
@@ -1385,7 +1415,7 @@ export default function DesignSystemPage() {
                 </span>
                 <span className="text-muted-foreground">30%</span>
               </div>
-              <ProgressBar value={30} color="#ffb547" />
+              <ProgressBar value={30} color="#F59E0B" />
             </div>
 
             <div className="space-y-2">
@@ -1397,7 +1427,7 @@ export default function DesignSystemPage() {
               </div>
               <ProgressBar
                 value={88}
-                gradient="linear-gradient(90deg, #4318ff 0%, #7551ff 60%, #a688fc 100%)"
+                gradient="linear-gradient(90deg, #18181B 0%, #3F3F46 60%, #A1A1AA 100%)"
               />
             </div>
 
@@ -1413,7 +1443,7 @@ export default function DesignSystemPage() {
                 <div className="flex items-center gap-3">
                   <Avatar className="size-10">
                     <AvatarImage src="" />
-                    <AvatarFallback className="bg-brand-100 text-brand-700 dark:bg-brand-800 dark:text-brand-200 font-semibold">
+                    <AvatarFallback className="bg-silver-200 text-brand-700 dark:bg-silver-800 dark:text-silver-200 font-semibold">
                       JG
                     </AvatarFallback>
                   </Avatar>

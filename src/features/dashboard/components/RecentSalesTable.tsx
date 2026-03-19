@@ -11,8 +11,8 @@ const columns: AppDataTableColumn<RecentSale>[] = [
     header: "Veículo",
     render: (_, row) => (
       <div className="flex items-center gap-2.5">
-        <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-500/15">
-          <Car className="size-3.5 text-brand-500 dark:text-brand-300" />
+        <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-silver-100 dark:bg-silver-800">
+          <Car className="size-3.5 text-brand-600 dark:text-silver-300" />
         </div>
         <div>
           <p className="text-sm font-medium text-foreground">{row.vehicle}</p>

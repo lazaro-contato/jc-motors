@@ -122,13 +122,13 @@ export function AppMultiSelect({
                       return (
                         <span
                           key={optValue}
-                          className="inline-flex items-center gap-1 rounded-md bg-brand-100 dark:bg-brand-500/15 px-2 py-0.5 text-xs font-medium text-brand-700 dark:text-brand-200"
+                          className="inline-flex items-center gap-1 rounded bg-silver-100 dark:bg-silver-800 px-2 py-0.5 text-xs font-medium text-brand-700 dark:text-silver-200"
                         >
                           {label}
                           <button
                             type="button"
                             onClick={(e) => removeOne(optValue, e)}
-                            className="rounded-sm text-brand-500 hover:text-brand-800 dark:text-brand-300 dark:hover:text-brand-100 focus:outline-none"
+                            className="rounded-sm text-silver-500 hover:text-brand-800 dark:text-silver-400 dark:hover:text-silver-100 focus:outline-none"
                             aria-label={`Remover ${label}`}
                           >
                             <X className="size-3" />

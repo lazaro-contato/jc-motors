@@ -60,7 +60,7 @@ export function SalesPage() {
             className={cn(
               "rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors",
               statusFilter === opt.value
-                ? "bg-brand-500 text-white"
+                ? "bg-brand-600 text-white"
                 : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground",
             )}
           >

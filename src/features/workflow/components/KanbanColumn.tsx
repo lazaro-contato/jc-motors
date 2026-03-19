@@ -30,8 +30,8 @@ export function KanbanColumn({
   return (
     <div
       className={cn(
-        "flex w-[280px] min-w-[280px] flex-col rounded-xl border border-border bg-muted/30 transition-colors",
-        isOver && "bg-brand-50/30 ring-2 ring-brand-500/30 dark:bg-brand-500/5",
+        "flex w-[280px] min-w-[280px] flex-col rounded-lg border border-border bg-muted/30 transition-colors",
+        isOver && "bg-silver-100/50 ring-2 ring-brand-500/30 dark:bg-silver-900/50",
       )}
     >
       {/* Header */}

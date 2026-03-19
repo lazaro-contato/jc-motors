@@ -88,20 +88,23 @@ export function KanbanBoard({ workflow, onWorkflowChange }: KanbanBoardProps) {
 
   /* ── Find which column an ID belongs to ──────────────────────────────────── */
 
+  function findColumnIn(
+    cols: ColumnsState,
+    id: string | number,
+  ): TaskStatus | null {
+    if (typeof id === "string" && COLUMN_IDS.includes(id as TaskStatus)) {
+      return id as TaskStatus
+    }
+    for (const status of COLUMN_IDS) {
+      if (cols[status].some((t) => t.id === id)) {
+        return status
+      }
+    }
+    return null
+  }
+
   const findColumn = useCallback(
-    (id: string | number): TaskStatus | null => {
-      // Check if the id is a column id
-      if (typeof id === "string" && COLUMN_IDS.includes(id as TaskStatus)) {
-        return id as TaskStatus
-      }
-      // Otherwise find the column that contains this task
-      for (const status of COLUMN_IDS) {
-        if (columns[status].some((t) => t.id === id)) {
-          return status
-        }
-      }
-      return null
-    },
+    (id: string | number): TaskStatus | null => findColumnIn(columns, id),
     [columns],
   )
 
@@ -126,15 +129,14 @@ export function KanbanBoard({ workflow, onWorkflowChange }: KanbanBoardProps) {
 
   function handleDragOver(event: DragOverEvent) {
     const { active, over } = event
-    if (!over) return
+    if (!over || active.id === over.id) return
 
-    const activeCol = findColumn(active.id)
-    const overCol = findColumn(over.id)
-
-    if (!activeCol || !overCol || activeCol === overCol) return
-
-    // Move task from activeCol to overCol
     setColumns((prev) => {
+      const activeCol = findColumnIn(prev, active.id)
+      const overCol = findColumnIn(prev, over.id)
+
+      if (!activeCol || !overCol || activeCol === overCol) return prev
+
       const sourceItems = [...prev[activeCol]]
       const destItems = [...prev[overCol]]
 
@@ -142,14 +144,13 @@ export function KanbanBoard({ workflow, onWorkflowChange }: KanbanBoardProps) {
       if (activeIdx === -1) return prev
 
       const [movedTask] = sourceItems.splice(activeIdx, 1)
-      const updatedTask = { ...movedTask, status: overCol }
+      const updatedTask: TaskInstance = { ...movedTask, status: overCol }
 
       // Find insertion index — if over a task, insert at that position
       const overIdx = destItems.findIndex((t) => t.id === over.id)
       if (overIdx !== -1) {
         destItems.splice(overIdx, 0, updatedTask)
       } else {
-        // Dropped on the column itself (empty area) — append
         destItems.push(updatedTask)
       }
 
@@ -168,34 +169,39 @@ export function KanbanBoard({ workflow, onWorkflowChange }: KanbanBoardProps) {
     const { active, over } = event
     if (!over) return
 
-    const activeCol = findColumn(active.id)
-    const overCol = findColumn(over.id)
+    setColumns((prev) => {
+      const activeCol = findColumnIn(prev, active.id)
+      const overCol = findColumnIn(prev, over.id)
 
-    if (!activeCol || !overCol) return
+      if (!activeCol || !overCol) return prev
 
-    // Same column — reorder
-    if (activeCol === overCol) {
-      setColumns((prev) => {
+      // Same column — reorder
+      if (activeCol === overCol) {
         const items = [...prev[activeCol]]
         const oldIdx = items.findIndex((t) => t.id === active.id)
         const newIdx = items.findIndex((t) => t.id === over.id)
 
-        if (oldIdx === -1 || newIdx === -1 || oldIdx === newIdx) return prev
+        if (oldIdx === -1 || newIdx === -1 || oldIdx === newIdx) {
+          // No reorder needed — still persist current state
+          const flat = flattenColumns(prev)
+          onWorkflowChange(syncWorkflow(workflow, flat))
+          return prev
+        }
 
         const next = {
           ...prev,
           [activeCol]: arrayMove(items, oldIdx, newIdx),
         }
-        // Persist after reorder
         const flat = flattenColumns(next)
         onWorkflowChange(syncWorkflow(workflow, flat))
         return next
-      })
-      return
-    }
+      }
 
-    // Cross-column was already handled in onDragOver — just persist
-    persistColumns(columns)
+      // Cross-column was already handled in onDragOver — just persist
+      const flat = flattenColumns(prev)
+      onWorkflowChange(syncWorkflow(workflow, flat))
+      return prev
+    })
   }
 
   /* ── Task editing ────────────────────────────────────────────────────────── */

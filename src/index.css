@@ -7,35 +7,47 @@
 
 /* ─── Design Tokens do projeto JG Motors ─────────────────────────────────── */
 @theme {
-  /* Brand – Blue */
-  --color-brand-50:  #F0F9FF;
-  --color-brand-100: #DBEAFE;
-  --color-brand-200: #BFDBFE;
-  --color-brand-300: #93C5FD;
-  --color-brand-400: #60A5FA;
-  --color-brand-500: #3B82F6;
-  --color-brand-600: #2563EB;
-  --color-brand-700: #1D4ED8;
-  --color-brand-800: #1E40AF;
-  --color-brand-900: #1E3A8A;
+  /* Brand – Charcoal / Graphite (automotive) */
+  --color-brand-50:  #F7F7F8;
+  --color-brand-100: #EBEBED;
+  --color-brand-200: #D4D4D8;
+  --color-brand-300: #A1A1AA;
+  --color-brand-400: #71717A;
+  --color-brand-500: #3F3F46;
+  --color-brand-600: #2E2E33;
+  --color-brand-700: #27272A;
+  --color-brand-800: #1C1C1F;
+  --color-brand-900: #131316;
 
-  /* Navy – Dark blue-gray */
-  --color-navy-50:  #F8FAFC;
-  --color-navy-100: #E2E8F0;
-  --color-navy-200: #CBD5E1;
-  --color-navy-300: #94A3B8;
-  --color-navy-400: #64748B;
-  --color-navy-500: #475569;
-  --color-navy-600: #334155;
-  --color-navy-700: #1E293B;
-  --color-navy-800: #1F2937;
-  --color-navy-900: #0F172A;
+  /* Silver – Metallic accent */
+  --color-silver-50:  #FAFAFA;
+  --color-silver-100: #F4F4F5;
+  --color-silver-200: #E4E4E7;
+  --color-silver-300: #D4D4D8;
+  --color-silver-400: #A1A1AA;
+  --color-silver-500: #71717A;
+  --color-silver-600: #52525B;
+  --color-silver-700: #3F3F46;
+  --color-silver-800: #27272A;
+  --color-silver-900: #18181B;
 
-  /* Semantic – Status (fixed palette, bg adapts via CSS vars below) */
-  --color-success:      #01b574;
-  --color-warning:      #ffb547;
-  --color-danger:       #ee5d50;
-  --color-info:         #39b8ff;
+  /* Navy – Dark neutral gray */
+  --color-navy-50:  #FAFAFA;
+  --color-navy-100: #F4F4F5;
+  --color-navy-200: #E4E4E7;
+  --color-navy-300: #A1A1AA;
+  --color-navy-400: #71717A;
+  --color-navy-500: #52525B;
+  --color-navy-600: #3F3F46;
+  --color-navy-700: #27272A;
+  --color-navy-800: #1C1C1F;
+  --color-navy-900: #0F0F12;
+
+  /* Semantic – Status */
+  --color-success:      #22C55E;
+  --color-warning:      #F59E0B;
+  --color-danger:       #EF4444;
+  --color-info:         #3B82F6;
 
   /* Font */
   --font-sans: 'DM Sans Variable', 'DM Sans', ui-sans-serif, system-ui, sans-serif;
@@ -44,84 +56,84 @@
 /* ─── Shadcn CSS Variables — Light Mode ──────────────────────────────────── */
 :root {
   /* Semantic status backgrounds */
-  --success-bg:              #c9f7e6;
-  --warning-bg:              #fff5dc;
-  --danger-bg:               #fde8e6;
-  --info-bg:                 #e1f5ff;
+  --success-bg:              #DCFCE7;
+  --warning-bg:              #FEF9C3;
+  --danger-bg:               #FEE2E2;
+  --info-bg:                 #DBEAFE;
 
-  --background:              oklch(0.98 0.005 250);    /* #F8FAFC */
-  --foreground:              oklch(0.21 0.034 264);    /* #1E293B */
-  --card:                    oklch(1 0 0);              /* #FFFFFF */
-  --card-foreground:         oklch(0.21 0.034 264);    /* #1E293B */
-  --popover:                 oklch(1 0 0);
-  --popover-foreground:      oklch(0.21 0.034 264);
-  --primary:                 oklch(0.623 0.214 259);   /* #3B82F6 */
-  --primary-foreground:      oklch(1 0 0);             /* white */
-  --secondary:               oklch(0.945 0.012 250);   /* #EFF6FF */
-  --secondary-foreground:    oklch(0.21 0.034 264);
-  --muted:                   oklch(0.945 0.012 250);
-  --muted-foreground:        oklch(0.556 0.03 257);    /* #64748B */
-  --accent:                  oklch(0.945 0.012 250);
-  --accent-foreground:       oklch(0.21 0.034 264);
-  --destructive:             oklch(0.585 0.195 27);    /* #EE5D50 */
-  --border:                  oklch(0.916 0.015 255);   /* #E2E8F0 */
-  --input:                   oklch(0.916 0.015 255);
-  --ring:                    oklch(0.623 0.214 259);   /* brand blue */
-  --radius:                  1rem;                     /* 16px rounded cards */
-  --chart-1:                 oklch(0.623 0.214 259);   /* brand blue */
-  --chart-2:                 oklch(0.72 0.18 200);     /* teal */
-  --chart-3:                 oklch(0.75 0.16 55);      /* amber */
-  --chart-4:                 oklch(0.62 0.21 30);      /* red */
-  --chart-5:                 oklch(0.68 0.19 145);     /* green */
-  --sidebar:                 oklch(1 0 0);
-  --sidebar-foreground:      oklch(0.21 0.034 264);
-  --sidebar-primary:         oklch(0.623 0.214 259);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent:          oklch(0.945 0.012 250);
-  --sidebar-accent-foreground: oklch(0.21 0.034 264);
-  --sidebar-border:          oklch(0.916 0.015 255);
-  --sidebar-ring:            oklch(0.623 0.214 259);
+  --background:              #F7F7F8;
+  --foreground:              #18181B;
+  --card:                    #FFFFFF;
+  --card-foreground:         #18181B;
+  --popover:                 #FFFFFF;
+  --popover-foreground:      #18181B;
+  --primary:                 #18181B;                  /* black/charcoal primary */
+  --primary-foreground:      #FAFAFA;                  /* white text on primary */
+  --secondary:               #F4F4F5;
+  --secondary-foreground:    #18181B;
+  --muted:                   #F4F4F5;
+  --muted-foreground:        #71717A;
+  --accent:                  #F4F4F5;
+  --accent-foreground:       #18181B;
+  --destructive:             #EF4444;
+  --border:                  #E4E4E7;
+  --input:                   #E4E4E7;
+  --ring:                    #18181B;
+  --radius:                  0.5rem;                   /* 8px — less rounded, automotive feel */
+  --chart-1:                 #18181B;                  /* charcoal */
+  --chart-2:                 #71717A;                  /* silver */
+  --chart-3:                 #F59E0B;                  /* amber */
+  --chart-4:                 #EF4444;                  /* red */
+  --chart-5:                 #22C55E;                  /* green */
+  --sidebar:                 #131316;                  /* dark sidebar */
+  --sidebar-foreground:      #E4E4E7;
+  --sidebar-primary:         #FAFAFA;
+  --sidebar-primary-foreground: #131316;
+  --sidebar-accent:          #1C1C1F;
+  --sidebar-accent-foreground: #FAFAFA;
+  --sidebar-border:          #27272A;
+  --sidebar-ring:            #D4D4D8;
 }
 
 /* ─── Dark Mode ──────────────────────────────────────────────────────────── */
 .dark {
   /* Semantic status backgrounds – dark, subtle tinted */
-  --success-bg:              oklch(0.22 0.04 160);
-  --warning-bg:              oklch(0.24 0.04 80);
-  --danger-bg:               oklch(0.22 0.04 25);
-  --info-bg:                 oklch(0.22 0.04 240);
+  --success-bg:              #052E16;
+  --warning-bg:              #422006;
+  --danger-bg:               #450A0A;
+  --info-bg:                 #172554;
 
-  --background:              oklch(0.145 0.02 260);    /* #0F172A */
-  --foreground:              oklch(0.96 0.008 250);    /* near white */
-  --card:                    oklch(0.19 0.02 260);     /* #1E293B */
-  --card-foreground:         oklch(0.96 0.008 250);
-  --popover:                 oklch(0.19 0.02 260);
-  --popover-foreground:      oklch(0.96 0.008 250);
-  --primary:                 oklch(0.623 0.214 259);   /* #3B82F6 */
-  --primary-foreground:      oklch(1 0 0);
-  --secondary:               oklch(0.24 0.02 260);
-  --secondary-foreground:    oklch(0.96 0.008 250);
-  --muted:                   oklch(0.24 0.02 260);
-  --muted-foreground:        oklch(0.60 0.02 255);     /* #94A3B8 */
-  --accent:                  oklch(0.27 0.025 260);
-  --accent-foreground:       oklch(0.96 0.008 250);
-  --destructive:             oklch(0.63 0.21 27);
-  --border:                  oklch(0.27 0.025 260);
-  --input:                   oklch(0.27 0.025 260);
-  --ring:                    oklch(0.623 0.214 259);
-  --chart-1:                 oklch(0.623 0.214 259);
-  --chart-2:                 oklch(0.72 0.18 200);
-  --chart-3:                 oklch(0.75 0.16 55);
-  --chart-4:                 oklch(0.62 0.21 30);
-  --chart-5:                 oklch(0.68 0.19 145);
-  --sidebar:                 oklch(0.19 0.02 260);     /* same as card */
-  --sidebar-foreground:      oklch(0.96 0.008 250);
-  --sidebar-primary:         oklch(0.623 0.214 259);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent:          oklch(0.24 0.02 260);
-  --sidebar-accent-foreground: oklch(0.96 0.008 250);
-  --sidebar-border:          oklch(0.27 0.025 260);
-  --sidebar-ring:            oklch(0.623 0.214 259);
+  --background:              #0A0A0C;                  /* near-black */
+  --foreground:              #FAFAFA;
+  --card:                    #131316;                   /* dark card surface */
+  --card-foreground:         #FAFAFA;
+  --popover:                 #131316;
+  --popover-foreground:      #FAFAFA;
+  --primary:                 #FAFAFA;                   /* inverted: white on dark */
+  --primary-foreground:      #0A0A0C;
+  --secondary:               #1C1C1F;
+  --secondary-foreground:    #FAFAFA;
+  --muted:                   #1C1C1F;
+  --muted-foreground:        #A1A1AA;
+  --accent:                  #1C1C1F;
+  --accent-foreground:       #FAFAFA;
+  --destructive:             #DC2626;
+  --border:                  #27272A;
+  --input:                   #27272A;
+  --ring:                    #D4D4D8;
+  --chart-1:                 #FAFAFA;
+  --chart-2:                 #A1A1AA;
+  --chart-3:                 #F59E0B;
+  --chart-4:                 #EF4444;
+  --chart-5:                 #22C55E;
+  --sidebar:                 #0F0F12;                   /* slightly lighter than bg */
+  --sidebar-foreground:      #FAFAFA;
+  --sidebar-primary:         #FAFAFA;
+  --sidebar-primary-foreground: #0A0A0C;
+  --sidebar-accent:          #1C1C1F;
+  --sidebar-accent-foreground: #FAFAFA;
+  --sidebar-border:          #27272A;
+  --sidebar-ring:            #D4D4D8;
 }
 
 /* ─── Tailwind inline mappings (shadcn) ─────────────────────────────────── */

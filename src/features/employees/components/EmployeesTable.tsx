@@ -12,8 +12,8 @@ export const employeeColumns: AppDataTableColumn<Employee>[] = [
     header: "Funcionário",
     render: (_, row) => (
       <div className="flex items-center gap-3">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/15">
-          <UserSquare className="size-4 text-brand-500 dark:text-brand-300" />
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-silver-100 dark:bg-silver-800">
+          <UserSquare className="size-4 text-brand-600 dark:text-silver-300" />
         </div>
         <div>
           <p className="font-semibold text-foreground">{row.full_name}</p>

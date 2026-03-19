@@ -17,7 +17,7 @@ export function TaskCardContent({ task, isDragging }: TaskCardContentProps) {
     <div
       className={cn(
         "group rounded-lg border border-border bg-card p-3 shadow-sm",
-        isDragging && "rotate-2 shadow-lg ring-2 ring-brand-500/40",
+        isDragging && "rotate-2 shadow-lg ring-2 ring-silver-400/40",
       )}
     >
       <div className="flex items-start gap-2">

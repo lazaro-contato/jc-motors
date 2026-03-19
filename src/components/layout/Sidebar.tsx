@@ -108,14 +108,14 @@ function NavLink({
     <Link
       to={item.to}
       className={cn(
-        "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium transition-all duration-150",
-        "text-muted-foreground hover:bg-accent hover:text-foreground",
+        "group relative flex items-center gap-3 rounded-md px-3 py-2.5 text-[13px] font-medium transition-all duration-150",
+        "text-sidebar-foreground/60 hover:bg-sidebar-accent hover:text-sidebar-foreground",
         collapsed && "justify-center px-0",
       )}
       activeProps={{
         className: cn(
-          "!bg-brand-500/10 !text-brand-600 dark:!text-brand-300",
-          "before:absolute before:left-0 before:top-1/2 before:h-5 before:-translate-y-1/2 before:w-[3px] before:rounded-r-full before:bg-brand-500",
+          "!bg-white/10 !text-white",
+          "before:absolute before:left-0 before:top-1/2 before:h-5 before:-translate-y-1/2 before:w-[3px] before:rounded-r-full before:bg-white",
         ),
       }}
       activeOptions={{ exact: item.to === "/" }}
@@ -172,14 +172,14 @@ export default function Sidebar() {
             collapsed && "lg:justify-center lg:px-0",
           )}
         >
-          <div className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 shadow-md shadow-brand-500/20">
+          <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-white/10 shadow-md">
             <Car className="size-4 text-white" />
           </div>
           <div className={cn("flex flex-col", collapsed && "lg:hidden")}>
-            <span className="text-sm font-bold tracking-tight text-foreground">
+            <span className="text-sm font-bold tracking-tight text-sidebar-foreground">
               JG Motors
             </span>
-            <span className="text-[10px] font-medium text-muted-foreground">
+            <span className="text-[10px] font-medium text-sidebar-foreground/50">
               Gestão Automotiva
             </span>
           </div>
@@ -197,7 +197,7 @@ export default function Sidebar() {
               {group.title && (
                 <p
                   className={cn(
-                    "mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60",
+                    "mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-widest text-sidebar-foreground/30",
                     collapsed && "lg:hidden",
                   )}
                 >
@@ -238,24 +238,24 @@ export default function Sidebar() {
             )}
           >
             {!collapsed ? (
-              <div className="flex items-center gap-2.5 rounded-xl bg-accent/50 px-3 py-2.5">
+              <div className="flex items-center gap-2.5 rounded-md bg-sidebar-accent px-3 py-2.5">
                 <Avatar className="size-8 shrink-0">
-                  <AvatarFallback className="bg-brand-100 text-brand-700 dark:bg-brand-800 dark:text-brand-200 text-[11px] font-bold">
+                  <AvatarFallback className="bg-white/15 text-sidebar-foreground text-[11px] font-bold">
                     {initials}
                   </AvatarFallback>
                 </Avatar>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-xs font-semibold text-foreground">
+                  <p className="truncate text-xs font-semibold text-sidebar-foreground">
                     {name}
                   </p>
-                  <p className="truncate text-[10px] text-muted-foreground">
+                  <p className="truncate text-[10px] text-sidebar-foreground/50">
                     {role}
                   </p>
                 </div>
               </div>
             ) : (
               <Avatar className="size-8">
-                <AvatarFallback className="bg-brand-100 text-brand-700 dark:bg-brand-800 dark:text-brand-200 text-[11px] font-bold">
+                <AvatarFallback className="bg-white/15 text-sidebar-foreground text-[11px] font-bold">
                   {initials}
                 </AvatarFallback>
               </Avatar>
@@ -272,7 +272,7 @@ export default function Sidebar() {
             <button
               onClick={() => logout()}
               className={cn(
-                "flex items-center gap-2.5 rounded-xl px-3 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-danger/10 hover:text-danger",
+                "flex items-center gap-2.5 rounded-md px-3 py-2 text-[13px] font-medium text-sidebar-foreground/50 transition-colors hover:bg-danger/10 hover:text-danger",
                 collapsed ? "lg:justify-center lg:px-0 lg:w-full" : "flex-1",
               )}
             >
@@ -284,8 +284,8 @@ export default function Sidebar() {
               variant="ghost"
               size="icon"
               className={cn(
-                "hidden size-8 shrink-0 text-muted-foreground lg:inline-flex",
-                collapsed && "w-full rounded-xl",
+                "hidden size-8 shrink-0 text-sidebar-foreground/50 hover:text-sidebar-foreground hover:bg-sidebar-accent lg:inline-flex",
+                collapsed && "w-full rounded-md",
               )}
               onClick={() => setCollapsed(!collapsed)}
               aria-label={collapsed ? "Expandir sidebar" : "Recolher sidebar"}

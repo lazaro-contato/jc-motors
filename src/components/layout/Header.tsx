@@ -12,7 +12,7 @@ function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      className="size-9 rounded-xl text-muted-foreground hover:text-foreground"
+      className="size-9 rounded-md text-muted-foreground hover:text-foreground"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       aria-label="Alternar tema"
     >
@@ -32,7 +32,7 @@ export default function Header() {
         <Button
           variant="ghost"
           size="icon"
-          className="size-9 rounded-xl text-muted-foreground hover:text-foreground lg:hidden"
+          className="size-9 rounded-md text-muted-foreground hover:text-foreground lg:hidden"
           onClick={toggle}
           aria-label="Abrir menu"
         >
@@ -43,7 +43,7 @@ export default function Header() {
         <div className="relative hidden sm:block">
           <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            className="h-9 w-44 rounded-xl border-transparent bg-accent/60 pl-9 text-sm placeholder:text-muted-foreground/60 focus-visible:border-border focus-visible:bg-background md:w-72"
+            className="h-9 w-44 rounded-md border-transparent bg-accent/60 pl-9 text-sm placeholder:text-muted-foreground/60 focus-visible:border-border focus-visible:bg-background md:w-72"
             placeholder="Buscar veículo, cliente..."
           />
         </div>
@@ -55,11 +55,11 @@ export default function Header() {
         <Button
           variant="ghost"
           size="icon"
-          className="relative size-9 rounded-xl text-muted-foreground hover:text-foreground"
+          className="relative size-9 rounded-md text-muted-foreground hover:text-foreground"
         >
           <Bell className="size-[18px]" />
           <span className="absolute right-1.5 top-1.5 flex size-2">
-            <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-400 opacity-75" />
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-500 opacity-75" />
             <span className="relative inline-flex size-2 rounded-full bg-brand-500" />
           </span>
         </Button>

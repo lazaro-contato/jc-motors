@@ -12,8 +12,8 @@ export const customerColumns: AppDataTableColumn<Customer>[] = [
     header: "Cliente",
     render: (_, row) => (
       <div className="flex items-center gap-3">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/15">
-          <Users className="size-4 text-brand-500 dark:text-brand-300" />
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-silver-100 dark:bg-silver-800">
+          <Users className="size-4 text-brand-600 dark:text-silver-300" />
         </div>
         <div>
           <p className="font-semibold text-foreground">{row.full_name}</p>
@@ -33,7 +33,7 @@ export const customerColumns: AppDataTableColumn<Customer>[] = [
         <span
           className={cn(
             "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold",
-            isPF ? "bg-brand-50 text-brand-600 dark:bg-brand-500/15 dark:text-brand-300" : "bg-info-bg text-info",
+            isPF ? "bg-silver-100 text-brand-600 dark:bg-silver-800 dark:text-silver-300" : "bg-info-bg text-info",
           )}
         >
           {cfg.short}

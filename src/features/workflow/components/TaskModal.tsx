@@ -70,8 +70,8 @@ export function TaskModal({ task, open, onOpenChange, onSave }: TaskModalProps) 
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <div className="flex items-center gap-2">
-            <div className="flex size-8 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-500/15">
-              <ListChecks className="size-4 text-brand-500 dark:text-brand-300" />
+            <div className="flex size-8 items-center justify-center rounded-lg bg-silver-100 dark:bg-silver-800">
+              <ListChecks className="size-4 text-brand-600 dark:text-silver-300" />
             </div>
             <div>
               <DialogTitle>Editar Tarefa</DialogTitle>

@@ -12,7 +12,7 @@ export function TopSellersCard() {
         <div className="space-y-4">
           {TOP_SELLERS.map((seller, i) => (
             <div key={seller.name} className="flex items-center gap-4">
-              <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-brand-500/10 text-xs font-bold text-brand-600 dark:text-brand-300">
+              <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-silver-100 text-xs font-bold text-brand-600 dark:bg-silver-800 dark:text-silver-300">
                 {i + 1}
               </div>
               <div className="min-w-0 flex-1">

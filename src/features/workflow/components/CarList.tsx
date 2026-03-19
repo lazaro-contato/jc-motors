@@ -38,8 +38,8 @@ export function CarList({ onSelectWorkflow }: CarListProps) {
           >
             <CardContent className="flex items-center gap-4 p-4">
               {/* Icon */}
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/15">
-                <Car className="size-5 text-brand-500 dark:text-brand-300" />
+              <div className="flex size-11 shrink-0 items-center justify-center rounded-md bg-silver-100 dark:bg-silver-800">
+                <Car className="size-5 text-brand-600 dark:text-silver-300" />
               </div>
 
               {/* Info */}

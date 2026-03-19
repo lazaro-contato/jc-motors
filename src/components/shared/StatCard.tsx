@@ -30,7 +30,7 @@ import { cn } from "@/lib/utils";
 type Intent = "brand" | "success" | "warning" | "danger" | "info";
 
 const iconWrapperStyles: Record<Intent, string> = {
-  brand: "bg-brand-100 text-brand-500 dark:bg-brand-500/15 dark:text-brand-300",
+  brand: "bg-silver-100 text-brand-600 dark:bg-silver-800 dark:text-silver-300",
   success: "bg-success-bg text-success",
   warning: "bg-warning-bg text-warning",
   danger: "bg-danger-bg text-danger",
