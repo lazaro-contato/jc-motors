@@ -55,7 +55,7 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
     formState: { errors },
   } = useForm<ProviderFormData>({
     resolver: zodResolver(providerSchema),
-    defaultValues: { status: "active" },
+    defaultValues: {},
   })
 
   return (
@@ -74,15 +74,13 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
           </div>
         </CardHeader>
         <Separator />
-        <CardContent className="grid gap-4 pt-5 md:grid-cols-2 md:gap-5 md:pt-6">
-          <div className="md:col-span-2">
-            <AppInput
-              label="Razão Social"
-              placeholder="Ex.: Auto Peças São Paulo Ltda."
-              error={errors.name?.message}
-              {...register("name")}
-            />
-          </div>
+        <CardContent className="grid gap-4 pt-5 md:grid-cols-3 md:gap-5 md:pt-6">
+          <AppInput
+            label="Razão Social"
+            placeholder="Ex.: Auto Peças São Paulo Ltda."
+            error={errors.name?.message}
+            {...register("name")}
+          />
           <AppInput
             label="CNPJ"
             placeholder="00.000.000/0000-00"
@@ -91,9 +89,10 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
           />
           <AppSelect
             label="Status"
+            placeholder="Selecione o status..."
             options={STATUS_OPTIONS}
             value={watch("status")}
-            onChange={(v) => setValue("status", v as "active" | "inactive", { shouldValidate: true })}
+            onValueChange={(v) => setValue("status", v as "active" | "inactive", { shouldValidate: true })}
             error={errors.status?.message}
           />
         </CardContent>
@@ -106,15 +105,13 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
           <CardDescription>Responsável e informações de contato</CardDescription>
         </CardHeader>
         <Separator />
-        <CardContent className="grid gap-4 pt-5 md:grid-cols-2 md:gap-5 md:pt-6">
-          <div className="md:col-span-2">
-            <AppInput
-              label="Nome do Responsável"
-              placeholder="Ex.: João da Silva"
-              error={errors.contact?.message}
-              {...register("contact")}
-            />
-          </div>
+        <CardContent className="grid gap-4 pt-5 md:grid-cols-3 md:gap-5 md:pt-6">
+          <AppInput
+            label="Nome do Responsável"
+            placeholder="Ex.: João da Silva"
+            error={errors.contact?.message}
+            {...register("contact")}
+          />
           <AppInput
             label="E-mail"
             type="email"
@@ -152,7 +149,7 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
             label="UF"
             options={STATE_OPTIONS}
             value={watch("state") ?? ""}
-            onChange={(v) => setValue("state", v, { shouldValidate: true })}
+            onValueChange={(v) => setValue("state", v, { shouldValidate: true })}
             placeholder="Estado"
             error={errors.state?.message}
           />

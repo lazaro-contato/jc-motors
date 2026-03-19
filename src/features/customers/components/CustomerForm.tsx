@@ -36,7 +36,7 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
     formState: { errors },
   } = useForm<CustomerFormData>({
     resolver: zodResolver(customerSchema),
-    defaultValues: { person_type: "PF", is_active: "true" },
+    defaultValues: { person_type: "PF" },
   })
 
   const personType = watch("person_type")
@@ -59,24 +59,21 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
           </div>
         </CardHeader>
         <Separator />
-        <CardContent className="grid gap-4 pt-5 md:grid-cols-2 md:gap-5 md:pt-6">
-          <div className="md:col-span-2">
-            <AppInput
-              label="Nome Completo / Razão Social"
-              placeholder="Ex.: João da Silva ou Empresa ABC Ltda."
-              error={errors.full_name?.message}
-              {...register("full_name")}
-            />
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-foreground">Tipo de Pessoa</label>
-            <AppSelect
-              options={PERSON_TYPE_OPTIONS}
-              value={watch("person_type")}
-              onValueChange={(v: string) => setValue("person_type", v as "PF" | "PJ", { shouldValidate: true })}
-              error={errors.person_type?.message}
-            />
-          </div>
+        <CardContent className="grid gap-4 pt-5 md:grid-cols-3 md:gap-5 md:pt-6">
+          <AppInput
+            label="Nome Completo / Razão Social"
+            placeholder="Ex.: João da Silva ou Empresa ABC Ltda."
+            error={errors.full_name?.message}
+            {...register("full_name")}
+          />
+          <AppSelect
+            label="Tipo de Pessoa"
+            placeholder="Selecione o tipo..."
+            options={PERSON_TYPE_OPTIONS}
+            value={watch("person_type")}
+            onValueChange={(v: string) => setValue("person_type", v as "PF" | "PJ", { shouldValidate: true })}
+            error={errors.person_type?.message}
+          />
           <AppInput
             label={documentLabel}
             placeholder={documentPlaceholder}
@@ -127,15 +124,14 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
               {...register("address")}
             />
           </div>
-          <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-foreground">Status</label>
-            <AppSelect
-              options={STATUS_OPTIONS}
-              value={watch("is_active")}
-              onValueChange={(v: string) => setValue("is_active", v as "true" | "false", { shouldValidate: true })}
-              error={errors.is_active?.message}
-            />
-          </div>
+          <AppSelect
+            label="Status"
+            placeholder="Selecione o status..."
+            options={STATUS_OPTIONS}
+            value={watch("is_active")}
+            onValueChange={(v: string) => setValue("is_active", v as "true" | "false", { shouldValidate: true })}
+            error={errors.is_active?.message}
+          />
         </CardContent>
       </Card>
 

@@ -35,7 +35,7 @@ export function EmployeeForm({ onSubmit, onCancel, isSubmitting = false }: Emplo
     formState: { errors },
   } = useForm<EmployeeFormData>({
     resolver: zodResolver(employeeSchema),
-    defaultValues: { is_staff: "false", is_active: "true" },
+    defaultValues: {},
   })
 
   return (
@@ -54,16 +54,14 @@ export function EmployeeForm({ onSubmit, onCancel, isSubmitting = false }: Emplo
           </div>
         </CardHeader>
         <Separator />
-        <CardContent className="grid gap-4 pt-5 md:grid-cols-2 md:gap-5 md:pt-6">
-          <div className="md:col-span-2">
-            <AppInput
-              label="E-mail"
-              type="email"
-              placeholder="funcionario@jgmotors.com.br"
-              error={errors.email?.message}
-              {...register("email")}
-            />
-          </div>
+        <CardContent className="grid gap-4 pt-5 md:grid-cols-3 md:gap-5 md:pt-6">
+          <AppInput
+            label="E-mail"
+            type="email"
+            placeholder="funcionario@jgmotors.com.br"
+            error={errors.email?.message}
+            {...register("email")}
+          />
           <AppInput
             label="Senha"
             type="password"
@@ -71,15 +69,14 @@ export function EmployeeForm({ onSubmit, onCancel, isSubmitting = false }: Emplo
             error={errors.password?.message}
             {...register("password")}
           />
-          <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-foreground">Nível de Acesso</label>
-            <AppSelect
-              options={ACCESS_LEVEL_OPTIONS}
-              value={watch("is_staff")}
-              onValueChange={(v: string) => setValue("is_staff", v as "true" | "false", { shouldValidate: true })}
-              error={errors.is_staff?.message}
-            />
-          </div>
+          <AppSelect
+            label="Nível de Acesso"
+            placeholder="Selecione o nível..."
+            options={ACCESS_LEVEL_OPTIONS}
+            value={watch("is_staff")}
+            onValueChange={(v: string) => setValue("is_staff", v as "true" | "false", { shouldValidate: true })}
+            error={errors.is_staff?.message}
+          />
         </CardContent>
       </Card>
 
@@ -98,14 +95,12 @@ export function EmployeeForm({ onSubmit, onCancel, isSubmitting = false }: Emplo
         </CardHeader>
         <Separator />
         <CardContent className="grid gap-4 pt-5 md:grid-cols-2 md:gap-5 md:pt-6">
-          <div className="md:col-span-2">
-            <AppInput
-              label="Nome Completo"
-              placeholder="Ex.: João da Silva"
-              error={errors.full_name?.message}
-              {...register("full_name")}
-            />
-          </div>
+          <AppInput
+            label="Nome Completo"
+            placeholder="Ex.: João da Silva"
+            error={errors.full_name?.message}
+            {...register("full_name")}
+          />
           <AppInput
             label="Cargo"
             placeholder="Ex.: Vendedor, Gerente..."
@@ -119,15 +114,14 @@ export function EmployeeForm({ onSubmit, onCancel, isSubmitting = false }: Emplo
             error={errors.phone?.message}
             {...register("phone")}
           />
-          <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-foreground">Status</label>
-            <AppSelect
-              options={STATUS_OPTIONS}
-              value={watch("is_active")}
-              onValueChange={(v: string) => setValue("is_active", v as "true" | "false", { shouldValidate: true })}
-              error={errors.is_active?.message}
-            />
-          </div>
+          <AppSelect
+            label="Status"
+            placeholder="Selecione o status..."
+            options={STATUS_OPTIONS}
+            value={watch("is_active")}
+            onValueChange={(v: string) => setValue("is_active", v as "true" | "false", { shouldValidate: true })}
+            error={errors.is_active?.message}
+          />
         </CardContent>
       </Card>
 

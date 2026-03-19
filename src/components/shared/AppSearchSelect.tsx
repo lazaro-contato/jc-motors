@@ -3,6 +3,7 @@
  *
  * Uso:
  *   <AppSearchSelect
+ *     label="Veículo"
  *     options={[{ label: 'Honda Civic', value: 'civic' }]}
  *     value={value}
  *     onChange={setValue}
@@ -12,6 +13,8 @@
  *
  * Props:
  *   options           — array de { label, value, disabled? }
+ *   label             — rótulo exibido acima do select
+ *   hint              — texto de ajuda abaixo do select (oculto quando há error)
  *   value             — valor selecionado
  *   onChange          — callback ao selecionar (recebe o novo value)
  *   placeholder       — texto do trigger quando nada selecionado
@@ -33,6 +36,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
@@ -40,6 +44,8 @@ import type { SelectOption } from "./AppSelect";
 
 interface AppSearchSelectProps {
   options: SelectOption[];
+  label?: string;
+  hint?: string;
   value?: string;
   onChange?: (value: string) => void;
   placeholder?: string;
@@ -52,6 +58,8 @@ interface AppSearchSelectProps {
 
 export function AppSearchSelect({
   options,
+  label,
+  hint,
   value,
   onChange,
   placeholder = "Selecione uma opção",
@@ -73,7 +81,9 @@ export function AppSearchSelect({
   };
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1.5">
+      {label && <Label>{label}</Label>}
+
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger
           disabled={isDisabled}
@@ -122,6 +132,7 @@ export function AppSearchSelect({
                     disabled={opt.disabled}
                     data-checked={value === opt.value}
                     onSelect={() => handleSelect(opt.value)}
+                    className="py-2.5 px-3"
                   >
                     {opt.label}
                     {value === opt.value && (
@@ -137,6 +148,9 @@ export function AppSearchSelect({
 
       {typeof error === "string" && error && (
         <p className="text-xs text-danger">{error}</p>
+      )}
+      {hint && !error && (
+        <p className="text-xs text-muted-foreground">{hint}</p>
       )}
     </div>
   );

@@ -3,14 +3,17 @@
  *
  * Uso:
  *   <AppSelect
- *     options={[{ label: 'Honda Civic', value: 'civic' }]}
- *     placeholder="Selecione o veículo"
+ *     label="Status"
+ *     options={[{ label: 'Ativo', value: 'active' }]}
+ *     placeholder="Selecione..."
  *     value={value}
  *     onValueChange={setValue}
  *   />
  *
  * Props:
  *   options       — array de { label, value, disabled? }
+ *   label         — rótulo exibido acima do select
+ *   hint          — texto de ajuda abaixo do select (oculto quando há error)
  *   placeholder   — texto exibido quando nenhuma opção está selecionada
  *   isDisabled    — desabilita o select inteiro
  *   error         — mensagem de erro (exibida abaixo) ou boolean para estilo de erro
@@ -29,6 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 export interface SelectOption {
@@ -43,6 +47,8 @@ interface AppSelectProps
     "children" | "onValueChange" | "value" | "defaultValue"
   > {
   options: SelectOption[];
+  label?: string;
+  hint?: string;
   placeholder?: string;
   isDisabled?: boolean;
   error?: string | boolean;
@@ -55,6 +61,8 @@ interface AppSelectProps
 
 export function AppSelect({
   options,
+  label,
+  hint,
   placeholder = "Selecione uma opção",
   isDisabled = false,
   error,
@@ -68,7 +76,9 @@ export function AppSelect({
   const hasError = Boolean(error);
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1.5">
+      {label && <Label>{label}</Label>}
+
       <Select
         value={value}
         defaultValue={defaultValue}
@@ -88,7 +98,12 @@ export function AppSelect({
         </SelectTrigger>
         <SelectContent>
           {options.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value} disabled={opt.disabled}>
+            <SelectItem
+              key={opt.value}
+              value={opt.value}
+              disabled={opt.disabled}
+              className="py-2.5 pl-3"
+            >
               {opt.label}
             </SelectItem>
           ))}
@@ -97,6 +112,9 @@ export function AppSelect({
 
       {typeof error === "string" && error && (
         <p className="text-xs text-danger">{error}</p>
+      )}
+      {hint && !error && (
+        <p className="text-xs text-muted-foreground">{hint}</p>
       )}
     </div>
   );

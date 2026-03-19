@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { Car, Eye, Pencil, Plus, Trash2 } from "lucide-react";
 
 import {
@@ -259,6 +260,7 @@ const columns: AppDataTableColumn<Vehicle>[] = [
 /* ── Page ────────────────────────────────────────────────────────────────── */
 
 export default function CarsPage() {
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 10;
@@ -277,7 +279,7 @@ export default function CarsPage() {
         title="Veículos"
         subtitle="Gerencie o estoque de veículos da concessionária."
         action={
-          <AppButton intent="default" className="gap-2">
+          <AppButton intent="default" className="gap-2" onClick={() => navigate({ to: "/cars/new" })}>
             <Plus className="size-4" />
             Novo Veículo
           </AppButton>

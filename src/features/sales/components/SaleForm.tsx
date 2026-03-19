@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
-import { Car, Users, DollarSign } from "lucide-react"
+import { Car, DollarSign } from "lucide-react"
 
 import { AppButton } from "@/components/shared/AppButton"
 import { AppInput } from "@/components/shared/AppInput"
@@ -53,65 +53,52 @@ export function SaleForm({ onSubmit, onCancel, isSubmitting = false }: SaleFormP
           </div>
         </CardHeader>
         <Separator />
-        <CardContent className="grid gap-4 pt-5 md:grid-cols-2 md:gap-5 md:pt-6">
-          {/* Veículo */}
-          <div className="md:col-span-2">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-foreground">Veículo</label>
-              <Controller
-                name="car_id"
-                control={control}
-                render={({ field }) => (
-                  <AppSearchSelect
-                    options={AVAILABLE_CARS_OPTIONS}
-                    value={field.value}
-                    onChange={field.onChange}
-                    placeholder="Selecione o veículo disponível..."
-                    searchPlaceholder="Buscar veículo..."
-                    error={errors.car_id?.message}
-                  />
-                )}
+        <CardContent className="grid gap-4 pt-5 md:grid-cols-3 md:gap-5 md:pt-6">
+          <Controller
+            name="car_id"
+            control={control}
+            render={({ field }) => (
+              <AppSearchSelect
+                label="Veículo"
+                options={AVAILABLE_CARS_OPTIONS}
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Selecione o veículo..."
+                searchPlaceholder="Buscar veículo..."
+                error={errors.car_id?.message}
               />
-            </div>
-          </div>
-
-          {/* Cliente */}
-          <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-foreground">Cliente</label>
-            <Controller
-              name="customer_id"
-              control={control}
-              render={({ field }) => (
-                <AppSearchSelect
-                  options={CUSTOMERS_OPTIONS}
-                  value={field.value}
-                  onChange={field.onChange}
-                  placeholder="Selecione o cliente..."
-                  searchPlaceholder="Buscar cliente..."
-                  error={errors.customer_id?.message}
-                />
-              )}
-            />
-          </div>
-
-          {/* Vendedor */}
-          <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-foreground">Vendedor</label>
-            <Controller
-              name="employee_id"
-              control={control}
-              render={({ field }) => (
-                <AppSearchSelect
-                  options={EMPLOYEES_OPTIONS}
-                  value={field.value}
-                  onChange={field.onChange}
-                  placeholder="Selecione o vendedor..."
-                  searchPlaceholder="Buscar vendedor..."
-                  error={errors.employee_id?.message}
-                />
-              )}
-            />
-          </div>
+            )}
+          />
+          <Controller
+            name="customer_id"
+            control={control}
+            render={({ field }) => (
+              <AppSearchSelect
+                label="Cliente"
+                options={CUSTOMERS_OPTIONS}
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Selecione o cliente..."
+                searchPlaceholder="Buscar cliente..."
+                error={errors.customer_id?.message}
+              />
+            )}
+          />
+          <Controller
+            name="employee_id"
+            control={control}
+            render={({ field }) => (
+              <AppSearchSelect
+                label="Vendedor"
+                options={EMPLOYEES_OPTIONS}
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Selecione o vendedor..."
+                searchPlaceholder="Buscar vendedor..."
+                error={errors.employee_id?.message}
+              />
+            )}
+          />
         </CardContent>
       </Card>
 
