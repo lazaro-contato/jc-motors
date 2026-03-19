@@ -6,6 +6,7 @@ import DashboardPage from '@/features/dashboard/pages/DashboardPage'
 import LoginPage from '@/features/auth/pages/LoginPage'
 import DesignSystemPage from '@/features/dashboard/pages/DesignSystemPage'
 import CarsPage from '@/features/cars/pages/CarsPage'
+import { CarCreatePage } from '@/features/cars/pages/CarCreatePage'
 import ProvidersPage from '@/features/providers/pages/ProvidersPage'
 import ProviderCreatePage from '@/features/providers/pages/ProviderCreatePage'
 import { CustomersPage } from '@/features/customers/pages/CustomersPage'
@@ -14,6 +15,7 @@ import { EmployeesPage } from '@/features/employees/pages/EmployeesPage'
 import { EmployeeCreatePage } from '@/features/employees/pages/EmployeeCreatePage'
 import { SalesPage } from '@/features/sales/pages/SalesPage'
 import { SaleCreatePage } from '@/features/sales/pages/SaleCreatePage'
+import { MyTasksPage } from '@/features/workflow/pages/MyTasksPage'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -46,6 +48,12 @@ const carsRoute = createRoute({
   getParentRoute: () => appRoute,
   path: '/cars',
   component: CarsPage,
+})
+
+const carCreateRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: '/cars/new',
+  component: CarCreatePage,
 })
 
 const designSystemRoute = createRoute({
@@ -102,11 +110,18 @@ const saleCreateRoute = createRoute({
   component: SaleCreatePage,
 })
 
+const myTasksRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: '/my-tasks',
+  component: MyTasksPage,
+})
+
 const routeTree = rootRoute.addChildren([
   loginRoute,
   appRoute.addChildren([
     dashboardRoute,
     carsRoute,
+    carCreateRoute,
     designSystemRoute,
     providersRoute,
     providerCreateRoute,
@@ -116,6 +131,7 @@ const routeTree = rootRoute.addChildren([
     employeeCreateRoute,
     salesRoute,
     saleCreateRoute,
+    myTasksRoute,
   ]),
 ])
 
