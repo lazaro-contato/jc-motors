@@ -1,31 +1,35 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { cn } from "@/lib/utils"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 
-import { CAR_STEPS, type CarStep } from "../data/car.schema"
+import { CAR_STEPS, type CarStep } from "../data/car.schema";
 
-import { CostsTab } from "./tabs/CostsTab"
-import { NegotiationTab } from "./tabs/NegotiationTab"
-import { OptionalsTab } from "./tabs/OptionalsTab"
-import { VehicleInfoTab } from "./tabs/VehicleInfoTab"
+import { CostsTab } from "./tabs/CostsTab";
+import { NegotiationTab } from "./tabs/NegotiationTab";
+import { OptionalsTab } from "./tabs/OptionalsTab";
+import { VehicleInfoTab } from "./tabs/VehicleInfoTab";
 
 interface CarEditTabsProps {
-  value: CarStep
-  onValueChange: (value: CarStep) => void
-  pendingSteps: CarStep[]
+  value: CarStep;
+  onValueChange: (value: CarStep) => void;
+  pendingSteps: CarStep[];
 }
 
-export function CarEditTabs({ value, onValueChange, pendingSteps }: CarEditTabsProps) {
+export function CarEditTabs({
+  value,
+  onValueChange,
+  pendingSteps,
+}: CarEditTabsProps) {
   return (
     <Tabs value={value} onValueChange={(v) => onValueChange(v as CarStep)}>
       <TabsList className="h-auto w-full justify-start gap-2 bg-transparent p-0">
         {CAR_STEPS.map((step) => {
-          const isPending = pendingSteps.includes(step.id)
+          const isPending = pendingSteps.includes(step.id);
           return (
             <TabsTrigger
               key={step.id}
               value={step.id}
               className={cn(
-                "relative h-10 flex-none rounded-md border border-border bg-card px-4",
+                "cursor-pointer relative h-10 flex-none rounded-md border border-border bg-card px-4",
                 "data-active:border-brand-500 data-active:bg-brand-50 data-active:text-brand-700",
                 "dark:data-active:bg-brand-900/20 dark:data-active:text-brand-300",
               )}
@@ -33,7 +37,7 @@ export function CarEditTabs({ value, onValueChange, pendingSteps }: CarEditTabsP
               <span>{step.label}</span>
               {isPending && <PendingDot />}
             </TabsTrigger>
-          )
+          );
         })}
       </TabsList>
 
@@ -50,7 +54,7 @@ export function CarEditTabs({ value, onValueChange, pendingSteps }: CarEditTabsP
         <CostsTab />
       </TabsContent>
     </Tabs>
-  )
+  );
 }
 
 function PendingDot() {
@@ -59,5 +63,5 @@ function PendingDot() {
       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-danger opacity-75" />
       <span className="relative inline-flex size-2 rounded-full bg-danger" />
     </span>
-  )
+  );
 }

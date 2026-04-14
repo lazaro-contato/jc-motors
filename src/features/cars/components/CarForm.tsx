@@ -1,21 +1,11 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, Controller } from "react-hook-form"
-import { Car, DollarSign, Globe } from "lucide-react"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Controller } from "react-hook-form";
+import { Car, DollarSign, Globe } from "lucide-react";
 
-import { AppButton } from "@/components/shared/AppButton"
-import { AppInput } from "@/components/shared/AppInput"
-import { AppSearchSelect } from "@/components/shared/AppSearchSelect"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { cn } from "@/lib/utils"
-
+import { AppButton } from "@/components/shared/AppButton";
+import { AppInput } from "@/components/shared/AppInput";
+import { AppSearchSelect } from "@/components/shared/AppSearchSelect";
+import { Button } from "@/components/ui/button";
 import {
   carCreateSchema,
   type CarCreateData,
@@ -24,17 +14,23 @@ import {
   TRANSMISSION_OPTIONS,
   STATUS_OPTIONS,
   CATEGORY_OPTIONS,
-} from "../data/car.schema"
+} from "../data/car.schema";
+import { CheckboxRow } from "./CheckBoxRow";
+import { SectionCard } from "./SectionCard";
 
-export type { CarCreateData, CarFormData } from "../data/car.schema"
+export type { CarCreateData, CarFormData } from "../data/car.schema";
 
 interface CarFormProps {
-  onSubmit: (data: CarCreateData) => void
-  onCancel: () => void
-  isSubmitting?: boolean
+  onSubmit: (data: CarCreateData) => void;
+  onCancel: () => void;
+  isSubmitting?: boolean;
 }
 
-export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormProps) {
+export function CarForm({
+  onSubmit,
+  onCancel,
+  isSubmitting = false,
+}: CarFormProps) {
   const {
     register,
     handleSubmit,
@@ -47,7 +43,7 @@ export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormPro
       is_b2b: false,
       is_b2c: false,
     },
-  })
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -56,9 +52,24 @@ export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormPro
         title="Informações do Veículo"
         description="Dados de identificação e características do veículo"
       >
-        <AppInput label="Placa" placeholder="ABC-1D23" error={errors.plate?.message} {...register("plate")} />
-        <AppInput label="Renavam" placeholder="Ex.: 01234567890" error={errors.renavam?.message} {...register("renavam")} />
-        <AppInput label="Chassi" placeholder="Ex.: 9BR53ZEC2LB123456" error={errors.chassis?.message} {...register("chassis")} />
+        <AppInput
+          label="Placa"
+          placeholder="ABC-1D23"
+          error={errors.plate?.message}
+          {...register("plate")}
+        />
+        <AppInput
+          label="Renavam"
+          placeholder="Ex.: 01234567890"
+          error={errors.renavam?.message}
+          {...register("renavam")}
+        />
+        <AppInput
+          label="Chassi"
+          placeholder="Ex.: 9BR53ZEC2LB123456"
+          error={errors.chassis?.message}
+          {...register("chassis")}
+        />
 
         <Controller
           name="brand"
@@ -75,12 +86,40 @@ export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormPro
             />
           )}
         />
-        <AppInput label="Modelo" placeholder="Ex.: Civic EXL 2.0" error={errors.model?.message} {...register("model")} />
-        <AppInput label="Cor" placeholder="Ex.: Branco Perolizado" error={errors.color?.message} {...register("color")} />
+        <AppInput
+          label="Modelo"
+          placeholder="Ex.: Civic EXL 2.0"
+          error={errors.model?.message}
+          {...register("model")}
+        />
+        <AppInput
+          label="Cor"
+          placeholder="Ex.: Branco Perolizado"
+          error={errors.color?.message}
+          {...register("color")}
+        />
 
-        <AppInput label="Ano de Fabricação" type="number" placeholder="Ex.: 2024" error={errors.year_manufacture?.message} {...register("year_manufacture")} />
-        <AppInput label="Ano do Modelo" type="number" placeholder="Ex.: 2025" error={errors.year_model?.message} {...register("year_model")} />
-        <AppInput label="Quilometragem" type="number" placeholder="Ex.: 12400" error={errors.mileage?.message} {...register("mileage")} />
+        <AppInput
+          label="Ano de Fabricação"
+          type="number"
+          placeholder="Ex.: 2024"
+          error={errors.year_manufacture?.message}
+          {...register("year_manufacture")}
+        />
+        <AppInput
+          label="Ano do Modelo"
+          type="number"
+          placeholder="Ex.: 2025"
+          error={errors.year_model?.message}
+          {...register("year_model")}
+        />
+        <AppInput
+          label="Quilometragem"
+          type="number"
+          placeholder="Ex.: 12400"
+          error={errors.mileage?.message}
+          {...register("mileage")}
+        />
 
         <Controller
           name="fuel"
@@ -96,7 +135,12 @@ export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormPro
             />
           )}
         />
-        <AppInput label="Motor" placeholder="Ex.: 2.0 Turbo" error={errors.engine?.message} {...register("engine")} />
+        <AppInput
+          label="Motor"
+          placeholder="Ex.: 2.0 Turbo"
+          error={errors.engine?.message}
+          {...register("engine")}
+        />
         <Controller
           name="transmission"
           control={control}
@@ -129,12 +173,27 @@ export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormPro
       </SectionCard>
 
       <SectionCard
-        icon={<DollarSign className="size-4 text-brand-600 dark:text-silver-300" />}
+        icon={
+          <DollarSign className="size-4 text-brand-600 dark:text-silver-300" />
+        }
         title="Precificação"
         description="Valores de venda e status inicial do veículo"
       >
-        <AppInput label="Preço antigo" type="number" hint="Opcional" placeholder="Ex.: 120000" error={errors.old_price?.message} {...register("old_price")} />
-        <AppInput label="Preço" type="number" placeholder="Ex.: 110000" error={errors.price?.message} {...register("price")} />
+        <AppInput
+          label="Preço antigo"
+          type="number"
+          hint="Opcional"
+          placeholder="Ex.: 120000"
+          error={errors.old_price?.message}
+          {...register("old_price")}
+        />
+        <AppInput
+          label="Preço"
+          type="number"
+          placeholder="Ex.: 110000"
+          error={errors.price?.message}
+          {...register("price")}
+        />
         <Controller
           name="status"
           control={control}
@@ -198,75 +257,22 @@ export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormPro
       </SectionCard>
 
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <Button type="button" variant="outline" onClick={onCancel} className="w-full sm:w-auto">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={onCancel}
+          className="w-full sm:w-auto"
+        >
           Cancelar
         </Button>
-        <AppButton type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
+        <AppButton
+          type="submit"
+          isLoading={isSubmitting}
+          className="w-full sm:w-auto"
+        >
           Criar e continuar
         </AppButton>
       </div>
     </form>
-  )
-}
-
-/* ── Helpers internos ────────────────────────────────────────────────────── */
-
-interface SectionCardProps {
-  icon: React.ReactNode
-  title: string
-  description: string
-  columns?: 1 | 2 | 3
-  children: React.ReactNode
-}
-
-function SectionCard({ icon, title, description, columns = 3, children }: SectionCardProps) {
-  return (
-    <Card>
-      <CardHeader className="pb-4">
-        <div className="flex items-center gap-3">
-          <div className="flex size-9 items-center justify-center rounded-md bg-silver-100 dark:bg-silver-800">
-            {icon}
-          </div>
-          <div>
-            <CardTitle className="text-base">{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
-          </div>
-        </div>
-      </CardHeader>
-      <Separator />
-      <CardContent
-        className={cn(
-          "grid gap-4 pt-5 md:gap-5 md:pt-6",
-          columns === 3 && "md:grid-cols-3",
-          columns === 2 && "md:grid-cols-2",
-        )}
-      >
-        {children}
-      </CardContent>
-    </Card>
-  )
-}
-
-interface CheckboxRowProps {
-  label: string
-  description?: string
-  checked?: boolean
-  onChange: (value: boolean) => void
-}
-
-function CheckboxRow({ label, description, checked = false, onChange }: CheckboxRowProps) {
-  return (
-    <label className="flex cursor-pointer items-start gap-3 rounded-md border border-border bg-card p-3 transition hover:border-brand-300">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
-        className="mt-0.5 size-4 rounded border-border accent-brand-500"
-      />
-      <div className="flex flex-col">
-        <span className="text-sm font-medium text-foreground">{label}</span>
-        {description && <span className="text-xs text-muted-foreground">{description}</span>}
-      </div>
-    </label>
-  )
+  );
 }
