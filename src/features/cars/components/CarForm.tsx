@@ -1,31 +1,35 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
-import { Car, DollarSign, FileText } from "lucide-react"
+import { Car, DollarSign, Globe } from "lucide-react"
 
 import { AppButton } from "@/components/shared/AppButton"
 import { AppInput } from "@/components/shared/AppInput"
 import { AppSearchSelect } from "@/components/shared/AppSearchSelect"
-import { AppTextarea } from "@/components/shared/AppTextarea"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { cn } from "@/lib/utils"
 
 import {
-  carSchema,
-  type CarFormData,
+  carCreateSchema,
+  type CarCreateData,
   BRAND_OPTIONS,
   FUEL_OPTIONS,
   TRANSMISSION_OPTIONS,
   STATUS_OPTIONS,
-  PROVIDER_OPTIONS,
+  CATEGORY_OPTIONS,
 } from "../data/car.schema"
 
-export type { CarFormData } from "../data/car.schema"
-
-/* ── Component ───────────────────────────────────────────────────────────── */
+export type { CarCreateData, CarFormData } from "../data/car.schema"
 
 interface CarFormProps {
-  onSubmit: (data: CarFormData) => void
+  onSubmit: (data: CarCreateData) => void
   onCancel: () => void
   isSubmitting?: boolean
 }
@@ -36,217 +40,233 @@ export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormPro
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<CarFormData>({
-    resolver: zodResolver(carSchema),
-    defaultValues: {},
+  } = useForm<CarCreateData>({
+    resolver: zodResolver(carCreateSchema),
+    defaultValues: {
+      is_public: false,
+      is_b2b: false,
+      is_b2c: false,
+    },
   })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/* ── Informações do Veículo ── */}
-      <Card>
-        <CardHeader className="pb-4">
-          <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-md bg-silver-100 dark:bg-silver-800">
-              <Car className="size-4 text-brand-600 dark:text-silver-300" />
-            </div>
-            <div>
-              <CardTitle className="text-base">Informações do Veículo</CardTitle>
-              <CardDescription>Dados de identificação e características do veículo</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <Separator />
-        <CardContent className="grid gap-4 pt-5 md:grid-cols-3 md:gap-5 md:pt-6">
-          <Controller
-            name="brand"
-            control={control}
-            render={({ field }) => (
-              <AppSearchSelect
-                label="Marca"
-                options={BRAND_OPTIONS}
-                value={field.value}
-                onChange={field.onChange}
-                placeholder="Selecione a marca..."
-                searchPlaceholder="Buscar marca..."
-                error={errors.brand?.message}
-              />
-            )}
-          />
-          <AppInput
-            label="Modelo"
-            placeholder="Ex.: Civic EXL 2.0"
-            error={errors.model?.message}
-            {...register("model")}
-          />
-          <AppInput
-            label="Cor"
-            placeholder="Ex.: Branco Perolizado"
-            error={errors.color?.message}
-            {...register("color")}
-          />
-          <AppInput
-            label="Ano de Fabricação"
-            type="number"
-            placeholder="Ex.: 2024"
-            error={errors.year_manufacture?.message}
-            {...register("year_manufacture")}
-          />
-          <AppInput
-            label="Ano do Modelo"
-            type="number"
-            placeholder="Ex.: 2025"
-            error={errors.year_model?.message}
-            {...register("year_model")}
-          />
-          <AppInput
-            label="Placa"
-            placeholder="ABC-1D23"
-            error={errors.plate?.message}
-            {...register("plate")}
-          />
-          <AppInput
-            label="Chassi"
-            placeholder="Ex.: 9BR53ZEC2LB123456"
-            hint="Opcional"
-            error={errors.chassis?.message}
-            {...register("chassis")}
-          />
-          <AppInput
-            label="Quilometragem"
-            type="number"
-            placeholder="Ex.: 12400"
-            error={errors.mileage?.message}
-            {...register("mileage")}
-          />
-          <Controller
-            name="fuel"
-            control={control}
-            render={({ field }) => (
-              <AppSearchSelect
-                label="Combustível"
-                options={FUEL_OPTIONS}
-                value={field.value}
-                onChange={field.onChange}
-                placeholder="Selecione..."
-                error={errors.fuel?.message}
-              />
-            )}
-          />
-          <Controller
-            name="transmission"
-            control={control}
-            render={({ field }) => (
-              <AppSearchSelect
-                label="Câmbio"
-                options={TRANSMISSION_OPTIONS}
-                value={field.value}
-                onChange={field.onChange}
-                placeholder="Selecione..."
-                error={errors.transmission?.message}
-              />
-            )}
-          />
-        </CardContent>
-      </Card>
+      <SectionCard
+        icon={<Car className="size-4 text-brand-600 dark:text-silver-300" />}
+        title="Informações do Veículo"
+        description="Dados de identificação e características do veículo"
+      >
+        <AppInput label="Placa" placeholder="ABC-1D23" error={errors.plate?.message} {...register("plate")} />
+        <AppInput label="Renavam" placeholder="Ex.: 01234567890" error={errors.renavam?.message} {...register("renavam")} />
+        <AppInput label="Chassi" placeholder="Ex.: 9BR53ZEC2LB123456" error={errors.chassis?.message} {...register("chassis")} />
 
-      {/* ── Financeiro ── */}
-      <Card>
-        <CardHeader className="pb-4">
-          <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-md bg-silver-100 dark:bg-silver-800">
-              <DollarSign className="size-4 text-brand-600 dark:text-silver-300" />
-            </div>
-            <div>
-              <CardTitle className="text-base">Financeiro</CardTitle>
-              <CardDescription>Preços de aquisição, venda e fornecedor</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <Separator />
-        <CardContent className="grid gap-4 pt-5 md:grid-cols-2 md:gap-5 md:pt-6">
-          <AppInput
-            label="Preço de Compra (R$)"
-            type="number"
-            placeholder="Ex.: 85000"
-            hint="Valor pago na aquisição"
-            error={errors.purchase_price?.message}
-            {...register("purchase_price")}
-          />
-          <AppInput
-            label="Preço de Venda (R$)"
-            type="number"
-            placeholder="Ex.: 99990"
-            hint="Valor de tabela para venda"
-            error={errors.sale_price?.message}
-            {...register("sale_price")}
-          />
+        <Controller
+          name="brand"
+          control={control}
+          render={({ field }) => (
+            <AppSearchSelect
+              label="Marca"
+              options={BRAND_OPTIONS}
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="Selecione a marca..."
+              searchPlaceholder="Buscar marca..."
+              error={errors.brand?.message}
+            />
+          )}
+        />
+        <AppInput label="Modelo" placeholder="Ex.: Civic EXL 2.0" error={errors.model?.message} {...register("model")} />
+        <AppInput label="Cor" placeholder="Ex.: Branco Perolizado" error={errors.color?.message} {...register("color")} />
+
+        <AppInput label="Ano de Fabricação" type="number" placeholder="Ex.: 2024" error={errors.year_manufacture?.message} {...register("year_manufacture")} />
+        <AppInput label="Ano do Modelo" type="number" placeholder="Ex.: 2025" error={errors.year_model?.message} {...register("year_model")} />
+        <AppInput label="Quilometragem" type="number" placeholder="Ex.: 12400" error={errors.mileage?.message} {...register("mileage")} />
+
+        <Controller
+          name="fuel"
+          control={control}
+          render={({ field }) => (
+            <AppSearchSelect
+              label="Combustível"
+              options={FUEL_OPTIONS}
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="Selecione..."
+              error={errors.fuel?.message}
+            />
+          )}
+        />
+        <AppInput label="Motor" placeholder="Ex.: 2.0 Turbo" error={errors.engine?.message} {...register("engine")} />
+        <Controller
+          name="transmission"
+          control={control}
+          render={({ field }) => (
+            <AppSearchSelect
+              label="Câmbio"
+              options={TRANSMISSION_OPTIONS}
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="Selecione..."
+              error={errors.transmission?.message}
+            />
+          )}
+        />
+
+        <Controller
+          name="category_id"
+          control={control}
+          render={({ field }) => (
+            <AppSearchSelect
+              label="Categoria"
+              options={CATEGORY_OPTIONS}
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="Selecione..."
+              error={errors.category_id?.message}
+            />
+          )}
+        />
+      </SectionCard>
+
+      <SectionCard
+        icon={<DollarSign className="size-4 text-brand-600 dark:text-silver-300" />}
+        title="Precificação"
+        description="Valores de venda e status inicial do veículo"
+      >
+        <AppInput label="Preço antigo" type="number" hint="Opcional" placeholder="Ex.: 120000" error={errors.old_price?.message} {...register("old_price")} />
+        <AppInput label="Preço" type="number" placeholder="Ex.: 110000" error={errors.price?.message} {...register("price")} />
+        <Controller
+          name="status"
+          control={control}
+          render={({ field }) => (
+            <AppSearchSelect
+              label="Status"
+              options={STATUS_OPTIONS}
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="Selecione..."
+              error={errors.status?.message}
+            />
+          )}
+        />
+      </SectionCard>
+
+      <SectionCard
+        icon={<Globe className="size-4 text-brand-600 dark:text-silver-300" />}
+        title="Publicação"
+        description="Onde este veículo ficará visível"
+        columns={1}
+      >
+        <div className="flex flex-col gap-3">
           <Controller
-            name="provider_id"
+            name="is_public"
             control={control}
             render={({ field }) => (
-              <AppSearchSelect
-                label="Fornecedor"
-                options={PROVIDER_OPTIONS}
-                value={field.value ?? ""}
+              <CheckboxRow
+                label="Publicar no site (público)"
+                description="Veículo aparece no site institucional."
+                checked={field.value}
                 onChange={field.onChange}
-                placeholder="Selecione o fornecedor..."
-                searchPlaceholder="Buscar fornecedor..."
-                hint="Opcional"
               />
             )}
           />
           <Controller
-            name="status"
+            name="is_b2b"
             control={control}
             render={({ field }) => (
-              <AppSearchSelect
-                label="Status"
-                options={STATUS_OPTIONS}
-                value={field.value}
+              <CheckboxRow
+                label="Publicar para empresas (B2B)"
+                description="Disponível no catálogo B2B."
+                checked={field.value}
                 onChange={field.onChange}
-                placeholder="Selecione o status..."
-                error={errors.status?.message}
               />
             )}
           />
-        </CardContent>
-      </Card>
-
-      {/* ── Descrição ── */}
-      <Card>
-        <CardHeader className="pb-4">
-          <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-md bg-silver-100 dark:bg-silver-800">
-              <FileText className="size-4 text-brand-600 dark:text-silver-300" />
-            </div>
-            <div>
-              <CardTitle className="text-base">Detalhes Adicionais</CardTitle>
-              <CardDescription>Observações e descrição do veículo</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <Separator />
-        <CardContent className="pt-5 md:pt-6">
-          <AppTextarea
-            label="Descrição"
-            placeholder="Descreva o estado do veículo, acessórios, histórico de manutenção..."
-            rows={4}
-            hint="Opcional — informações adicionais visíveis no detalhe do veículo"
-            {...register("description")}
+          <Controller
+            name="is_b2c"
+            control={control}
+            render={({ field }) => (
+              <CheckboxRow
+                label="Publicar para clientes (B2C)"
+                description="Disponível no catálogo B2C."
+                checked={field.value}
+                onChange={field.onChange}
+              />
+            )}
           />
-        </CardContent>
-      </Card>
+        </div>
+      </SectionCard>
 
-      {/* ── Actions ── */}
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <Button type="button" variant="outline" onClick={onCancel} className="w-full sm:w-auto">
           Cancelar
         </Button>
         <AppButton type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
-          Cadastrar Veículo
+          Criar e continuar
         </AppButton>
       </div>
     </form>
+  )
+}
+
+/* ── Helpers internos ────────────────────────────────────────────────────── */
+
+interface SectionCardProps {
+  icon: React.ReactNode
+  title: string
+  description: string
+  columns?: 1 | 2 | 3
+  children: React.ReactNode
+}
+
+function SectionCard({ icon, title, description, columns = 3, children }: SectionCardProps) {
+  return (
+    <Card>
+      <CardHeader className="pb-4">
+        <div className="flex items-center gap-3">
+          <div className="flex size-9 items-center justify-center rounded-md bg-silver-100 dark:bg-silver-800">
+            {icon}
+          </div>
+          <div>
+            <CardTitle className="text-base">{title}</CardTitle>
+            <CardDescription>{description}</CardDescription>
+          </div>
+        </div>
+      </CardHeader>
+      <Separator />
+      <CardContent
+        className={cn(
+          "grid gap-4 pt-5 md:gap-5 md:pt-6",
+          columns === 3 && "md:grid-cols-3",
+          columns === 2 && "md:grid-cols-2",
+        )}
+      >
+        {children}
+      </CardContent>
+    </Card>
+  )
+}
+
+interface CheckboxRowProps {
+  label: string
+  description?: string
+  checked?: boolean
+  onChange: (value: boolean) => void
+}
+
+function CheckboxRow({ label, description, checked = false, onChange }: CheckboxRowProps) {
+  return (
+    <label className="flex cursor-pointer items-start gap-3 rounded-md border border-border bg-card p-3 transition hover:border-brand-300">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+        className="mt-0.5 size-4 rounded border-border accent-brand-500"
+      />
+      <div className="flex flex-col">
+        <span className="text-sm font-medium text-foreground">{label}</span>
+        {description && <span className="text-xs text-muted-foreground">{description}</span>}
+      </div>
+    </label>
   )
 }
