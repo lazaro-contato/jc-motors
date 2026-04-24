@@ -29,7 +29,6 @@ export type CarCreateData = z.infer<typeof carCreateSchema>
 /* ── Edit schema ─────────────────────────────────────────────────────────── */
 
 export const carEditSchema = carCreateSchema.extend({
-  // Opcionais (placeholder — será expandido futuramente)
   optionals:        z.array(z.string()).default([]),
   // Negociação
   negotiation_notes: z.string().optional(),

@@ -42,7 +42,7 @@ function loadMockCar(id: string): MockCar {
     is_b2b: false,
     is_b2c: true,
     status: "available",
-    optionals: [],
+    optionals: ["1", "5", "7"],
     pending_steps: ["optionals", "negotiation", "costs"],
   }
 }

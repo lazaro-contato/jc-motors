@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Car, Eye, Pencil, Plus, Trash2 } from "lucide-react";
 
@@ -163,7 +163,7 @@ const STATUS_CONFIG: Record<
 
 /* ── Column definitions ──────────────────────────────────────────────────── */
 
-const columns: AppDataTableColumn<Vehicle>[] = [
+const baseVehicleListColumns: AppDataTableColumn<Vehicle>[] = [
   {
     key: "name",
     header: "Veículo",
@@ -225,36 +225,6 @@ const columns: AppDataTableColumn<Vehicle>[] = [
     align: "right",
     className: "font-semibold text-foreground",
   },
-  {
-    key: "_actions",
-    header: "",
-    align: "right",
-    render: () => (
-      <div className="flex items-center justify-end gap-1">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
-        >
-          <Eye className="size-3.5" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
-        >
-          <Pencil className="size-3.5" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-7 rounded-lg text-muted-foreground hover:text-danger"
-        >
-          <Trash2 className="size-3.5" />
-        </Button>
-      </div>
-    ),
-  },
 ];
 
 /* ── Page ────────────────────────────────────────────────────────────────── */
@@ -264,6 +234,52 @@ export default function CarsPage() {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 10;
+
+  const columns = useMemo<AppDataTableColumn<Vehicle>[]>(
+    () => [
+      ...baseVehicleListColumns,
+      {
+        key: "_actions",
+        header: "",
+        align: "right",
+        render: (_, row) => (
+          <div className="flex items-center justify-end gap-1">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
+            >
+              <Eye className="size-3.5" />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
+              onClick={() =>
+                navigate({
+                  to: "/cars/$id/edit",
+                  params: { id: String(row.id) },
+                })
+              }
+            >
+              <Pencil className="size-3.5" />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="size-7 rounded-lg text-muted-foreground hover:text-danger"
+            >
+              <Trash2 className="size-3.5" />
+            </Button>
+          </div>
+        ),
+      },
+    ],
+    [navigate],
+  );
 
   const filtered = VEHICLES.filter(
     (v) =>
@@ -279,7 +295,11 @@ export default function CarsPage() {
         title="Veículos"
         subtitle="Gerencie o estoque de veículos da concessionária."
         action={
-          <AppButton intent="default" className="gap-2" onClick={() => navigate({ to: "/cars/new" })}>
+          <AppButton
+            intent="default"
+            className="gap-2"
+            onClick={() => navigate({ to: "/cars/new" })}
+          >
             <Plus className="size-4" />
             Novo Veículo
           </AppButton>
