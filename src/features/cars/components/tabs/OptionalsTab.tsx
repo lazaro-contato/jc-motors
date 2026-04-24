@@ -1,18 +1,66 @@
-import { Sparkles } from "lucide-react"
+import { useFormContext } from "react-hook-form";
+
+import type { CarEditData } from "../../data/car.schema";
+import { useGetOptionals } from "../../hooks/useGetOptionals";
+import {
+  AppTransferList,
+  type TransferListItem,
+  type TransferListPreset,
+} from "../optionals/AppTransferList";
+import { OptionalsEmptyState } from "../optionals/OptionalsEmptyState";
+import { OptionalsLoadingSkeleton } from "../optionals/OptionalsLoadingSkeleton";
+import { MOCK_PRESETS } from "../optionals/optionals-data";
+
+const presets: TransferListPreset[] = MOCK_PRESETS.map((p) => ({
+  id: p.id,
+  label: p.name,
+  itemIds: p.optionalIds,
+}));
 
 export function OptionalsTab() {
+  const { watch, setValue } = useFormContext<CarEditData>();
+  const assignedIds = watch("optionals") ?? [];
+
+  const { data, isPending, isError } = useGetOptionals();
+
+  function handleAssignedChange(ids: string[]) {
+    setValue("optionals", ids, { shouldDirty: true });
+  }
+
+  if (isPending) {
+    return <OptionalsLoadingSkeleton />;
+  }
+
+  if (isError) {
+    return (
+      <OptionalsEmptyState
+        title="Não foi possível carregar os opcionais"
+        description="Verifique sua conexão ou tente novamente em instantes. Se o problema persistir, contate o suporte."
+      />
+    );
+  }
+
+  const results = data?.results ?? [];
+  if (results.length === 0) {
+    return <OptionalsEmptyState />;
+  }
+
+  const availableItems: TransferListItem[] = results.map((o) => ({
+    id: String(o.id),
+    label: o.name,
+  }));
+
   return (
-    <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-border bg-muted/30 py-12 text-center">
-      <div className="flex size-12 items-center justify-center rounded-full bg-brand-50 dark:bg-brand-900/20">
-        <Sparkles className="size-5 text-brand-600" />
-      </div>
-      <div className="flex flex-col gap-1">
-        <p className="text-sm font-medium text-foreground">Opcionais do veículo</p>
-        <p className="max-w-md text-xs text-muted-foreground">
-          Em breve você poderá selecionar os opcionais do carro (ar condicionado, teto solar,
-          multimídia, etc.) ou aplicar um preset editável.
-        </p>
-      </div>
-    </div>
-  )
+    <AppTransferList
+      availableItems={availableItems}
+      assignedIds={assignedIds}
+      onAssignedChange={handleAssignedChange}
+      presets={presets}
+      availableTitle="Opcionais Disponíveis"
+      assignedTitle="Opcionais do Veículo"
+      searchPlaceholder="Buscar opcional..."
+      emptyAvailableText="Nenhum opcional encontrado."
+      emptyAssignedText="Nenhum opcional adicionado ao veículo."
+    />
+  );
 }
