@@ -17,6 +17,7 @@ import { EmployeeCreatePage } from '@/features/employees/pages/EmployeeCreatePag
 import { SalesPage } from '@/features/sales/pages/SalesPage'
 import { SaleCreatePage } from '@/features/sales/pages/SaleCreatePage'
 import { MyTasksPage } from '@/features/workflow/pages/MyTasksPage'
+import { OptionalsPage } from '@/features/optionals/pages/OptionalsPage'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -123,6 +124,12 @@ const myTasksRoute = createRoute({
   component: MyTasksPage,
 })
 
+const optionalsRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: '/optionals',
+  component: OptionalsPage,
+})
+
 const routeTree = rootRoute.addChildren([
   loginRoute,
   appRoute.addChildren([
@@ -140,6 +147,7 @@ const routeTree = rootRoute.addChildren([
     salesRoute,
     saleCreateRoute,
     myTasksRoute,
+    optionalsRoute,
   ]),
 ])
 

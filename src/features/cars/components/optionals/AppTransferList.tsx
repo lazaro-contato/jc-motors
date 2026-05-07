@@ -14,7 +14,7 @@ export interface TransferListItem {
   label: string
 }
 
-export interface TransferListPreset {
+export interface TransferListProfile {
   id: string
   label: string
   itemIds: string[]
@@ -24,7 +24,7 @@ interface AppTransferListProps {
   availableItems: TransferListItem[]
   assignedIds: string[]
   onAssignedChange: (ids: string[]) => void
-  presets?: TransferListPreset[]
+  profiles?: TransferListProfile[]
   availableTitle?: string
   assignedTitle?: string
   searchPlaceholder?: string
@@ -39,7 +39,7 @@ export function AppTransferList({
   availableItems,
   assignedIds,
   onAssignedChange,
-  presets = [],
+  profiles = [],
   availableTitle = "Disponíveis",
   assignedTitle = "Selecionados",
   searchPlaceholder = "Buscar...",
@@ -70,9 +70,9 @@ export function AppTransferList({
     [selectedIds, assignedSet],
   )
 
-  const presetOptions: SelectOption[] = useMemo(
-    () => presets.map((p) => ({ label: p.label, value: p.id })),
-    [presets],
+  const profileOptions: SelectOption[] = useMemo(
+    () => profiles.map((p) => ({ label: p.label, value: p.id })),
+    [profiles],
   )
 
   /* ── Handlers ────────────────────────────────────────────────────────── */
@@ -87,12 +87,12 @@ export function AppTransferList({
     })
   }
 
-  function handlePresetChange(presetId: string) {
-    const preset = presets.find((p) => p.id === presetId)
-    if (!preset) return
+  function handleProfileChange(profileId: string) {
+    const profile = profiles.find((p) => p.id === profileId)
+    if (!profile) return
     setSelectedIds((prev) => {
       const next = new Set(prev)
-      for (const id of preset.itemIds) {
+      for (const id of profile.itemIds) {
         next.add(id)
       }
       return next
@@ -142,11 +142,11 @@ export function AppTransferList({
             {availableTitle}
           </CardTitle>
 
-          {presets.length > 0 && (
+          {profiles.length > 0 && (
             <AppSelect
-              options={presetOptions}
+              options={profileOptions}
               placeholder="Selecione uma configuração"
-              onValueChange={handlePresetChange}
+              onValueChange={handleProfileChange}
               size="sm"
             />
           )}
