@@ -1,25 +1,28 @@
-export type PersonType = "PF" | "PJ"
-export type CustomerStatus = "active" | "inactive"
+export type CustomerType = "PF" | "PJ"
 
-export interface Customer extends Record<string, unknown> {
-  id: number
-  full_name: string
-  person_type: PersonType
+export interface Customer {
+  id: string
+  userId: string | null
+  fullName: string
+  personType: CustomerType
   document: string
   email: string
   phone: string | null
-  address: string | null
-  is_active: boolean
-  created_at: string
-  updated_at: string
+  addressId: string | null
+  isActive: boolean
+  createdAt: string
+  updatedAt: string
 }
 
 export interface CreateCustomerDTO {
-  full_name: string
-  person_type: PersonType
+  fullName: string
+  personType: CustomerType
   document: string
   email: string
   phone?: string
-  address?: string
-  is_active: boolean
+  userId?: string
+  addressId?: string
+  isActive?: boolean
 }
+
+export type UpdateCustomerDTO = Partial<CreateCustomerDTO>

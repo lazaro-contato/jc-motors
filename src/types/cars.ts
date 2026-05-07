@@ -1,43 +1,72 @@
-export type FuelType = "Gasolina" | "Álcool" | "Flex" | "Diesel" | "Elétrico" | "Híbrido"
-export type TransmissionType = "Manual" | "Automático" | "CVT" | "Automatizado"
-export type VehicleStatus = "available" | "preparing" | "reserved" | "sold"
+export type FuelType =
+  | "FLEX"
+  | "GASOLINE"
+  | "ETHANOL"
+  | "DIESEL"
+  | "ELECTRIC"
+  | "HYBRID"
+  | "GNV"
 
-export interface CarBrand {
-  id: number
-  name: string
-}
+export type TransmissionType =
+  | "MANUAL"
+  | "AUTOMATIC"
+  | "CVT"
+  | "SEMI_AUTO"
+  | "DUAL_CLUTCH"
 
-export interface CarModel {
-  id: number
-  name: string
-  brand: CarBrand
-}
+export type VehicleStatus =
+  | "AWAITING_RELEASE"
+  | "IN_TRANSIT"
+  | "IN_YARD"
+  | "SOLD"
+  | "RESERVED"
+  | "IN_PREPARATION"
 
-export interface CarImage {
-  id: number
-  car: number
-  image: string
-  order: number
-}
-
-export interface Vehicle extends Record<string, unknown> {
-  id: number
-  car_model: CarModel
-  year_manufacture: number
-  year_model: number
+export interface Vehicle {
+  id: string
+  licensePlate: string
+  renavam: string
+  chassis: string
+  model: string
   color: string
+  manufactureYear: number
+  modelYear: number
   mileage: number
-  plate: string
-  chassis: string | null
-  fuel: FuelType | null
-  transmission: TransmissionType | null
-  purchase_price: string
-  sale_price: string
+  fuelType: FuelType
+  engine: string
+  transmission: TransmissionType
+  oldPrice: string | null
+  price: string
+  isPublished: boolean
+  isB2bVisible: boolean
+  isB2cVisible: boolean
   status: VehicleStatus
-  description: string | null
-  cover_image: string | null
-  images: CarImage[]
-  provider: number | null
-  created_at: string
-  updated_at: string
+  brandId: string
+  categoryId: string
+  createdAt: string
+  updatedAt: string
 }
+
+export interface CreateVehicleDTO {
+  licensePlate: string
+  renavam: string
+  chassis: string
+  model: string
+  color: string
+  manufactureYear: number
+  modelYear: number
+  mileage: number
+  fuelType: FuelType
+  engine: string
+  transmission: TransmissionType
+  price: number
+  oldPrice?: number
+  brandId: string
+  categoryId: string
+  status?: VehicleStatus
+  isPublished?: boolean
+  isB2bVisible?: boolean
+  isB2cVisible?: boolean
+}
+
+export type UpdateVehicleDTO = Partial<CreateVehicleDTO>

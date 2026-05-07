@@ -1,4 +1,14 @@
 export interface Brand {
-    id: number
-    name: string
+  id: string
+  name: string
+  isActive: boolean
+  createdAt: string
+  updatedAt: string
 }
+
+export interface CreateBrandDTO {
+  name: string
+  isActive?: boolean
+}
+
+export type UpdateBrandDTO = Partial<CreateBrandDTO>
