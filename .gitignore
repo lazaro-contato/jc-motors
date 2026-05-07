@@ -23,7 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-.private-docs/*
+.private-docs/
 
 # Env
 .env
@@ -32,3 +32,5 @@ dist-ssr
 
 # TypeScript
 *.tsbuildinfo
+
+.agents
