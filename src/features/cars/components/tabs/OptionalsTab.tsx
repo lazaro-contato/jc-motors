@@ -5,13 +5,13 @@ import { useGetOptionals } from "../../hooks/useGetOptionals";
 import {
   AppTransferList,
   type TransferListItem,
-  type TransferListPreset,
+  type TransferListProfile,
 } from "../optionals/AppTransferList";
 import { OptionalsEmptyState } from "../optionals/OptionalsEmptyState";
 import { OptionalsLoadingSkeleton } from "../optionals/OptionalsLoadingSkeleton";
-import { MOCK_PRESETS } from "../optionals/optionals-data";
+import { MOCK_PROFILES } from "../optionals/optionals-data";
 
-const presets: TransferListPreset[] = MOCK_PRESETS.map((p) => ({
+const profiles: TransferListProfile[] = MOCK_PROFILES.map((p) => ({
   id: p.id,
   label: p.name,
   itemIds: p.optionalIds,
@@ -55,7 +55,7 @@ export function OptionalsTab() {
       availableItems={availableItems}
       assignedIds={assignedIds}
       onAssignedChange={handleAssignedChange}
-      presets={presets}
+      profiles={profiles}
       availableTitle="Opcionais Disponíveis"
       assignedTitle="Opcionais do Veículo"
       searchPlaceholder="Buscar opcional..."

@@ -6,7 +6,7 @@ export interface OptionalItem {
   name: string
 }
 
-export interface OptionalPreset {
+export interface OptionalProfile {
   id: string
   name: string
   optionalIds: string[]
@@ -51,7 +51,7 @@ export function getMockVehicleOptionalsPagination(): Pagination<VehicleOptional>
   }
 }
 
-export const MOCK_PRESETS: OptionalPreset[] = [
+export const MOCK_PROFILES: OptionalProfile[] = [
   {
     id: "basic",
     name: "Básico",

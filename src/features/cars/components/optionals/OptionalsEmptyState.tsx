@@ -7,7 +7,7 @@ interface OptionalsEmptyStateProps {
 
 export function OptionalsEmptyState({
   title = "Nenhum opcional disponível",
-  description = "Não há opcionais cadastrados no sistema. Quando existirem, você poderá selecioná-los, aplicar presets e associá-los a este veículo.",
+  description = "Não há opcionais cadastrados no sistema. Quando existirem, você poderá selecioná-los, aplicar perfis e associá-los a este veículo.",
 }: OptionalsEmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-border bg-muted/30 py-12 text-center">
