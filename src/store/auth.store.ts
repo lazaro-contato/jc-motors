@@ -1,22 +1,15 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-interface AuthUser {
-  id: number
-  email: string
-  is_staff: boolean
-  employee?: {
-    id: number
-    full_name: string
-    role: string | null
-  }
-}
+import type { AuthUser } from '@/types/auth'
 
 interface AuthState {
   user: AuthUser | null
-  token: string | null
+  accessToken: string | null
+  refreshToken: string | null
   isAuthenticated: boolean
-  setAuth: (user: AuthUser, token: string) => void
+  setAuth: (user: AuthUser, accessToken: string, refreshToken: string) => void
+  setTokens: (accessToken: string, refreshToken: string) => void
   logout: () => void
 }
 
@@ -24,10 +17,20 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
-      token: null,
+      accessToken: null,
+      refreshToken: null,
       isAuthenticated: false,
-      setAuth: (user, token) => set({ user, token, isAuthenticated: true }),
-      logout: () => set({ user: null, token: null, isAuthenticated: false }),
+      setAuth: (user, accessToken, refreshToken) =>
+        set({ user, accessToken, refreshToken, isAuthenticated: true }),
+      setTokens: (accessToken, refreshToken) =>
+        set({ accessToken, refreshToken }),
+      logout: () =>
+        set({
+          user: null,
+          accessToken: null,
+          refreshToken: null,
+          isAuthenticated: false,
+        }),
     }),
     {
       name: 'jgmotors-auth',
