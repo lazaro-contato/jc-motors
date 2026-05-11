@@ -1,1 +1,0 @@
-export type UserType = "employee" | "customer" | "user"
