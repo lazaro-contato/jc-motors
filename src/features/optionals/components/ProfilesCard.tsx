@@ -1,10 +1,11 @@
 import { Pencil, Plus, Tag, Trash2 } from "lucide-react"
 
+import type { VehicleOptionalProfile } from "@/types/optionals"
+
 import { AppButton } from "@/components/shared/AppButton"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-import type { VehicleOptionalProfile } from "@/core/models/vehicle-optional-profile"
 
 interface ProfilesCardProps {
   profiles: VehicleOptionalProfile[]

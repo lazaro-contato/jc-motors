@@ -1,8 +1,15 @@
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import z from "zod"
+
+import {
+  useCreateProfile,
+  useUpdateProfile,
+} from "../hooks/useProfileMutations"
+
+import type { VehicleOptionalProfile } from "@/types/optionals"
 
 import { AppButton } from "@/components/shared/AppButton"
 import { AppInput } from "@/components/shared/AppInput"
@@ -16,12 +23,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 
-import type { VehicleOptionalProfile } from "@/core/models/vehicle-optional-profile"
 
-import {
-  useCreateProfile,
-  useUpdateProfile,
-} from "../hooks/useProfileMutations"
 
 const formSchema = z.object({
   name: z.string().min(1, "Nome do perfil é obrigatório"),

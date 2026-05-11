@@ -1,5 +1,7 @@
-import { useMemo, useState } from "react"
 import { Pencil, Plus, Trash2 } from "lucide-react"
+import { useMemo, useState } from "react"
+
+import type { VehicleOptional } from "@/types/optionals"
 
 import { AppButton } from "@/components/shared/AppButton"
 import {
@@ -7,8 +9,6 @@ import {
   type AppDataTableColumn,
 } from "@/components/shared/AppDataTable"
 import { Button } from "@/components/ui/button"
-
-import type { VehicleOptional } from "@/core/models/vehicle-optional"
 
 const PAGE_SIZE = 10
 
@@ -21,9 +21,8 @@ interface OptionalsTableProps {
 }
 
 interface OptionalRow extends Record<string, unknown> {
-  id: number
+  id: string
   name: string
-  profileName: string
   raw: VehicleOptional
 }
 
@@ -42,7 +41,6 @@ export function OptionalsTable({
       optionals.map((o) => ({
         id: o.id,
         name: o.name,
-        profileName: o.profile?.name ?? "—",
         raw: o,
       })),
     [optionals],
@@ -51,11 +49,7 @@ export function OptionalsTable({
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim()
     if (!q) return rows
-    return rows.filter(
-      (r) =>
-        r.name.toLowerCase().includes(q) ||
-        r.profileName.toLowerCase().includes(q),
-    )
+    return rows.filter((r) => r.name.toLowerCase().includes(q))
   }, [rows, query])
 
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
@@ -67,18 +61,6 @@ export function OptionalsTable({
       render: (_, row) => (
         <span className="font-medium text-foreground">{row.name}</span>
       ),
-    },
-    {
-      key: "profileName",
-      header: "Perfil",
-      render: (_, row) =>
-        row.raw.profile ? (
-          <span className="inline-flex items-center rounded-full bg-info-bg px-2.5 py-0.5 text-xs font-semibold text-info">
-            {row.raw.profile.name}
-          </span>
-        ) : (
-          <span className="text-xs text-muted-foreground">Sem perfil</span>
-        ),
     },
     {
       key: "_actions",

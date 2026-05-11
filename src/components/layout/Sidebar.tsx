@@ -8,6 +8,7 @@ import {
   ListChecks,
   LogOut,
   ShoppingCart,
+  Tag,
   Users,
   UserSquare,
   Workflow,
@@ -45,6 +46,11 @@ const navGroups: NavGroup[] = [
     title: "Cadastros",
     items: [
       { label: "Veículos", to: "/cars", icon: <Car className="size-[18px]" /> },
+      {
+        label: "Opcionais",
+        to: "/optionals",
+        icon: <Tag className="size-[18px]" />,
+      },
       {
         label: "Fornecedores",
         to: "/providers",

@@ -1,19 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
 
-// import { VehicleOptionalRepository } from "@/core/repositories/vehicle-optional-repository"
-// import { api } from "@/lib/api"
-import { getMockVehicleOptionalsPagination } from "@/features/cars/components/optionals/optionals-data"
+import type { PaginationParams } from "@/types/pagination"
 
-import { vehicleOptionalKeys } from "./queries"
+import { optionalsKeys } from "@/features/optionals/hooks/queries"
+import { optionalsService } from "@/features/optionals/services/optionals.service"
 
-// const vehicleOptionalRepository = new VehicleOptionalRepository(api)
-
-export function useGetOptionals() {
+export function useGetOptionals(params: PaginationParams = {}) {
   return useQuery({
-    queryKey: vehicleOptionalKeys.list(),
-    queryFn: async () => {
-      // return vehicleOptionalRepository.list()
-      return getMockVehicleOptionalsPagination()
-    },
+    queryKey: optionalsKeys.list(params),
+    queryFn: () => optionalsService.list(params),
   })
 }

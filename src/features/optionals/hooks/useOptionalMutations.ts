@@ -1,12 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
+import { optionalsKeys } from "./queries"
+import { optionalsService } from "../services/optionals.service"
+
 import type {
   CreateOptionalDTO,
   UpdateOptionalDTO,
 } from "@/types/optionals"
 
-import { optionalsService } from "../services/optionals.service"
-import { optionalsKeys } from "./queries"
 
 export function useCreateOptional() {
   const queryClient = useQueryClient()

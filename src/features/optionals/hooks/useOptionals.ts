@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
 
+import { optionalsKeys } from "./queries"
+import { optionalsService } from "../services/optionals.service"
+
 import type { PaginationParams } from "@/types/pagination"
 
-import { optionalsService } from "../services/optionals.service"
-import { optionalsKeys } from "./queries"
 
 export function useOptionals(params: PaginationParams = {}) {
   return useQuery({

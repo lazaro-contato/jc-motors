@@ -1,12 +1,18 @@
-import { useEffect } from "react"
-import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect } from "react"
+import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import z from "zod"
 
+import {
+  useCreateOptional,
+  useUpdateOptional,
+} from "../hooks/useOptionalMutations"
+
+import type { VehicleOptional } from "@/types/optionals"
+
 import { AppButton } from "@/components/shared/AppButton"
 import { AppInput } from "@/components/shared/AppInput"
-import { AppSelect } from "@/components/shared/AppSelect"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -17,19 +23,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 
-import type { VehicleOptional } from "@/core/models/vehicle-optional"
-import type { VehicleOptionalProfile } from "@/core/models/vehicle-optional-profile"
-
-import {
-  useCreateOptional,
-  useUpdateOptional,
-} from "../hooks/useOptionalMutations"
-
-const NO_PROFILE_VALUE = "__none__"
 
 const formSchema = z.object({
   name: z.string().min(1, "Nome do opcional é obrigatório"),
-  profile_id: z.string().optional(),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -38,14 +34,12 @@ interface OptionalFormDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   optional?: VehicleOptional | null
-  profiles: VehicleOptionalProfile[]
 }
 
 export function OptionalFormDialog({
   open,
   onOpenChange,
   optional,
-  profiles,
 }: OptionalFormDialogProps) {
   const isEditing = Boolean(optional)
   const createMutation = useCreateOptional()
@@ -53,42 +47,24 @@ export function OptionalFormDialog({
 
   const {
     register,
-    control,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: { name: "", profile_id: NO_PROFILE_VALUE },
+    defaultValues: { name: "" },
   })
 
   useEffect(() => {
-    if (open) {
-      reset({
-        name: optional?.name ?? "",
-        profile_id: optional?.profile?.id
-          ? String(optional.profile.id)
-          : NO_PROFILE_VALUE,
-      })
-    }
+    if (open) reset({ name: optional?.name ?? "" })
   }, [open, optional, reset])
-
-  const profileOptions = [
-    { label: "Sem perfil", value: NO_PROFILE_VALUE },
-    ...profiles.map((p) => ({ label: p.name, value: String(p.id) })),
-  ]
 
   const isSubmitting = createMutation.isPending || updateMutation.isPending
 
   function onSubmit(data: FormData) {
-    const profileId =
-      data.profile_id && data.profile_id !== NO_PROFILE_VALUE
-        ? Number(data.profile_id)
-        : null
-
     if (isEditing && optional) {
       updateMutation.mutate(
-        { id: optional.id, dto: { name: data.name, profile_id: profileId } },
+        { id: optional.id, dto: { name: data.name } },
         {
           onSuccess: () => {
             toast.success("Opcional atualizado")
@@ -101,7 +77,7 @@ export function OptionalFormDialog({
     }
 
     createMutation.mutate(
-      { name: data.name, profile_id: profileId },
+      { name: data.name },
       {
         onSuccess: () => {
           toast.success("Opcional criado")
@@ -120,7 +96,8 @@ export function OptionalFormDialog({
             {isEditing ? "Editar opcional" : "Novo opcional"}
           </DialogTitle>
           <DialogDescription>
-            Defina o nome do opcional e, se desejar, vincule a um perfil.
+            Defina o nome do opcional. Para agrupar em perfis, use a tela de
+            perfis.
           </DialogDescription>
         </DialogHeader>
 
@@ -134,20 +111,6 @@ export function OptionalFormDialog({
             placeholder="Ex.: Ar Condicionado"
             error={errors.name?.message}
             {...register("name")}
-          />
-
-          <Controller
-            name="profile_id"
-            control={control}
-            render={({ field }) => (
-              <AppSelect
-                label="Perfil (opcional)"
-                placeholder="Selecione um perfil"
-                options={profileOptions}
-                value={field.value}
-                onValueChange={field.onChange}
-              />
-            )}
           />
         </form>
 

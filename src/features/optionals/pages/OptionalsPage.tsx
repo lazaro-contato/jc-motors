@@ -1,24 +1,30 @@
 import { useState } from "react"
 import { toast } from "sonner"
 
-import { AppPageHeader } from "@/components/shared/AppPageHeader"
-
-import type { VehicleOptional } from "@/core/models/vehicle-optional"
-import type { VehicleOptionalProfile } from "@/core/models/vehicle-optional-profile"
 
 import { ConfirmDeleteDialog } from "../components/ConfirmDeleteDialog"
 import { OptionalFormDialog } from "../components/OptionalFormDialog"
 import { OptionalsTable } from "../components/OptionalsTable"
 import { ProfileFormDialog } from "../components/ProfileFormDialog"
 import { ProfilesCard } from "../components/ProfilesCard"
-import { useOptionals } from "../hooks/useOptionals"
 import { useDeleteOptional } from "../hooks/useOptionalMutations"
+import { useOptionals } from "../hooks/useOptionals"
 import { useDeleteProfile } from "../hooks/useProfileMutations"
 import { useProfiles } from "../hooks/useProfiles"
 
+import type {
+  VehicleOptional,
+  VehicleOptionalProfile,
+} from "@/types/optionals"
+
+import { AppPageHeader } from "@/components/shared/AppPageHeader"
+
 export function OptionalsPage() {
-  const { data: optionals = [], isPending: optionalsLoading } = useOptionals()
-  const { data: profiles = [], isPending: profilesLoading } = useProfiles()
+  const { data: optionalsData, isPending: optionalsLoading } = useOptionals()
+  const { data: profilesData, isPending: profilesLoading } = useProfiles()
+
+  const optionals = optionalsData?.data ?? []
+  const profiles = profilesData?.data ?? []
 
   const deleteOptional = useDeleteOptional()
   const deleteProfile = useDeleteProfile()
@@ -105,7 +111,6 @@ export function OptionalsPage() {
         open={optionalDialogOpen}
         onOpenChange={setOptionalDialogOpen}
         optional={editingOptional}
-        profiles={profiles}
       />
 
       <ProfileFormDialog
@@ -133,7 +138,7 @@ export function OptionalsPage() {
         title="Excluir perfil"
         description={
           profileToDelete
-            ? `Tem certeza que deseja excluir o perfil "${profileToDelete.name}"? Os opcionais vinculados ficarão sem perfil.`
+            ? `Tem certeza que deseja excluir o perfil "${profileToDelete.name}"? Os opcionais vinculados continuarão existindo.`
             : ""
         }
         isLoading={deleteProfile.isPending}

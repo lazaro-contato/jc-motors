@@ -1,10 +1,11 @@
-import { api } from "@/lib/api"
 import type {
   CreateOptionalProfileDTO,
   UpdateOptionalProfileDTO,
   VehicleOptionalProfile,
 } from "@/types/optionals"
 import type { Pagination, PaginationParams } from "@/types/pagination"
+
+import { api } from "@/lib/api"
 
 export const optionalProfilesService = {
   list: (params: PaginationParams = {}) =>

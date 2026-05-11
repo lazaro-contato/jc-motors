@@ -1,21 +1,14 @@
 import { useFormContext } from "react-hook-form";
 
-import type { CarEditData } from "../../data/car.schema";
 import { useGetOptionals } from "../../hooks/useGetOptionals";
 import {
   AppTransferList,
   type TransferListItem,
-  type TransferListProfile,
 } from "../optionals/AppTransferList";
 import { OptionalsEmptyState } from "../optionals/OptionalsEmptyState";
 import { OptionalsLoadingSkeleton } from "../optionals/OptionalsLoadingSkeleton";
-import { MOCK_PROFILES } from "../optionals/optionals-data";
 
-const profiles: TransferListProfile[] = MOCK_PROFILES.map((p) => ({
-  id: p.id,
-  label: p.name,
-  itemIds: p.optionalIds,
-}));
+import type { CarEditData } from "../../data/car.schema";
 
 export function OptionalsTab() {
   const { watch, setValue } = useFormContext<CarEditData>();
@@ -40,13 +33,13 @@ export function OptionalsTab() {
     );
   }
 
-  const results = data?.results ?? [];
+  const results = data?.data ?? [];
   if (results.length === 0) {
     return <OptionalsEmptyState />;
   }
 
   const availableItems: TransferListItem[] = results.map((o) => ({
-    id: String(o.id),
+    id: o.id,
     label: o.name,
   }));
 
@@ -55,7 +48,6 @@ export function OptionalsTab() {
       availableItems={availableItems}
       assignedIds={assignedIds}
       onAssignedChange={handleAssignedChange}
-      profiles={profiles}
       availableTitle="Opcionais Disponíveis"
       assignedTitle="Opcionais do Veículo"
       searchPlaceholder="Buscar opcional..."
