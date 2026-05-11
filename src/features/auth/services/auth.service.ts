@@ -1,5 +1,6 @@
-import { api } from "@/lib/api"
 import type { AuthResponse, SignInDTO, SignUpDTO } from "@/types/auth"
+
+import { api } from "@/lib/api"
 
 export const authService = {
   signIn: (dto: SignInDTO) =>
@@ -8,6 +9,12 @@ export const authService = {
   signUp: (dto: SignUpDTO) =>
     api.post<AuthResponse>("/auth/sign-up", dto).then((r) => r.data),
 
-  refreshToken: () =>
-    api.post<AuthResponse>("/auth/refresh-token").then((r) => r.data),
+  refreshToken: (refreshToken: string) =>
+    api
+      .post<AuthResponse>(
+        "/auth/refresh-token",
+        {},
+        { headers: { Authorization: `Bearer ${refreshToken}` } },
+      )
+      .then((r) => r.data),
 }
