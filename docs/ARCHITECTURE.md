@@ -2,17 +2,19 @@
 
 ## Stack Principal
 
-| Camada | Tecnologia |
-|---|---|
-| Linguagem | TypeScript 5.x |
-| Bundler | Vite 7.x |
-| UI | React 19 |
-| Estilos | Tailwind CSS v4 |
-| Componentes | shadcn/ui |
-| Roteamento | TanStack Router |
-| Server state | TanStack Query v5 |
-| Client state | Zustand 5 |
-| HTTP | Axios (com interceptors) |
+
+| Camada       | Tecnologia               |
+| ------------ | ------------------------ |
+| Linguagem    | TypeScript 5.x           |
+| Bundler      | Vite 7.x                 |
+| UI           | React 19                 |
+| Estilos      | Tailwind CSS v4          |
+| Componentes  | shadcn/ui                |
+| Roteamento   | TanStack Router          |
+| Server state | TanStack Query v5        |
+| Client state | Zustand 5                |
+| HTTP         | Axios (com interceptors) |
+
 
 ---
 
@@ -156,6 +158,7 @@ export default function DashboardPage() {
 ### Quando criar um componente em `components/shared/`
 
 Um componente entra em `shared/` quando:
+
 - É utilizado em **2 ou mais features** diferentes
 - Tem identidade visual consistente com o design system
 - Possui props bem definidas e comportamento previsível
@@ -176,14 +179,16 @@ Os arquivos em `components/ui/` são gerados pelo shadcn CLI e **não devem ser 
 
 ## Convenções de Nomenclatura
 
-| Artefato | Convenção | Exemplo |
-|---|---|---|
-| Páginas | `{Nome}Page.tsx` (PascalCase) | `CarsPage.tsx` |
-| Componentes compartilhados | `App{Nome}.tsx` | `AppDataTable.tsx` |
-| Hooks de domínio | `use{Nome}.ts` | `useCars.ts` |
-| Serviços | `{nome}.service.ts` (camelCase) | `cars.service.ts` |
-| Stores Zustand | `{nome}.store.ts` | `auth.store.ts` |
-| Tipos globais | PascalCase em `types/index.ts` | `Vehicle`, `SaleOrder` |
+
+| Artefato                   | Convenção                       | Exemplo                |
+| -------------------------- | ------------------------------- | ---------------------- |
+| Páginas                    | `{Nome}Page.tsx` (PascalCase)   | `CarsPage.tsx`         |
+| Componentes compartilhados | `App{Nome}.tsx`                 | `AppDataTable.tsx`     |
+| Hooks de domínio           | `use{Nome}.ts`                  | `useCars.ts`           |
+| Serviços                   | `{nome}.service.ts` (camelCase) | `cars.service.ts`      |
+| Stores Zustand             | `{nome}.store.ts`               | `auth.store.ts`        |
+| Tipos globais              | PascalCase em `types/index.ts`  | `Vehicle`, `SaleOrder` |
+
 
 ---
 
@@ -206,3 +211,4 @@ Estado global (Zustand) é lido diretamente nas páginas ou hooks quando necess�
 - **Dark mode via next-themes**: `ThemeProvider` no `main.tsx` com `attribute="class"`. Tokens adaptativos definidos em `:root` e `.dark` no `index.css`.
 - **Tailwind v4**: configurado via plugin `@tailwindcss/vite`. Tokens customizados via `@theme` (estáticos) e `:root`/`.dark` (adaptativos ao tema).
 - **Gerenciador de pacotes**: `npm` exclusivamente. Não usar `pnpm`, `yarn` ou `bun`.
+
