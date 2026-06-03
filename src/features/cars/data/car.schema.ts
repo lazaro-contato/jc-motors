@@ -3,25 +3,32 @@ import { z } from "zod"
 /* ── Create schema ───────────────────────────────────────────────────────── */
 
 export const carCreateSchema = z.object({
-  plate:            z.string().min(7, "Placa inválida"),
-  renavam:          z.string().min(1, "Informe o Renavam"),
-  chassis:          z.string().min(1, "Informe o chassi"),
-  brand:            z.string().min(1, "Selecione a marca"),
-  model:            z.string().min(1, "Informe o modelo"),
-  color:            z.string().min(1, "Informe a cor"),
-  year_manufacture: z.coerce.number().min(1900, "Ano inválido").max(2030, "Ano inválido"),
-  year_model:       z.coerce.number().min(1900, "Ano inválido").max(2030, "Ano inválido"),
-  mileage:          z.coerce.number().min(0, "Quilometragem inválida"),
-  fuel:             z.string().min(1, "Selecione o combustível"),
-  engine:           z.string().min(1, "Informe o motor"),
-  transmission:     z.string().min(1, "Selecione o câmbio"),
-  category_id:      z.string().min(1, "Selecione a categoria"),
-  old_price:        z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().positive().optional()),
-  price:            z.coerce.number().positive("Preço inválido"),
-  is_public:        z.boolean().default(false),
-  is_b2b:           z.boolean().default(false),
-  is_b2c:           z.boolean().default(false),
-  status:           z.string().min(1, "Selecione o status"),
+  licensePlate:    z.string().min(7, "Placa inválida"),
+  renavam:         z.string().min(1, "Informe o Renavam"),
+  chassis:         z.string().min(1, "Informe o chassi"),
+  brandId:         z.string().min(1, "Selecione a marca"),
+  model:           z.string().min(1, "Informe o modelo"),
+  color:           z.string().min(1, "Informe a cor"),
+  manufactureYear: z.coerce.number().min(1900, "Ano inválido").max(2030, "Ano inválido"),
+  modelYear:       z.coerce.number().min(1900, "Ano inválido").max(2030, "Ano inválido"),
+  mileage:         z.coerce.number().min(0, "Quilometragem inválida"),
+  fuelType:        z.enum(["FLEX", "GASOLINE", "ETHANOL", "DIESEL", "ELECTRIC", "HYBRID", "GNV"], {
+                     errorMap: () => ({ message: "Selecione o combustível" }),
+                   }),
+  engine:          z.string().min(1, "Informe o motor"),
+  transmission:    z.enum(["MANUAL", "AUTOMATIC", "CVT", "SEMI_AUTO", "DUAL_CLUTCH"], {
+                     errorMap: () => ({ message: "Selecione o câmbio" }),
+                   }),
+  categoryId:      z.string().min(1, "Selecione a categoria"),
+  oldPrice:        z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().positive().optional()),
+  price:           z.coerce.number().positive("Preço inválido"),
+  isPublished:     z.boolean().default(false),
+  isB2bVisible:    z.boolean().default(false),
+  isB2cVisible:    z.boolean().default(false),
+  status:          z.enum(
+                     ["AWAITING_RELEASE", "IN_TRANSIT", "IN_YARD", "AVAILABLE", "RESERVED", "SOLD", "IN_PREPARATION"],
+                     { errorMap: () => ({ message: "Selecione o status" }) },
+                   ),
 })
 
 export type CarCreateData = z.infer<typeof carCreateSchema>
@@ -30,12 +37,10 @@ export type CarCreateData = z.infer<typeof carCreateSchema>
 
 export const carEditSchema = carCreateSchema.extend({
   optionals:        z.array(z.string()).default([]),
-  // Negociação
-  negotiation_notes: z.string().optional(),
-  discount:          z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().min(0).optional()),
-  // Custos
-  purchase_price:    z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().min(0).optional()),
-  repair_cost:       z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().min(0).optional()),
+  negotiationNotes: z.string().optional(),
+  discount:         z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().min(0).optional()),
+  purchasePrice:    z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().min(0).optional()),
+  repairCost:       z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().min(0).optional()),
 })
 
 export type CarEditData = z.infer<typeof carEditSchema>
@@ -45,61 +50,37 @@ export type CarEditData = z.infer<typeof carEditSchema>
 export const carSchema = carCreateSchema
 export type CarFormData = CarCreateData
 
-/* ── Opções de select ────────────────────────────────────────────────────── */
-
-export const BRAND_OPTIONS = [
-  { label: "BMW",        value: "BMW" },
-  { label: "Chevrolet",  value: "Chevrolet" },
-  { label: "Fiat",       value: "Fiat" },
-  { label: "Ford",       value: "Ford" },
-  { label: "Honda",      value: "Honda" },
-  { label: "Hyundai",    value: "Hyundai" },
-  { label: "Jeep",       value: "Jeep" },
-  { label: "Nissan",     value: "Nissan" },
-  { label: "Renault",    value: "Renault" },
-  { label: "Toyota",     value: "Toyota" },
-  { label: "Volkswagen", value: "Volkswagen" },
-]
+/* ── Select options ──────────────────────────────────────────────────────── */
 
 export const FUEL_OPTIONS = [
-  { label: "Flex",     value: "Flex" },
-  { label: "Gasolina", value: "Gasolina" },
-  { label: "Álcool",   value: "Álcool" },
-  { label: "Diesel",   value: "Diesel" },
-  { label: "Elétrico", value: "Elétrico" },
-  { label: "Híbrido",  value: "Híbrido" },
+  { label: "Flex",           value: "FLEX" },
+  { label: "Gasolina",       value: "GASOLINE" },
+  { label: "Álcool",         value: "ETHANOL" },
+  { label: "Diesel",         value: "DIESEL" },
+  { label: "Elétrico",       value: "ELECTRIC" },
+  { label: "Híbrido",        value: "HYBRID" },
+  { label: "GNV",            value: "GNV" },
 ]
 
 export const TRANSMISSION_OPTIONS = [
-  { label: "Manual",       value: "Manual" },
-  { label: "Automático",   value: "Automático" },
-  { label: "CVT",          value: "CVT" },
-  { label: "Automatizado", value: "Automatizado" },
+  { label: "Manual",          value: "MANUAL" },
+  { label: "Automático",      value: "AUTOMATIC" },
+  { label: "CVT",             value: "CVT" },
+  { label: "Semi-automático", value: "SEMI_AUTO" },
+  { label: "Dupla Embreagem", value: "DUAL_CLUTCH" },
 ]
 
 export const STATUS_OPTIONS = [
-  { label: "Disponível",    value: "available" },
-  { label: "Em preparação", value: "preparing" },
-  { label: "Reservado",     value: "reserved" },
-  { label: "Vendido",       value: "sold" },
+  { label: "Disponível",           value: "AVAILABLE" },
+  { label: "Aguardando Liberação", value: "AWAITING_RELEASE" },
+  { label: "Em Trânsito",          value: "IN_TRANSIT" },
+  { label: "No Pátio",             value: "IN_YARD" },
+  { label: "Em Preparação",        value: "IN_PREPARATION" },
+  { label: "Reservado",            value: "RESERVED" },
+  { label: "Vendido",              value: "SOLD" },
 ]
 
-export const CATEGORY_OPTIONS = [
-  { label: "Hatch",    value: "1" },
-  { label: "Sedan",    value: "2" },
-  { label: "SUV",      value: "3" },
-  { label: "Picape",   value: "4" },
-  { label: "Esportivo", value: "5" },
-]
-
-export const PROVIDER_OPTIONS = [
-  { label: "Auto Peças São Paulo Ltda.",  value: "1" },
-  { label: "Brasil Motors Importação",    value: "2" },
-  { label: "Concessionária Premium SP",   value: "3" },
-  { label: "Distribuidora Nacional Auto", value: "4" },
-]
-
-/* ── Steps pendentes ─────────────────────────────────────────────────────── */
+/* ── Steps ───────────────────────────────────────────────────────────────── */
 
 export type CarStep = "vehicle" | "optionals" | "negotiation" | "costs"
 

@@ -8,7 +8,7 @@ import { EMPLOYEE_STATUS_CONFIG } from "../data/employees.mock"
 
 export const employeeColumns: AppDataTableColumn<Employee>[] = [
   {
-    key: "full_name",
+    key: "fullName",
     header: "Funcionário",
     render: (_, row) => (
       <div className="flex items-center gap-3">
@@ -16,8 +16,8 @@ export const employeeColumns: AppDataTableColumn<Employee>[] = [
           <UserSquare className="size-4 text-brand-600 dark:text-silver-300" />
         </div>
         <div>
-          <p className="font-semibold text-foreground">{row.full_name}</p>
-          <p className="text-xs text-muted-foreground">{row.user.email}</p>
+          <p className="font-semibold text-foreground">{row.fullName}</p>
+          <p className="text-xs text-muted-foreground">{row.role ?? "—"}</p>
         </div>
       </div>
     ),
@@ -39,7 +39,7 @@ export const employeeColumns: AppDataTableColumn<Employee>[] = [
     ),
   },
   {
-    key: "is_active",
+    key: "isActive",
     header: "Status",
     className: "hidden md:table-cell",
     render: (value) => {

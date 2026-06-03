@@ -1,36 +1,38 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, Controller } from "react-hook-form";
-import { Car, DollarSign, Globe } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm, Controller } from "react-hook-form"
+import { Car, DollarSign, Globe } from "lucide-react"
 
-import { AppButton } from "@/components/shared/AppButton";
-import { AppInput } from "@/components/shared/AppInput";
-import { AppSearchSelect } from "@/components/shared/AppSearchSelect";
-import { Button } from "@/components/ui/button";
+import { AppButton } from "@/components/shared/AppButton"
+import { AppInput } from "@/components/shared/AppInput"
+import { AppSearchSelect } from "@/components/shared/AppSearchSelect"
+import { Button } from "@/components/ui/button"
+import { useBrands } from "@/features/brands/hooks/useBrands"
+import { useCategories } from "@/features/categories/hooks/useCategories"
 import {
   carCreateSchema,
   type CarCreateData,
-  BRAND_OPTIONS,
   FUEL_OPTIONS,
   TRANSMISSION_OPTIONS,
   STATUS_OPTIONS,
-  CATEGORY_OPTIONS,
-} from "../data/car.schema";
-import { CheckboxRow } from "./CheckBoxRow";
-import { SectionCard } from "./SectionCard";
+} from "../data/car.schema"
+import { CheckboxRow } from "./CheckBoxRow"
+import { SectionCard } from "./SectionCard"
 
-export type { CarCreateData, CarFormData } from "../data/car.schema";
+export type { CarCreateData, CarFormData } from "../data/car.schema"
 
 interface CarFormProps {
-  onSubmit: (data: CarCreateData) => void;
-  onCancel: () => void;
-  isSubmitting?: boolean;
+  onSubmit: (data: CarCreateData) => void
+  onCancel: () => void
+  isSubmitting?: boolean
 }
 
-export function CarForm({
-  onSubmit,
-  onCancel,
-  isSubmitting = false,
-}: CarFormProps) {
+export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormProps) {
+  const { data: brandsData } = useBrands({ limit: 100 })
+  const { data: categoriesData } = useCategories({ limit: 100 })
+
+  const brandOptions = brandsData?.data.map((b) => ({ label: b.name, value: b.id })) ?? []
+  const categoryOptions = categoriesData?.data.map((c) => ({ label: c.name, value: c.id })) ?? []
+
   const {
     register,
     handleSubmit,
@@ -39,11 +41,11 @@ export function CarForm({
   } = useForm<CarCreateData>({
     resolver: zodResolver(carCreateSchema),
     defaultValues: {
-      is_public: false,
-      is_b2b: false,
-      is_b2c: false,
+      isPublished:  false,
+      isB2bVisible: false,
+      isB2cVisible: false,
     },
-  });
+  })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -55,8 +57,8 @@ export function CarForm({
         <AppInput
           label="Placa"
           placeholder="ABC-1D23"
-          error={errors.plate?.message}
-          {...register("plate")}
+          error={errors.licensePlate?.message}
+          {...register("licensePlate")}
         />
         <AppInput
           label="Renavam"
@@ -72,17 +74,17 @@ export function CarForm({
         />
 
         <Controller
-          name="brand"
+          name="brandId"
           control={control}
           render={({ field }) => (
             <AppSearchSelect
               label="Marca"
-              options={BRAND_OPTIONS}
+              options={brandOptions}
               value={field.value}
               onChange={field.onChange}
               placeholder="Selecione a marca..."
               searchPlaceholder="Buscar marca..."
-              error={errors.brand?.message}
+              error={errors.brandId?.message}
             />
           )}
         />
@@ -103,15 +105,15 @@ export function CarForm({
           label="Ano de Fabricação"
           type="number"
           placeholder="Ex.: 2024"
-          error={errors.year_manufacture?.message}
-          {...register("year_manufacture")}
+          error={errors.manufactureYear?.message}
+          {...register("manufactureYear")}
         />
         <AppInput
           label="Ano do Modelo"
           type="number"
           placeholder="Ex.: 2025"
-          error={errors.year_model?.message}
-          {...register("year_model")}
+          error={errors.modelYear?.message}
+          {...register("modelYear")}
         />
         <AppInput
           label="Quilometragem"
@@ -122,7 +124,7 @@ export function CarForm({
         />
 
         <Controller
-          name="fuel"
+          name="fuelType"
           control={control}
           render={({ field }) => (
             <AppSearchSelect
@@ -131,7 +133,7 @@ export function CarForm({
               value={field.value}
               onChange={field.onChange}
               placeholder="Selecione..."
-              error={errors.fuel?.message}
+              error={errors.fuelType?.message}
             />
           )}
         />
@@ -157,25 +159,23 @@ export function CarForm({
         />
 
         <Controller
-          name="category_id"
+          name="categoryId"
           control={control}
           render={({ field }) => (
             <AppSearchSelect
               label="Categoria"
-              options={CATEGORY_OPTIONS}
+              options={categoryOptions}
               value={field.value}
               onChange={field.onChange}
               placeholder="Selecione..."
-              error={errors.category_id?.message}
+              error={errors.categoryId?.message}
             />
           )}
         />
       </SectionCard>
 
       <SectionCard
-        icon={
-          <DollarSign className="size-4 text-brand-600 dark:text-silver-300" />
-        }
+        icon={<DollarSign className="size-4 text-brand-600 dark:text-silver-300" />}
         title="Precificação"
         description="Valores de venda e status inicial do veículo"
       >
@@ -184,8 +184,8 @@ export function CarForm({
           type="number"
           hint="Opcional"
           placeholder="Ex.: 120000"
-          error={errors.old_price?.message}
-          {...register("old_price")}
+          error={errors.oldPrice?.message}
+          {...register("oldPrice")}
         />
         <AppInput
           label="Preço"
@@ -218,7 +218,7 @@ export function CarForm({
       >
         <div className="flex flex-col gap-3">
           <Controller
-            name="is_public"
+            name="isPublished"
             control={control}
             render={({ field }) => (
               <CheckboxRow
@@ -230,7 +230,7 @@ export function CarForm({
             )}
           />
           <Controller
-            name="is_b2b"
+            name="isB2bVisible"
             control={control}
             render={({ field }) => (
               <CheckboxRow
@@ -242,7 +242,7 @@ export function CarForm({
             )}
           />
           <Controller
-            name="is_b2c"
+            name="isB2cVisible"
             control={control}
             render={({ field }) => (
               <CheckboxRow
@@ -257,22 +257,13 @@ export function CarForm({
       </SectionCard>
 
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={onCancel}
-          className="w-full sm:w-auto"
-        >
+        <Button type="button" variant="outline" onClick={onCancel} className="w-full sm:w-auto">
           Cancelar
         </Button>
-        <AppButton
-          type="submit"
-          isLoading={isSubmitting}
-          className="w-full sm:w-auto"
-        >
+        <AppButton type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
           Criar e continuar
         </AppButton>
       </div>
     </form>
-  );
+  )
 }

@@ -1,15 +1,29 @@
 import { useNavigate } from "@tanstack/react-router"
+import { toast } from "sonner"
 
 import { AppPageHeader } from "@/components/shared/AppPageHeader"
 import { CustomerForm, type CustomerFormData } from "../components/CustomerForm"
+import { useCreateCustomer } from "../hooks/useCustomerMutations"
 
 export function CustomerCreatePage() {
   const navigate = useNavigate()
+  const createCustomer = useCreateCustomer()
 
-  function handleSubmit(data: CustomerFormData) {
-    // TODO: conectar ao serviço real
-    console.warn("Criar cliente:", data)
-    navigate({ to: "/customers" })
+  async function handleSubmit(data: CustomerFormData) {
+    try {
+      await createCustomer.mutateAsync({
+        fullName:   data.full_name,
+        personType: data.person_type,
+        document:   data.document,
+        email:      data.email,
+        phone:      data.phone || undefined,
+        isActive:   data.is_active === "true",
+      })
+      toast.success("Cliente cadastrado com sucesso")
+      navigate({ to: "/customers" })
+    } catch {
+      toast.error("Erro ao cadastrar cliente")
+    }
   }
 
   function handleCancel() {
@@ -27,6 +41,7 @@ export function CustomerCreatePage() {
       <CustomerForm
         onSubmit={handleSubmit}
         onCancel={handleCancel}
+        isSubmitting={createCustomer.isPending}
       />
     </div>
   )

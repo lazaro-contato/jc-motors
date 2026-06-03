@@ -15,14 +15,14 @@ export function CostsTab() {
       <AppInput
         label="Preço de compra"
         type="number"
-        error={errors.purchase_price?.message}
-        {...register("purchase_price")}
+        error={errors.purchasePrice?.message}
+        {...register("purchasePrice")}
       />
       <AppInput
         label="Custos de reparo"
         type="number"
-        error={errors.repair_cost?.message}
-        {...register("repair_cost")}
+        error={errors.repairCost?.message}
+        {...register("repairCost")}
       />
     </div>
   )

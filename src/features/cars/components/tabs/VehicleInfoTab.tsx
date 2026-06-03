@@ -2,9 +2,9 @@ import { Controller, useFormContext } from "react-hook-form"
 
 import { AppInput } from "@/components/shared/AppInput"
 import { AppSearchSelect } from "@/components/shared/AppSearchSelect"
+import { useBrands } from "@/features/brands/hooks/useBrands"
+import { useCategories } from "@/features/categories/hooks/useCategories"
 import {
-  BRAND_OPTIONS,
-  CATEGORY_OPTIONS,
   FUEL_OPTIONS,
   STATUS_OPTIONS,
   TRANSMISSION_OPTIONS,
@@ -18,35 +18,41 @@ export function VehicleInfoTab() {
     formState: { errors },
   } = useFormContext<CarEditData>()
 
+  const { data: brandsData } = useBrands({ limit: 100 })
+  const { data: categoriesData } = useCategories({ limit: 100 })
+
+  const brandOptions = brandsData?.data.map((b) => ({ label: b.name, value: b.id })) ?? []
+  const categoryOptions = categoriesData?.data.map((c) => ({ label: c.name, value: c.id })) ?? []
+
   return (
     <div className="grid gap-4 md:grid-cols-3 md:gap-5">
-      <AppInput label="Placa" error={errors.plate?.message} {...register("plate")} />
+      <AppInput label="Placa" error={errors.licensePlate?.message} {...register("licensePlate")} />
       <AppInput label="Renavam" error={errors.renavam?.message} {...register("renavam")} />
       <AppInput label="Chassi" error={errors.chassis?.message} {...register("chassis")} />
 
       <Controller
-        name="brand"
+        name="brandId"
         control={control}
         render={({ field }) => (
           <AppSearchSelect
             label="Marca"
-            options={BRAND_OPTIONS}
+            options={brandOptions}
             value={field.value}
             onChange={field.onChange}
             placeholder="Selecione..."
-            error={errors.brand?.message}
+            error={errors.brandId?.message}
           />
         )}
       />
       <AppInput label="Modelo" error={errors.model?.message} {...register("model")} />
       <AppInput label="Cor" error={errors.color?.message} {...register("color")} />
 
-      <AppInput label="Ano de Fabricação" type="number" error={errors.year_manufacture?.message} {...register("year_manufacture")} />
-      <AppInput label="Ano do Modelo" type="number" error={errors.year_model?.message} {...register("year_model")} />
+      <AppInput label="Ano de Fabricação" type="number" error={errors.manufactureYear?.message} {...register("manufactureYear")} />
+      <AppInput label="Ano do Modelo" type="number" error={errors.modelYear?.message} {...register("modelYear")} />
       <AppInput label="Quilometragem" type="number" error={errors.mileage?.message} {...register("mileage")} />
 
       <Controller
-        name="fuel"
+        name="fuelType"
         control={control}
         render={({ field }) => (
           <AppSearchSelect
@@ -55,7 +61,7 @@ export function VehicleInfoTab() {
             value={field.value}
             onChange={field.onChange}
             placeholder="Selecione..."
-            error={errors.fuel?.message}
+            error={errors.fuelType?.message}
           />
         )}
       />
@@ -76,20 +82,20 @@ export function VehicleInfoTab() {
       />
 
       <Controller
-        name="category_id"
+        name="categoryId"
         control={control}
         render={({ field }) => (
           <AppSearchSelect
             label="Categoria"
-            options={CATEGORY_OPTIONS}
+            options={categoryOptions}
             value={field.value}
             onChange={field.onChange}
             placeholder="Selecione..."
-            error={errors.category_id?.message}
+            error={errors.categoryId?.message}
           />
         )}
       />
-      <AppInput label="Preço antigo" type="number" hint="Opcional" error={errors.old_price?.message} {...register("old_price")} />
+      <AppInput label="Preço antigo" type="number" hint="Opcional" error={errors.oldPrice?.message} {...register("oldPrice")} />
       <AppInput label="Preço" type="number" error={errors.price?.message} {...register("price")} />
 
       <Controller

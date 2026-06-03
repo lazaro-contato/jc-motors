@@ -1,17 +1,22 @@
 import { useNavigate } from "@tanstack/react-router"
+import { toast } from "sonner"
 
 import { AppPageHeader } from "@/components/shared/AppPageHeader"
-
+import { useCreateVehicle } from "../hooks/useVehicleMutations"
 import { CarForm, type CarCreateData } from "../components/CarForm"
 
 export function CarCreatePage() {
   const navigate = useNavigate()
+  const createVehicle = useCreateVehicle()
 
-  function handleSubmit(data: CarCreateData) {
-    // TODO: conectar ao serviço real — usar ID retornado pelo backend
-    console.warn("Cadastrar veículo:", data)
-    const newId = String(Date.now())
-    navigate({ to: "/cars/$id/edit", params: { id: newId } })
+  async function handleSubmit(data: CarCreateData) {
+    try {
+      const vehicle = await createVehicle.mutateAsync(data)
+      toast.success("Veículo cadastrado com sucesso")
+      navigate({ to: "/cars/$id/edit", params: { id: vehicle.id } })
+    } catch {
+      toast.error("Erro ao cadastrar veículo")
+    }
   }
 
   function handleCancel() {
@@ -29,6 +34,7 @@ export function CarCreatePage() {
       <CarForm
         onSubmit={handleSubmit}
         onCancel={handleCancel}
+        isSubmitting={createVehicle.isPending}
       />
     </div>
   )

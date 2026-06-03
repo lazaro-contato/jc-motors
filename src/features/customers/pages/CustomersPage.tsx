@@ -7,22 +7,15 @@ import { AppDataTable } from "@/components/shared/AppDataTable"
 import { AppPageHeader } from "@/components/shared/AppPageHeader"
 
 import { customerColumns } from "../components/CustomersTable"
-import { CUSTOMERS } from "../data/customers.mock"
+import { useCustomers } from "../hooks/useCustomers"
+
+const PAGE_SIZE = 10
 
 export function CustomersPage() {
   const navigate = useNavigate()
-  const [query, setQuery] = useState("")
   const [page, setPage] = useState(1)
-  const PAGE_SIZE = 10
 
-  const filtered = CUSTOMERS.filter(
-    (c) =>
-      c.full_name.toLowerCase().includes(query.toLowerCase()) ||
-      c.email.toLowerCase().includes(query.toLowerCase()) ||
-      c.document.includes(query),
-  )
-
-  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  const { data } = useCustomers({ page, limit: PAGE_SIZE })
 
   return (
     <div className="space-y-6">
@@ -37,19 +30,15 @@ export function CustomersPage() {
         }
       />
 
-      {/* Table */}
       <AppDataTable
         columns={customerColumns}
-        data={paginated}
-        total={filtered.length}
+        data={data?.data ?? []}
+        total={data?.total ?? 0}
         page={page}
         pageSize={PAGE_SIZE}
         onPageChange={setPage}
         searchPlaceholder="Buscar por nome, e-mail ou documento..."
-        onSearch={(q) => {
-          setQuery(q)
-          setPage(1)
-        }}
+        onSearch={() => setPage(1)}
         emptyText="Nenhum cliente encontrado."
       />
     </div>

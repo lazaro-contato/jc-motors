@@ -7,22 +7,15 @@ import { AppDataTable } from "@/components/shared/AppDataTable"
 import { AppPageHeader } from "@/components/shared/AppPageHeader"
 
 import { employeeColumns } from "../components/EmployeesTable"
-import { EMPLOYEES } from "../data/employees.mock"
+import { useEmployees } from "../hooks/useEmployees"
+
+const PAGE_SIZE = 10
 
 export function EmployeesPage() {
   const navigate = useNavigate()
-  const [query, setQuery] = useState("")
   const [page, setPage] = useState(1)
-  const PAGE_SIZE = 10
 
-  const filtered = EMPLOYEES.filter(
-    (e) =>
-      e.full_name.toLowerCase().includes(query.toLowerCase()) ||
-      e.user.email.toLowerCase().includes(query.toLowerCase()) ||
-      (e.role ?? "").toLowerCase().includes(query.toLowerCase()),
-  )
-
-  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  const { data } = useEmployees({ page, limit: PAGE_SIZE })
 
   return (
     <div className="space-y-6">
@@ -39,16 +32,13 @@ export function EmployeesPage() {
 
       <AppDataTable
         columns={employeeColumns}
-        data={paginated}
-        total={filtered.length}
+        data={data?.data ?? []}
+        total={data?.total ?? 0}
         page={page}
         pageSize={PAGE_SIZE}
         onPageChange={setPage}
-        searchPlaceholder="Buscar por nome, e-mail ou cargo..."
-        onSearch={(q) => {
-          setQuery(q)
-          setPage(1)
-        }}
+        searchPlaceholder="Buscar por nome ou cargo..."
+        onSearch={() => setPage(1)}
         emptyText="Nenhum funcionário encontrado."
       />
     </div>

@@ -25,8 +25,8 @@ export function NegotiationTab() {
           label="Observações da negociação"
           placeholder="Anote condições, contrapropostas e detalhes acordados..."
           rows={5}
-          error={errors.negotiation_notes?.message}
-          {...register("negotiation_notes")}
+          error={errors.negotiationNotes?.message}
+          {...register("negotiationNotes")}
         />
       </div>
     </div>

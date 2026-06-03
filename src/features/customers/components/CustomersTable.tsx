@@ -8,7 +8,7 @@ import { CUSTOMER_STATUS_CONFIG, PERSON_TYPE_CONFIG } from "../data/customers.mo
 
 export const customerColumns: AppDataTableColumn<Customer>[] = [
   {
-    key: "full_name",
+    key: "fullName",
     header: "Cliente",
     render: (_, row) => (
       <div className="flex items-center gap-3">
@@ -16,14 +16,14 @@ export const customerColumns: AppDataTableColumn<Customer>[] = [
           <Users className="size-4 text-brand-600 dark:text-silver-300" />
         </div>
         <div>
-          <p className="font-semibold text-foreground">{row.full_name}</p>
+          <p className="font-semibold text-foreground">{row.fullName}</p>
           <p className="text-xs text-muted-foreground">{row.email}</p>
         </div>
       </div>
     ),
   },
   {
-    key: "person_type",
+    key: "personType",
     header: "Tipo",
     className: "hidden sm:table-cell",
     render: (value) => {
@@ -33,7 +33,9 @@ export const customerColumns: AppDataTableColumn<Customer>[] = [
         <span
           className={cn(
             "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold",
-            isPF ? "bg-silver-100 text-brand-600 dark:bg-silver-800 dark:text-silver-300" : "bg-info-bg text-info",
+            isPF
+              ? "bg-silver-100 text-brand-600 dark:bg-silver-800 dark:text-silver-300"
+              : "bg-info-bg text-info",
           )}
         >
           {cfg.short}
@@ -55,7 +57,7 @@ export const customerColumns: AppDataTableColumn<Customer>[] = [
     ),
   },
   {
-    key: "is_active",
+    key: "isActive",
     header: "Status",
     render: (value) => {
       const key = value ? "active" : "inactive"
