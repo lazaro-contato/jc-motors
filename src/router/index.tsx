@@ -5,9 +5,9 @@ import AppLayout from '@/components/layout/AppLayout'
 import DashboardPage from '@/features/dashboard/pages/DashboardPage'
 import { LoginPage } from '@/features/auth/pages/LoginPage'
 import DesignSystemPage from '@/features/dashboard/pages/DesignSystemPage'
-import { CarsPage } from '@/features/cars/pages/CarsPage'
-import { CarCreatePage } from '@/features/cars/pages/CarCreatePage'
-import { CarEditPage } from '@/features/cars/pages/CarEditPage'
+import { VehiclesPage } from '@/features/vehicles/pages/VehiclesPage'
+import { VehicleCreatePage } from '@/features/vehicles/pages/VehicleCreatePage'
+import { VehicleEditPage } from '@/features/vehicles/pages/VehicleEditPage'
 import ProvidersPage from '@/features/providers/pages/ProvidersPage'
 import ProviderCreatePage from '@/features/providers/pages/ProviderCreatePage'
 import { CustomersPage } from '@/features/customers/pages/CustomersPage'
@@ -18,6 +18,7 @@ import { SalesPage } from '@/features/sales/pages/SalesPage'
 import { SaleCreatePage } from '@/features/sales/pages/SaleCreatePage'
 import { MyTasksPage } from '@/features/workflow/pages/MyTasksPage'
 import { OptionalsPage } from '@/features/optionals/pages/OptionalsPage'
+import { ProfileCreatePage } from '@/features/optionals/pages/ProfileCreatePage'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -46,22 +47,22 @@ const dashboardRoute = createRoute({
   component: DashboardPage,
 })
 
-const carsRoute = createRoute({
+const vehiclesRoute = createRoute({
   getParentRoute: () => appRoute,
-  path: '/cars',
-  component: CarsPage,
+  path: '/vehicles',
+  component: VehiclesPage,
 })
 
-const carCreateRoute = createRoute({
+const vehicleCreateRoute = createRoute({
   getParentRoute: () => appRoute,
-  path: '/cars/new',
-  component: CarCreatePage,
+  path: '/vehicles/new',
+  component: VehicleCreatePage,
 })
 
-const carEditRoute = createRoute({
+const vehicleEditRoute = createRoute({
   getParentRoute: () => appRoute,
-  path: '/cars/$id/edit',
-  component: CarEditPage,
+  path: '/vehicles/$id/edit',
+  component: VehicleEditPage,
 })
 
 const designSystemRoute = createRoute({
@@ -130,13 +131,19 @@ const optionalsRoute = createRoute({
   component: OptionalsPage,
 })
 
+const profileCreateRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: '/optionals/profiles/new',
+  component: ProfileCreatePage,
+})
+
 const routeTree = rootRoute.addChildren([
   loginRoute,
   appRoute.addChildren([
     dashboardRoute,
-    carsRoute,
-    carCreateRoute,
-    carEditRoute,
+    vehiclesRoute,
+    vehicleCreateRoute,
+    vehicleEditRoute,
     designSystemRoute,
     providersRoute,
     providerCreateRoute,
@@ -148,6 +155,7 @@ const routeTree = rootRoute.addChildren([
     saleCreateRoute,
     myTasksRoute,
     optionalsRoute,
+    profileCreateRoute,
   ]),
 ])
 

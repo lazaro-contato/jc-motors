@@ -11,21 +11,21 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useUnsavedChangesGuard } from "@/hooks/useUnsavedChangesGuard"
 
-import { CarEditTabs } from "../components/CarEditTabs"
-import { carEditSchema, type CarEditData, type CarStep } from "../data/car.schema"
+import { VehicleEditTabs } from "../components/VehicleEditTabs"
+import { vehicleEditSchema, type VehicleEditData, type VehicleStep } from "../data/vehicle.schema"
 import { useVehicle } from "../hooks/useVehicle"
 import { useUpdateVehicle } from "../hooks/useVehicleMutations"
 
-export function CarEditPage() {
+export function VehicleEditPage() {
   const navigate = useNavigate()
   const { id } = useParams({ strict: false }) as { id: string }
-  const [activeTab, setActiveTab] = useState<CarStep>("vehicle")
+  const [activeTab, setActiveTab] = useState<VehicleStep>("vehicle")
 
   const { data: vehicle, isPending: isLoading } = useVehicle(id)
   const updateVehicle = useUpdateVehicle()
 
-  const form = useForm<CarEditData>({
-    resolver: zodResolver(carEditSchema),
+  const form = useForm<VehicleEditData>({
+    resolver: zodResolver(vehicleEditSchema),
   })
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export function CarEditPage() {
   const isDirty = form.formState.isDirty
   const guard = useUnsavedChangesGuard(isDirty)
 
-  async function persist(data: CarEditData) {
+  async function persist(data: VehicleEditData) {
     try {
       const { optionals: _o, negotiationNotes: _n, discount: _d, purchasePrice: _p, repairCost: _r, ...vehicleFields } = data
       await updateVehicle.mutateAsync({ id, dto: vehicleFields })
@@ -71,7 +71,7 @@ export function CarEditPage() {
   function handleSaveAndExit() {
     form.handleSubmit(async (data) => {
       await persist(data)
-      navigate({ to: "/cars" })
+      navigate({ to: "/vehicles" })
     })()
   }
 
@@ -85,7 +85,7 @@ export function CarEditPage() {
         <AppPageHeader
           title="Editar Veículo"
           subtitle="Carregando..."
-          onBack={() => navigate({ to: "/cars" })}
+          onBack={() => navigate({ to: "/vehicles" })}
         />
       </div>
     )
@@ -96,13 +96,13 @@ export function CarEditPage() {
       <AppPageHeader
         title="Editar Veículo"
         subtitle={`Placa ${vehicle?.licensePlate ?? id} · complete as informações do veículo`}
-        onBack={() => navigate({ to: "/cars" })}
+        onBack={() => navigate({ to: "/vehicles" })}
       />
 
       <FormProvider {...form}>
         <Card>
           <CardContent className="pt-6">
-            <CarEditTabs
+            <VehicleEditTabs
               value={activeTab}
               onValueChange={setActiveTab}
               pendingSteps={[]}
@@ -111,7 +111,7 @@ export function CarEditPage() {
         </Card>
 
         <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-          <Button type="button" variant="outline" onClick={() => navigate({ to: "/cars" })}>
+          <Button type="button" variant="outline" onClick={() => navigate({ to: "/vehicles" })}>
             Cancelar
           </Button>
           <Button

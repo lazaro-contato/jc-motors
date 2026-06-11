@@ -3,7 +3,7 @@ import { Car } from "lucide-react"
 import { type AppDataTableColumn } from "@/components/shared/AppDataTable"
 import { cn } from "@/lib/utils"
 import { formatCurrency, formatMileage } from "@/utils/formatters"
-import type { Vehicle, VehicleStatus } from "@/types/cars"
+import type { Vehicle, VehicleStatus } from "@/types/vehicles"
 
 const STATUS_CONFIG: Record<VehicleStatus, { label: string; className: string }> = {
   AVAILABLE:        { label: "Disponível",      className: "bg-success-bg text-success" },

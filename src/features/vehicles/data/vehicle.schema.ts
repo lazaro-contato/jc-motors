@@ -2,7 +2,7 @@ import { z } from "zod"
 
 /* ── Create schema ───────────────────────────────────────────────────────── */
 
-export const carCreateSchema = z.object({
+export const vehicleCreateSchema = z.object({
   licensePlate:    z.string().min(7, "Placa inválida"),
   renavam:         z.string().min(1, "Informe o Renavam"),
   chassis:         z.string().min(1, "Informe o chassi"),
@@ -31,11 +31,11 @@ export const carCreateSchema = z.object({
                    ),
 })
 
-export type CarCreateData = z.infer<typeof carCreateSchema>
+export type VehicleCreateData = z.infer<typeof vehicleCreateSchema>
 
 /* ── Edit schema ─────────────────────────────────────────────────────────── */
 
-export const carEditSchema = carCreateSchema.extend({
+export const vehicleEditSchema = vehicleCreateSchema.extend({
   optionals:        z.array(z.string()).default([]),
   negotiationNotes: z.string().optional(),
   discount:         z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().min(0).optional()),
@@ -43,12 +43,12 @@ export const carEditSchema = carCreateSchema.extend({
   repairCost:       z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().min(0).optional()),
 })
 
-export type CarEditData = z.infer<typeof carEditSchema>
+export type VehicleEditData = z.infer<typeof vehicleEditSchema>
 
 /* ── Backwards compat ────────────────────────────────────────────────────── */
 
-export const carSchema = carCreateSchema
-export type CarFormData = CarCreateData
+export const vehicleSchema = vehicleCreateSchema
+export type VehicleFormData = VehicleCreateData
 
 /* ── Select options ──────────────────────────────────────────────────────── */
 
@@ -82,9 +82,9 @@ export const STATUS_OPTIONS = [
 
 /* ── Steps ───────────────────────────────────────────────────────────────── */
 
-export type CarStep = "vehicle" | "optionals" | "negotiation" | "costs"
+export type VehicleStep = "vehicle" | "optionals" | "negotiation" | "costs"
 
-export const CAR_STEPS: { id: CarStep; label: string }[] = [
+export const VEHICLE_STEPS: { id: VehicleStep; label: string }[] = [
   { id: "vehicle",     label: "Informações do Veículo" },
   { id: "optionals",   label: "Opcionais" },
   { id: "negotiation", label: "Negociação" },

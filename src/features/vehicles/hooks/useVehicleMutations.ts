@@ -5,7 +5,7 @@ import { vehiclesService } from "../services/vehicles.service"
 import { brandsKeys } from "@/features/brands/hooks/queries"
 import { categoriesKeys } from "@/features/categories/hooks/queries"
 
-import type { CreateVehicleDTO, UpdateVehicleDTO } from "@/types/cars"
+import type { CreateVehicleDTO, UpdateVehicleDTO } from "@/types/vehicles"
 
 export function useCreateVehicle() {
   const queryClient = useQueryClient()

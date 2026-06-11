@@ -45,7 +45,7 @@ const navGroups: NavGroup[] = [
   {
     title: "Cadastros",
     items: [
-      { label: "Veículos", to: "/cars", icon: <Car className="size-[18px]" /> },
+      { label: "Veículos", to: "/vehicles", icon: <Car className="size-[18px]" /> },
       {
         label: "Opcionais",
         to: "/optionals",

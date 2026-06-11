@@ -1,4 +1,4 @@
-import type { FuelType, TransmissionType, VehicleStatus } from "@/types/cars"
+import type { FuelType, TransmissionType, VehicleStatus } from "@/types/vehicles"
 import type { CustomerType } from "@/types/customers"
 import type { TransactionStatus, TransactionType } from "@/types/financial"
 

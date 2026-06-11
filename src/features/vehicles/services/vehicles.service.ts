@@ -4,7 +4,7 @@ import type {
   CreateVehicleDTO,
   UpdateVehicleDTO,
   Vehicle,
-} from "@/types/cars"
+} from "@/types/vehicles"
 
 export const vehiclesService = {
   list: (params: PaginationParams = {}) =>

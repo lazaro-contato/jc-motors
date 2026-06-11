@@ -1,28 +1,28 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
-import { CAR_STEPS, type CarStep } from "../data/car.schema";
+import { VEHICLE_STEPS, type VehicleStep } from "../data/vehicle.schema";
 
 import { CostsTab } from "./tabs/CostsTab";
 import { NegotiationTab } from "./tabs/NegotiationTab";
 import { OptionalsTab } from "./tabs/OptionalsTab";
 import { VehicleInfoTab } from "./tabs/VehicleInfoTab";
 
-interface CarEditTabsProps {
-  value: CarStep;
-  onValueChange: (value: CarStep) => void;
-  pendingSteps: CarStep[];
+interface VehicleEditTabsProps {
+  value: VehicleStep;
+  onValueChange: (value: VehicleStep) => void;
+  pendingSteps: VehicleStep[];
 }
 
-export function CarEditTabs({
+export function VehicleEditTabs({
   value,
   onValueChange,
   pendingSteps,
-}: CarEditTabsProps) {
+}: VehicleEditTabsProps) {
   return (
-    <Tabs value={value} onValueChange={(v) => onValueChange(v as CarStep)}>
+    <Tabs value={value} onValueChange={(v) => onValueChange(v as VehicleStep)}>
       <TabsList className="h-auto w-full justify-start gap-2 bg-transparent p-0">
-        {CAR_STEPS.map((step) => {
+        {VEHICLE_STEPS.map((step) => {
           const isPending = pendingSteps.includes(step.id);
           return (
             <TabsTrigger

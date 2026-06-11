@@ -8,15 +8,15 @@ import {
   FUEL_OPTIONS,
   STATUS_OPTIONS,
   TRANSMISSION_OPTIONS,
-  type CarEditData,
-} from "../../data/car.schema"
+  type VehicleEditData,
+} from "../../data/vehicle.schema"
 
 export function VehicleInfoTab() {
   const {
     register,
     control,
     formState: { errors },
-  } = useFormContext<CarEditData>()
+  } = useFormContext<VehicleEditData>()
 
   const { data: brandsData } = useBrands({ limit: 100 })
   const { data: categoriesData } = useCategories({ limit: 100 })

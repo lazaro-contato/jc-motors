@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 import { brandsKeys } from "./queries"
 import { brandsService } from "../services/brands.service"
-import { vehiclesKeys } from "@/features/cars/hooks/queries"
+import { vehiclesKeys } from "@/features/vehicles/hooks/queries"
 
 import type { CreateBrandDTO, UpdateBrandDTO } from "@/types/brand"
 

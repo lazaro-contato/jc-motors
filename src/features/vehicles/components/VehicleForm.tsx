@@ -9,24 +9,24 @@ import { Button } from "@/components/ui/button"
 import { useBrands } from "@/features/brands/hooks/useBrands"
 import { useCategories } from "@/features/categories/hooks/useCategories"
 import {
-  carCreateSchema,
-  type CarCreateData,
+  vehicleCreateSchema,
+  type VehicleCreateData,
   FUEL_OPTIONS,
   TRANSMISSION_OPTIONS,
   STATUS_OPTIONS,
-} from "../data/car.schema"
+} from "../data/vehicle.schema"
 import { CheckboxRow } from "./CheckBoxRow"
 import { SectionCard } from "./SectionCard"
 
-export type { CarCreateData, CarFormData } from "../data/car.schema"
+export type { VehicleCreateData, VehicleFormData } from "../data/vehicle.schema"
 
-interface CarFormProps {
-  onSubmit: (data: CarCreateData) => void
+interface VehicleFormProps {
+  onSubmit: (data: VehicleCreateData) => void
   onCancel: () => void
   isSubmitting?: boolean
 }
 
-export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormProps) {
+export function VehicleForm({ onSubmit, onCancel, isSubmitting = false }: VehicleFormProps) {
   const { data: brandsData } = useBrands({ limit: 100 })
   const { data: categoriesData } = useCategories({ limit: 100 })
 
@@ -38,8 +38,8 @@ export function CarForm({ onSubmit, onCancel, isSubmitting = false }: CarFormPro
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<CarCreateData>({
-    resolver: zodResolver(carCreateSchema),
+  } = useForm<VehicleCreateData>({
+    resolver: zodResolver(vehicleCreateSchema),
     defaultValues: {
       isPublished:  false,
       isB2bVisible: false,

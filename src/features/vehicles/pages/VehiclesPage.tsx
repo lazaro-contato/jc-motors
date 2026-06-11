@@ -8,11 +8,11 @@ import { AppPageHeader } from "@/components/shared/AppPageHeader"
 import { Button } from "@/components/ui/button"
 import { useVehicles } from "../hooks/useVehicles"
 import { vehicleBaseColumns } from "../components/VehiclesTable"
-import type { Vehicle } from "@/types/cars"
+import type { Vehicle } from "@/types/vehicles"
 
 const PAGE_SIZE = 10
 
-export function CarsPage() {
+export function VehiclesPage() {
   const navigate = useNavigate()
   const [page, setPage] = useState(1)
 
@@ -40,7 +40,7 @@ export function CarsPage() {
               variant="ghost"
               size="icon"
               className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
-              onClick={() => navigate({ to: "/cars/$id/edit", params: { id: row.id } })}
+              onClick={() => navigate({ to: "/vehicles/$id/edit", params: { id: row.id } })}
             >
               <Pencil className="size-3.5" />
             </Button>
@@ -68,7 +68,7 @@ export function CarsPage() {
           <AppButton
             intent="default"
             className="gap-2"
-            onClick={() => navigate({ to: "/cars/new" })}
+            onClick={() => navigate({ to: "/vehicles/new" })}
           >
             <Plus className="size-4" />
             Novo Veículo

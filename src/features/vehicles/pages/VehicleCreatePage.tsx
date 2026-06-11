@@ -3,24 +3,24 @@ import { toast } from "sonner"
 
 import { AppPageHeader } from "@/components/shared/AppPageHeader"
 import { useCreateVehicle } from "../hooks/useVehicleMutations"
-import { CarForm, type CarCreateData } from "../components/CarForm"
+import { VehicleForm, type VehicleCreateData } from "../components/VehicleForm"
 
-export function CarCreatePage() {
+export function VehicleCreatePage() {
   const navigate = useNavigate()
   const createVehicle = useCreateVehicle()
 
-  async function handleSubmit(data: CarCreateData) {
+  async function handleSubmit(data: VehicleCreateData) {
     try {
       const vehicle = await createVehicle.mutateAsync(data)
       toast.success("Veículo cadastrado com sucesso")
-      navigate({ to: "/cars/$id/edit", params: { id: vehicle.id } })
+      navigate({ to: "/vehicles/$id/edit", params: { id: vehicle.id } })
     } catch {
       toast.error("Erro ao cadastrar veículo")
     }
   }
 
   function handleCancel() {
-    navigate({ to: "/cars" })
+    navigate({ to: "/vehicles" })
   }
 
   return (
@@ -31,7 +31,7 @@ export function CarCreatePage() {
         onBack={handleCancel}
       />
 
-      <CarForm
+      <VehicleForm
         onSubmit={handleSubmit}
         onCancel={handleCancel}
         isSubmitting={createVehicle.isPending}

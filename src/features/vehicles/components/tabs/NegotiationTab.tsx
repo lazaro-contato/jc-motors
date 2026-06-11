@@ -3,13 +3,13 @@ import { useFormContext } from "react-hook-form"
 import { AppInput } from "@/components/shared/AppInput"
 import { AppTextarea } from "@/components/shared/AppTextarea"
 
-import type { CarEditData } from "../../data/car.schema"
+import type { VehicleEditData } from "../../data/vehicle.schema"
 
 export function NegotiationTab() {
   const {
     register,
     formState: { errors },
-  } = useFormContext<CarEditData>()
+  } = useFormContext<VehicleEditData>()
 
   return (
     <div className="grid gap-4 md:grid-cols-2 md:gap-5">

@@ -8,10 +8,10 @@ import {
 import { OptionalsEmptyState } from "../optionals/OptionalsEmptyState";
 import { OptionalsLoadingSkeleton } from "../optionals/OptionalsLoadingSkeleton";
 
-import type { CarEditData } from "../../data/car.schema";
+import type { VehicleEditData } from "../../data/vehicle.schema";
 
 export function OptionalsTab() {
-  const { watch, setValue } = useFormContext<CarEditData>();
+  const { watch, setValue } = useFormContext<VehicleEditData>();
   const assignedIds = watch("optionals") ?? [];
 
   const { data, isPending, isError } = useGetOptionals();
