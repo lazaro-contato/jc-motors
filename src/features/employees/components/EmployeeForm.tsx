@@ -4,6 +4,7 @@ import { KeyRound, UserSquare } from "lucide-react"
 
 import { AppButton } from "@/components/shared/AppButton"
 import { AppInput } from "@/components/shared/AppInput"
+import { AppPhoneInput } from "@/components/shared/AppPhoneInput"
 import { AppSelect } from "@/components/shared/AppSelect"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
@@ -107,10 +108,7 @@ export function EmployeeForm({ onSubmit, onCancel, isSubmitting = false }: Emplo
             error={errors.role?.message}
             {...register("role")}
           />
-          <AppInput
-            label="Telefone"
-            type="tel"
-            placeholder="(00) 00000-0000"
+          <AppPhoneInput
             error={errors.phone?.message}
             {...register("phone")}
           />

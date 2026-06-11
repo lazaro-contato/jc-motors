@@ -3,7 +3,10 @@ import { useForm } from "react-hook-form"
 import { Users } from "lucide-react"
 
 import { AppButton } from "@/components/shared/AppButton"
+import { AppCNPJInput } from "@/components/shared/AppCNPJInput"
+import { AppCPFInput } from "@/components/shared/AppCPFInput"
 import { AppInput } from "@/components/shared/AppInput"
+import { AppPhoneInput } from "@/components/shared/AppPhoneInput"
 import { AppSelect } from "@/components/shared/AppSelect"
 import { AppTextarea } from "@/components/shared/AppTextarea"
 import { Button } from "@/components/ui/button"
@@ -40,8 +43,6 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
   })
 
   const personType = watch("person_type")
-  const documentPlaceholder = personType === "PF" ? "000.000.000-00" : "00.000.000/0000-00"
-  const documentLabel = personType === "PF" ? "CPF" : "CNPJ"
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -74,12 +75,17 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
             onValueChange={(v: string) => setValue("person_type", v as "PF" | "PJ", { shouldValidate: true })}
             error={errors.person_type?.message}
           />
-          <AppInput
-            label={documentLabel}
-            placeholder={documentPlaceholder}
-            error={errors.document?.message}
-            {...register("document")}
-          />
+          {personType === "PF" ? (
+            <AppCPFInput
+              error={errors.document?.message}
+              {...register("document")}
+            />
+          ) : (
+            <AppCNPJInput
+              error={errors.document?.message}
+              {...register("document")}
+            />
+          )}
         </CardContent>
       </Card>
 
@@ -98,10 +104,7 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
             error={errors.email?.message}
             {...register("email")}
           />
-          <AppInput
-            label="Telefone"
-            type="tel"
-            placeholder="(00) 00000-0000"
+          <AppPhoneInput
             error={errors.phone?.message}
             {...register("phone")}
           />

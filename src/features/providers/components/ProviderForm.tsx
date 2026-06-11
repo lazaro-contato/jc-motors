@@ -1,52 +1,88 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { Building2 } from "lucide-react"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Building2 } from "lucide-react";
+import { z } from "zod";
 
-import { AppButton } from "@/components/shared/AppButton"
-import { AppInput } from "@/components/shared/AppInput"
-import { AppSelect } from "@/components/shared/AppSelect"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+import { AppButton } from "@/components/shared/AppButton";
+import { AppCNPJInput } from "@/components/shared/AppCNPJInput";
+import { AppInput } from "@/components/shared/AppInput";
+import { AppPhoneInput } from "@/components/shared/AppPhoneInput";
+import { AppSelect } from "@/components/shared/AppSelect";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 /* ── Schema ──────────────────────────────────────────────────────────────── */
 
 const providerSchema = z.object({
-  name:    z.string().min(2, "Razão Social é obrigatória"),
-  cnpj:    z.string().min(18, "CNPJ inválido"),
+  name: z.string().min(2, "Razão Social é obrigatória"),
+  cnpj: z.string().min(18, "CNPJ inválido"),
   contact: z.string().min(2, "Nome do responsável é obrigatório"),
-  email:   z.string().email("E-mail inválido"),
-  phone:   z.string().min(10, "Telefone inválido"),
-  city:    z.string().min(2, "Cidade é obrigatória"),
-  state:   z.string().length(2, "UF inválida"),
-  status:  z.enum(["active", "inactive"]),
-})
+  email: z.string().email("E-mail inválido"),
+  phone: z.string().min(10, "Telefone inválido"),
+  city: z.string().min(2, "Cidade é obrigatória"),
+  state: z.string().length(2, "UF inválida"),
+  status: z.enum(["active", "inactive"]),
+});
 
-export type ProviderFormData = z.infer<typeof providerSchema>
+export type ProviderFormData = z.infer<typeof providerSchema>;
 
 /* ── Opções ──────────────────────────────────────────────────────────────── */
 
 const STATUS_OPTIONS = [
-  { label: "Ativo",   value: "active" },
+  { label: "Ativo", value: "active" },
   { label: "Inativo", value: "inactive" },
-]
+];
 
 const STATE_OPTIONS = [
-  "AC","AL","AM","AP","BA","CE","DF","ES","GO","MA",
-  "MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN",
-  "RO","RR","RS","SC","SE","SP","TO",
-].map((uf) => ({ label: uf, value: uf }))
+  "AC",
+  "AL",
+  "AM",
+  "AP",
+  "BA",
+  "CE",
+  "DF",
+  "ES",
+  "GO",
+  "MA",
+  "MG",
+  "MS",
+  "MT",
+  "PA",
+  "PB",
+  "PE",
+  "PI",
+  "PR",
+  "RJ",
+  "RN",
+  "RO",
+  "RR",
+  "RS",
+  "SC",
+  "SE",
+  "SP",
+  "TO",
+].map((uf) => ({ label: uf, value: uf }));
 
 /* ── Component ───────────────────────────────────────────────────────────── */
 
 interface ProviderFormProps {
-  onSubmit: (data: ProviderFormData) => void
-  onCancel: () => void
-  isSubmitting?: boolean
+  onSubmit: (data: ProviderFormData) => void;
+  onCancel: () => void;
+  isSubmitting?: boolean;
 }
 
-export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: ProviderFormProps) {
+export function ProviderForm({
+  onSubmit,
+  onCancel,
+  isSubmitting = false,
+}: ProviderFormProps) {
   const {
     register,
     handleSubmit,
@@ -56,7 +92,7 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
   } = useForm<ProviderFormData>({
     resolver: zodResolver(providerSchema),
     defaultValues: {},
-  })
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -69,7 +105,9 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
             </div>
             <div>
               <CardTitle className="text-base">Dados da Empresa</CardTitle>
-              <CardDescription>Informações jurídicas do fornecedor</CardDescription>
+              <CardDescription>
+                Informações jurídicas do fornecedor
+              </CardDescription>
             </div>
           </div>
         </CardHeader>
@@ -81,18 +119,17 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
             error={errors.name?.message}
             {...register("name")}
           />
-          <AppInput
-            label="CNPJ"
-            placeholder="00.000.000/0000-00"
-            error={errors.cnpj?.message}
-            {...register("cnpj")}
-          />
+          <AppCNPJInput error={errors.cnpj?.message} {...register("cnpj")} />
           <AppSelect
             label="Status"
             placeholder="Selecione o status..."
             options={STATUS_OPTIONS}
             value={watch("status")}
-            onValueChange={(v) => setValue("status", v as "active" | "inactive", { shouldValidate: true })}
+            onValueChange={(v) =>
+              setValue("status", v as "active" | "inactive", {
+                shouldValidate: true,
+              })
+            }
             error={errors.status?.message}
           />
         </CardContent>
@@ -102,7 +139,9 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
       <Card>
         <CardHeader className="pb-4">
           <CardTitle className="text-base">Contato</CardTitle>
-          <CardDescription>Responsável e informações de contato</CardDescription>
+          <CardDescription>
+            Responsável e informações de contato
+          </CardDescription>
         </CardHeader>
         <Separator />
         <CardContent className="grid gap-4 pt-5 md:grid-cols-3 md:gap-5 md:pt-6">
@@ -119,13 +158,7 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
             error={errors.email?.message}
             {...register("email")}
           />
-          <AppInput
-            label="Telefone"
-            type="tel"
-            placeholder="(00) 00000-0000"
-            error={errors.phone?.message}
-            {...register("phone")}
-          />
+          <AppPhoneInput error={errors.phone?.message} {...register("phone")} />
         </CardContent>
       </Card>
 
@@ -149,7 +182,9 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
             label="UF"
             options={STATE_OPTIONS}
             value={watch("state") ?? ""}
-            onValueChange={(v) => setValue("state", v, { shouldValidate: true })}
+            onValueChange={(v) =>
+              setValue("state", v, { shouldValidate: true })
+            }
             placeholder="Estado"
             error={errors.state?.message}
           />
@@ -158,13 +193,22 @@ export function ProviderForm({ onSubmit, onCancel, isSubmitting = false }: Provi
 
       {/* Actions */}
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <Button type="button" variant="outline" onClick={onCancel} className="w-full sm:w-auto">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={onCancel}
+          className="w-full sm:w-auto"
+        >
           Cancelar
         </Button>
-        <AppButton type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
+        <AppButton
+          type="submit"
+          isLoading={isSubmitting}
+          className="w-full sm:w-auto"
+        >
           Salvar Fornecedor
         </AppButton>
       </div>
     </form>
-  )
+  );
 }
