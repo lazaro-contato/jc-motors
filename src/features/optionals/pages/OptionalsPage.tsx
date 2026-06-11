@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "@tanstack/react-router"
 import { toast } from "sonner"
 
 
@@ -33,6 +34,8 @@ export function OptionalsPage() {
   const [editingOptional, setEditingOptional] =
     useState<VehicleOptional | null>(null)
 
+  const navigate = useNavigate()
+
   const [profileDialogOpen, setProfileDialogOpen] = useState(false)
   const [editingProfile, setEditingProfile] =
     useState<VehicleOptionalProfile | null>(null)
@@ -53,8 +56,7 @@ export function OptionalsPage() {
   }
 
   function openCreateProfile() {
-    setEditingProfile(null)
-    setProfileDialogOpen(true)
+    navigate({ to: "/optionals/profiles/new" })
   }
 
   function openEditProfile(profile: VehicleOptionalProfile) {
