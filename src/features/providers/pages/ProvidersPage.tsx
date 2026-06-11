@@ -6,7 +6,7 @@ import { AppButton } from "@/components/shared/AppButton"
 import { AppDataTable } from "@/components/shared/AppDataTable"
 import { AppPageHeader } from "@/components/shared/AppPageHeader"
 
-import { providerColumns } from "../components/ProvidersTable"
+import { createProviderColumns } from "../components/ProvidersTable"
 import { PROVIDERS } from "../data/providers.mock"
 
 export default function ProvidersPage() {
@@ -14,6 +14,14 @@ export default function ProvidersPage() {
   const [query, setQuery] = useState("")
   const [page, setPage] = useState(1)
   const PAGE_SIZE = 10
+
+  const columns = createProviderColumns({
+    onView: (id) =>
+      navigate({ to: "/providers/$id/edit", params: { id: String(id) } }),
+    onDelete: () => {
+      // TODO: conectar ao diálogo de confirmação de exclusão
+    },
+  })
 
   const filtered = PROVIDERS.filter(
     (p) =>
@@ -39,7 +47,7 @@ export default function ProvidersPage() {
 
       {/* Table */}
       <AppDataTable
-        columns={providerColumns}
+        columns={columns}
         data={paginated}
         total={filtered.length}
         page={page}

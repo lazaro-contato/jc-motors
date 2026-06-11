@@ -10,6 +10,7 @@ import { VehicleCreatePage } from '@/features/vehicles/pages/VehicleCreatePage'
 import { VehicleEditPage } from '@/features/vehicles/pages/VehicleEditPage'
 import ProvidersPage from '@/features/providers/pages/ProvidersPage'
 import ProviderCreatePage from '@/features/providers/pages/ProviderCreatePage'
+import { ProviderEditPage } from '@/features/providers/pages/ProviderEditPage'
 import { CustomersPage } from '@/features/customers/pages/CustomersPage'
 import { CustomerCreatePage } from '@/features/customers/pages/CustomerCreatePage'
 import { EmployeesPage } from '@/features/employees/pages/EmployeesPage'
@@ -83,6 +84,12 @@ const providerCreateRoute = createRoute({
   component: ProviderCreatePage,
 })
 
+const providerEditRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: '/providers/$id/edit',
+  component: ProviderEditPage,
+})
+
 const customersRoute = createRoute({
   getParentRoute: () => appRoute,
   path: '/customers',
@@ -147,6 +154,7 @@ const routeTree = rootRoute.addChildren([
     designSystemRoute,
     providersRoute,
     providerCreateRoute,
+    providerEditRoute,
     customersRoute,
     customerCreateRoute,
     employeesRoute,

@@ -1,4 +1,4 @@
-import { Building2, Eye, Pencil, Trash2 } from "lucide-react"
+import { Building2, Eye, Trash2 } from "lucide-react"
 
 import { type AppDataTableColumn } from "@/components/shared/AppDataTable"
 import { Button } from "@/components/ui/button"
@@ -6,7 +6,16 @@ import { cn } from "@/lib/utils"
 import type { Provider, ProviderStatus } from "@/types/providers"
 import { PROVIDER_STATUS_CONFIG } from "../data/providers.mock"
 
-export const providerColumns: AppDataTableColumn<Provider>[] = [
+interface ProviderColumnHandlers {
+  onView: (id: number) => void
+  onDelete: (provider: Provider) => void
+}
+
+export function createProviderColumns({
+  onView,
+  onDelete,
+}: ProviderColumnHandlers): AppDataTableColumn<Provider>[] {
+  return [
   {
     key: "name",
     header: "Fornecedor",
@@ -68,30 +77,26 @@ export const providerColumns: AppDataTableColumn<Provider>[] = [
     key: "_actions",
     header: "",
     align: "right",
-    render: () => (
+    render: (_, row) => (
       <div className="flex items-center justify-end gap-1">
         <Button
           variant="ghost"
           size="icon"
           className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
+          onClick={() => onView(row.id)}
         >
           <Eye className="size-3.5" />
         </Button>
         <Button
           variant="ghost"
           size="icon"
-          className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
-        >
-          <Pencil className="size-3.5" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
           className="size-7 rounded-lg text-muted-foreground hover:text-danger"
+          onClick={() => onDelete(row)}
         >
           <Trash2 className="size-3.5" />
         </Button>
       </div>
     ),
   },
-]
+  ]
+}
