@@ -3,6 +3,7 @@ import { z } from "zod"
 /* ── Create schema ───────────────────────────────────────────────────────── */
 
 export const vehicleCreateSchema = z.object({
+  providerId:      z.string().min(1, "Selecione o fornecedor"),
   licensePlate:    z.string().min(7, "Placa inválida"),
   renavam:         z.string().min(1, "Informe o Renavam"),
   chassis:         z.string().min(1, "Informe o chassi"),
@@ -36,6 +37,7 @@ export type VehicleCreateData = z.infer<typeof vehicleCreateSchema>
 /* ── Edit schema ─────────────────────────────────────────────────────────── */
 
 export const vehicleEditSchema = vehicleCreateSchema.extend({
+  providerId:       z.string().optional(),
   optionals:        z.array(z.string()).default([]),
   negotiationNotes: z.string().optional(),
   discount:         z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().min(0).optional()),

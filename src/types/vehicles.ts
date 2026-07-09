@@ -43,6 +43,7 @@ export interface Vehicle {
   status: VehicleStatus
   brandId: string
   categoryId: string
+  providerId: string
   createdAt: string
   updatedAt: string
 }
@@ -63,6 +64,7 @@ export interface CreateVehicleDTO {
   oldPrice?: number
   brandId: string
   categoryId: string
+  providerId: string
   status?: VehicleStatus
   isPublished?: boolean
   isB2bVisible?: boolean

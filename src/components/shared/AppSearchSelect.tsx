@@ -24,7 +24,7 @@
  *   error             — mensagem de erro ou boolean para estilo
  *   className         — classes extras no trigger
  */
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 
 import { Check, ChevronDown } from "lucide-react";
 
@@ -54,6 +54,8 @@ interface AppSearchSelectProps {
   isDisabled?: boolean;
   error?: string | boolean;
   className?: string;
+  /** Ação fixa exibida no rodapé da lista (ex.: cadastrar novo). Recebe `close` para fechar o popover. */
+  footer?: (helpers: { close: () => void }) => ReactNode;
 }
 
 export function AppSearchSelect({
@@ -68,6 +70,7 @@ export function AppSearchSelect({
   isDisabled = false,
   error,
   className,
+  footer,
 }: AppSearchSelectProps) {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -141,6 +144,11 @@ export function AppSearchSelect({
                   </CommandItem>
                 ))}
               </CommandGroup>
+              {footer && (
+                <div className="border-t border-border p-1">
+                  {footer({ close: () => setOpen(false) })}
+                </div>
+              )}
             </CommandList>
           </Command>
         </PopoverContent>

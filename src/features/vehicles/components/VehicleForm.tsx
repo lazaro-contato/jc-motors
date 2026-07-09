@@ -1,37 +1,47 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, Controller } from "react-hook-form"
-import { Car, DollarSign, Globe } from "lucide-react"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Controller } from "react-hook-form";
+import { Car, DollarSign, Globe } from "lucide-react";
 
-import { AppButton } from "@/components/shared/AppButton"
-import { AppInput } from "@/components/shared/AppInput"
-import { AppSearchSelect } from "@/components/shared/AppSearchSelect"
-import { Button } from "@/components/ui/button"
-import { useBrands } from "@/features/brands/hooks/useBrands"
-import { useCategories } from "@/features/categories/hooks/useCategories"
+import { AppButton } from "@/components/shared/AppButton";
+import { AppInput } from "@/components/shared/AppInput";
+import { AppSearchSelect } from "@/components/shared/AppSearchSelect";
+import { Button } from "@/components/ui/button";
+import { useBrands } from "@/features/brands/hooks/useBrands";
+import { useCategories } from "@/features/categories/hooks/useCategories";
 import {
   vehicleCreateSchema,
   type VehicleCreateData,
   FUEL_OPTIONS,
   TRANSMISSION_OPTIONS,
   STATUS_OPTIONS,
-} from "../data/vehicle.schema"
-import { CheckboxRow } from "./CheckBoxRow"
-import { SectionCard } from "./SectionCard"
+} from "../data/vehicle.schema";
+import { CheckboxRow } from "./CheckBoxRow";
+import { ProviderSelectField } from "./ProviderSelectField";
+import { SectionCard } from "./SectionCard";
 
-export type { VehicleCreateData, VehicleFormData } from "../data/vehicle.schema"
+export type {
+  VehicleCreateData,
+  VehicleFormData,
+} from "../data/vehicle.schema";
 
 interface VehicleFormProps {
-  onSubmit: (data: VehicleCreateData) => void
-  onCancel: () => void
-  isSubmitting?: boolean
+  onSubmit: (data: VehicleCreateData) => void;
+  onCancel: () => void;
+  isSubmitting?: boolean;
 }
 
-export function VehicleForm({ onSubmit, onCancel, isSubmitting = false }: VehicleFormProps) {
-  const { data: brandsData } = useBrands({ limit: 100 })
-  const { data: categoriesData } = useCategories({ limit: 100 })
+export function VehicleForm({
+  onSubmit,
+  onCancel,
+  isSubmitting = false,
+}: VehicleFormProps) {
+  const { data: brandsData } = useBrands({ limit: 100 });
+  const { data: categoriesData } = useCategories({ limit: 100 });
 
-  const brandOptions = brandsData?.data.map((b) => ({ label: b.name, value: b.id })) ?? []
-  const categoryOptions = categoriesData?.data.map((c) => ({ label: c.name, value: c.id })) ?? []
+  const brandOptions =
+    brandsData?.data.map((b) => ({ label: b.name, value: b.id })) ?? [];
+  const categoryOptions =
+    categoriesData?.data.map((c) => ({ label: c.name, value: c.id })) ?? [];
 
   const {
     register,
@@ -41,11 +51,11 @@ export function VehicleForm({ onSubmit, onCancel, isSubmitting = false }: Vehicl
   } = useForm<VehicleCreateData>({
     resolver: zodResolver(vehicleCreateSchema),
     defaultValues: {
-      isPublished:  false,
+      isPublished: false,
       isB2bVisible: false,
       isB2cVisible: false,
     },
-  })
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -54,6 +64,20 @@ export function VehicleForm({ onSubmit, onCancel, isSubmitting = false }: Vehicl
         title="Informações do Veículo"
         description="Dados de identificação e características do veículo"
       >
+        <div className="md:col-span-3">
+          <Controller
+            name="providerId"
+            control={control}
+            render={({ field }) => (
+              <ProviderSelectField
+                value={field.value}
+                onChange={field.onChange}
+                error={errors.providerId?.message}
+              />
+            )}
+          />
+        </div>
+
         <AppInput
           label="Placa"
           placeholder="ABC-1D23"
@@ -175,7 +199,9 @@ export function VehicleForm({ onSubmit, onCancel, isSubmitting = false }: Vehicl
       </SectionCard>
 
       <SectionCard
-        icon={<DollarSign className="size-4 text-brand-600 dark:text-silver-300" />}
+        icon={
+          <DollarSign className="size-4 text-brand-600 dark:text-silver-300" />
+        }
         title="Precificação"
         description="Valores de venda e status inicial do veículo"
       >
@@ -257,13 +283,22 @@ export function VehicleForm({ onSubmit, onCancel, isSubmitting = false }: Vehicl
       </SectionCard>
 
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <Button type="button" variant="outline" onClick={onCancel} className="w-full sm:w-auto">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={onCancel}
+          className="w-full sm:w-auto"
+        >
           Cancelar
         </Button>
-        <AppButton type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
+        <AppButton
+          type="submit"
+          isLoading={isSubmitting}
+          className="w-full sm:w-auto"
+        >
           Criar e continuar
         </AppButton>
       </div>
     </form>
-  )
+  );
 }
