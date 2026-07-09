@@ -135,7 +135,7 @@ export function AppSearchSelect({
                     disabled={opt.disabled}
                     data-checked={value === opt.value}
                     onSelect={() => handleSelect(opt.value)}
-                    className="py-2.5 px-3"
+                    className="cursor-pointer py-2.5 px-3"
                   >
                     {opt.label}
                   </CommandItem>

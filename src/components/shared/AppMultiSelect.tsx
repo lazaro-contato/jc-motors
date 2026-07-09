@@ -192,6 +192,7 @@ export function AppMultiSelect({
                       disabled={opt.disabled}
                       data-checked={isSelected}
                       onSelect={() => toggle(opt.value)}
+                      className="cursor-pointer"
                     >
                       {/* Checkbox visual */}
                       <span
