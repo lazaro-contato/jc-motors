@@ -1,4 +1,4 @@
-# Regras de Hooks — JG Motors Web
+# Regras de Hooks — JC Motors Web
 
 ## Princípios Gerais
 

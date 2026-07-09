@@ -5,7 +5,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ─── Design Tokens do projeto JG Motors ─────────────────────────────────── */
+/* ─── Design Tokens do projeto JC Motors ─────────────────────────────────── */
 @theme {
   /* Brand – Charcoal / Graphite (automotive) */
   --color-brand-50:  #F7F7F8;

@@ -8,7 +8,7 @@
 
 ## 1. Onde estamos
 
-### Frontend (este repo, `jgmotors-web`)
+### Frontend (este repo, `jcmotors-web`)
 - Stack: Vite 7 · React 19 · TS 5 · Tailwind v4 · TanStack Router/Query · Zustand · shadcn/ui · React Hook Form + Zod · Axios.
 - A maior parte das **páginas já existe** (Cars, Customers, Employees, Providers, Sales, MyTasks, Optionals, Dashboard, Login). Hoje elas consomem **mock data** ou **mock stores** locais — nenhuma chamada HTTP real foi feita.
 - Existem **duas camadas paralelas** que convivem hoje e precisam ser unificadas:

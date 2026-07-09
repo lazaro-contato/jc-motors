@@ -59,7 +59,7 @@ export function EmployeeForm({ onSubmit, onCancel, isSubmitting = false }: Emplo
           <AppInput
             label="E-mail"
             type="email"
-            placeholder="funcionario@jgmotors.com.br"
+            placeholder="funcionario@jcmotors.com.br"
             error={errors.email?.message}
             {...register("email")}
           />

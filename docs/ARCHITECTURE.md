@@ -1,4 +1,4 @@
-# Arquitetura — JG Motors Web
+# Arquitetura — JC Motors Web
 
 ## Stack Principal
 

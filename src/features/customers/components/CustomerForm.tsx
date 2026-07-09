@@ -28,9 +28,17 @@ interface CustomerFormProps {
   onSubmit: (data: CustomerFormData) => void
   onCancel: () => void
   isSubmitting?: boolean
+  defaultValues?: Partial<CustomerFormData>
+  submitLabel?: string
 }
 
-export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: CustomerFormProps) {
+export function CustomerForm({
+  onSubmit,
+  onCancel,
+  isSubmitting = false,
+  defaultValues,
+  submitLabel = "Salvar Cliente",
+}: CustomerFormProps) {
   const {
     register,
     handleSubmit,
@@ -39,7 +47,7 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
     formState: { errors },
   } = useForm<CustomerFormData>({
     resolver: zodResolver(customerSchema),
-    defaultValues: { person_type: "PF" },
+    defaultValues: { person_type: "PF", ...defaultValues },
   })
 
   const personType = watch("person_type")
@@ -144,7 +152,7 @@ export function CustomerForm({ onSubmit, onCancel, isSubmitting = false }: Custo
           Cancelar
         </Button>
         <AppButton type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
-          Salvar Cliente
+          {submitLabel}
         </AppButton>
       </div>
     </form>

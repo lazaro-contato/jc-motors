@@ -1,4 +1,4 @@
-# CLAUDE.md — JG Motors Web
+# CLAUDE.md — JC Motors Web
 
 > Guia de arquitetura e engenharia para assistentes de IA trabalhando neste projeto.
 > Leia este documento integralmente antes de gerar qualquer código.
@@ -7,7 +7,7 @@
 
 ## 1. Visão Geral do Projeto
 
-**JG Motors Web** é uma plataforma de gestão automotiva para concessionárias e revendas de veículos. A aplicação oferece controle centralizado de estoque de veículos, pipeline de vendas, cadastro de clientes e fornecedores, gestão de funcionários e acompanhamento de workflows operacionais.
+**JC Motors Web** é uma plataforma de gestão automotiva para concessionárias e revendas de veículos. A aplicação oferece controle centralizado de estoque de veículos, pipeline de vendas, cadastro de clientes e fornecedores, gestão de funcionários e acompanhamento de workflows operacionais.
 
 O sistema é utilizado por equipes internas (vendedores, gestores, administrativo) e requer autenticação. A interface é composta por um layout de app com sidebar fixa e header, onde cada seção do negócio corresponde a uma feature independente.
 
@@ -44,7 +44,7 @@ O sistema é utilizado por equipes internas (vendedores, gestores, administrativ
 ## 3. Estrutura de Pastas
 
 ```
-jgmotors-web/
+jcmotors-web/
 ├── docs/                        # Documentação de arquitetura do projeto
 │   ├── ARCHITECTURE.md
 │   ├── STATE_MANAGEMENT.md

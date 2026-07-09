@@ -1,4 +1,4 @@
-# Regras de Navegação — JG Motors Web
+# Regras de Navegação — JC Motors Web
 
 ## Stack de Roteamento
 

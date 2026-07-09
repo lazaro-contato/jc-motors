@@ -13,6 +13,7 @@ import ProviderCreatePage from '@/features/providers/pages/ProviderCreatePage'
 import { ProviderEditPage } from '@/features/providers/pages/ProviderEditPage'
 import { CustomersPage } from '@/features/customers/pages/CustomersPage'
 import { CustomerCreatePage } from '@/features/customers/pages/CustomerCreatePage'
+import { CustomerEditPage } from '@/features/customers/pages/CustomerEditPage'
 import { EmployeesPage } from '@/features/employees/pages/EmployeesPage'
 import { EmployeeCreatePage } from '@/features/employees/pages/EmployeeCreatePage'
 import { SalesPage } from '@/features/sales/pages/SalesPage'
@@ -102,6 +103,12 @@ const customerCreateRoute = createRoute({
   component: CustomerCreatePage,
 })
 
+const customerEditRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: '/customers/$id/edit',
+  component: CustomerEditPage,
+})
+
 const employeesRoute = createRoute({
   getParentRoute: () => appRoute,
   path: '/employees',
@@ -157,6 +164,7 @@ const routeTree = rootRoute.addChildren([
     providerEditRoute,
     customersRoute,
     customerCreateRoute,
+    customerEditRoute,
     employeesRoute,
     employeeCreateRoute,
     salesRoute,

@@ -1,9 +1,9 @@
 ---
-name: jgmotors-web
+name: jcmotors-web
 description: A brief description of what this skill does
 ---
 
-# jgmotors-web
+# jcmotors-web
 
 Instructions for the agent to follow when this skill is activated.
 

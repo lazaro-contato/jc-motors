@@ -1,12 +1,11 @@
-import { Eye, Pencil, Trash2, Users } from "lucide-react"
+import { Users } from "lucide-react"
 
 import { type AppDataTableColumn } from "@/components/shared/AppDataTable"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import type { Customer } from "@/types/customers"
 import { CUSTOMER_STATUS_CONFIG, PERSON_TYPE_CONFIG } from "../data/customers.mock"
 
-export const customerColumns: AppDataTableColumn<Customer>[] = [
+export const customerBaseColumns: AppDataTableColumn<Customer>[] = [
   {
     key: "fullName",
     header: "Cliente",
@@ -73,35 +72,5 @@ export const customerColumns: AppDataTableColumn<Customer>[] = [
         </span>
       )
     },
-  },
-  {
-    key: "_actions",
-    header: "",
-    align: "right",
-    render: () => (
-      <div className="flex items-center justify-end gap-1">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
-        >
-          <Eye className="size-3.5" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
-        >
-          <Pencil className="size-3.5" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-7 rounded-lg text-muted-foreground hover:text-danger"
-        >
-          <Trash2 className="size-3.5" />
-        </Button>
-      </div>
-    ),
   },
 ]

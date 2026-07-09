@@ -697,7 +697,7 @@ export default function DesignSystemPage() {
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <div>
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          JG Motors
+          JC Motors
         </p>
         <h1 className="mt-1 text-4xl font-bold text-foreground">
           Design System
@@ -809,7 +809,7 @@ export default function DesignSystemPage() {
               <span className="w-20 shrink-0 text-xs text-muted-foreground">
                 5xl / 48px
               </span>
-              <p className="text-5xl font-bold text-foreground">JG Motors</p>
+              <p className="text-5xl font-bold text-foreground">JC Motors</p>
             </div>
             <Separator />
             <div className="flex items-baseline gap-4">
@@ -1257,7 +1257,7 @@ export default function DesignSystemPage() {
               <AppInput
                 label="Email"
                 type="email"
-                placeholder="exemplo@jgmotors.com"
+                placeholder="exemplo@jcmotors.com"
                 leftIcon={<Mail className="size-4" />}
               />
               <AppInput label="Senha" type="password" placeholder="••••••••" />

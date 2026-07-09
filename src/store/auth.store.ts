@@ -33,7 +33,7 @@ export const useAuthStore = create<AuthState>()(
         }),
     }),
     {
-      name: 'jgmotors-auth',
+      name: 'jcmotors-auth',
     },
   ),
 )

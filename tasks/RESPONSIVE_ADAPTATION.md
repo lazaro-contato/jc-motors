@@ -1,4 +1,4 @@
-# Plano de Adaptação Responsiva — JG Motors Web
+# Plano de Adaptação Responsiva — JC Motors Web
 
 > **Autor:** Engenharia de Software
 > **Data:** 2026-03-14

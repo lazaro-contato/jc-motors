@@ -139,7 +139,7 @@ export default function Sidebar() {
   const logout = useAuthStore((s) => s.logout);
   const { isOpen, close } = useSidebarStore();
 
-  const name = user?.employee?.full_name ?? "JG Motors";
+  const name = user?.employee?.full_name ?? "JC Motors";
   const role = user?.employee?.role ?? "Administrador";
   const initials = name
     .split(" ")
@@ -183,7 +183,7 @@ export default function Sidebar() {
           </div>
           <div className={cn("flex flex-col", collapsed && "lg:hidden")}>
             <span className="text-sm font-bold tracking-tight text-sidebar-foreground">
-              JG Motors
+              JC Motors
             </span>
             <span className="text-[10px] font-medium text-sidebar-foreground/50">
               Gestão Automotiva

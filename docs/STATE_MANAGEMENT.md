@@ -1,4 +1,4 @@
-# Gerenciamento de Estado — JG Motors Web
+# Gerenciamento de Estado — JC Motors Web
 
 ## Modelo de 4 Camadas
 
@@ -74,7 +74,7 @@ export const useAuthStore = create<AuthState>()(
       logout: () => set({ user: null, token: null }),
     }),
     {
-      name: "jgmotors-auth", // chave no localStorage
+      name: "jcmotors-auth", // chave no localStorage
     }
   )
 )
