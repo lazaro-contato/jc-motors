@@ -19,7 +19,6 @@ import { Separator } from "@/components/ui/separator";
 
 import {
   providerSchema,
-  STATUS_OPTIONS,
   STATE_OPTIONS,
   type ProviderFormData,
 } from "../data/provider.schema";
@@ -47,7 +46,7 @@ export function ProviderForm({
     formState: { errors },
   } = useForm<ProviderFormData>({
     resolver: zodResolver(providerSchema),
-    defaultValues: {},
+    defaultValues: { status: "active" },
   });
 
   return (
@@ -76,18 +75,6 @@ export function ProviderForm({
             {...register("name")}
           />
           <AppCNPJInput error={errors.cnpj?.message} {...register("cnpj")} />
-          <AppSelect
-            label="Status"
-            placeholder="Selecione o status..."
-            options={STATUS_OPTIONS}
-            value={watch("status")}
-            onValueChange={(v) =>
-              setValue("status", v as "active" | "inactive", {
-                shouldValidate: true,
-              })
-            }
-            error={errors.status?.message}
-          />
         </CardContent>
       </Card>
 

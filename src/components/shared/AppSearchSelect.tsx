@@ -26,7 +26,7 @@
  */
 import { useRef, useState, type ReactNode } from "react";
 
-import { Check, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import {
   Command,
@@ -138,9 +138,6 @@ export function AppSearchSelect({
                     className="py-2.5 px-3"
                   >
                     {opt.label}
-                    {value === opt.value && (
-                      <Check className="ml-auto size-4 text-primary" />
-                    )}
                   </CommandItem>
                 ))}
               </CommandGroup>

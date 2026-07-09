@@ -80,6 +80,7 @@ export function AppSelect({
       {label && <Label>{label}</Label>}
 
       <Select
+        items={options}
         value={value}
         defaultValue={defaultValue}
         onValueChange={onValueChange}
