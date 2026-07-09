@@ -60,7 +60,7 @@ export interface CreateVehicleDTO {
   fuelType: FuelType
   engine: string
   transmission: TransmissionType
-  price: number
+  price?: number
   oldPrice?: number
   brandId: string
   categoryId: string

@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
-import { Car, DollarSign, Globe } from "lucide-react";
+import { Car } from "lucide-react";
 
 import { AppButton } from "@/components/shared/AppButton";
 import { AppInput } from "@/components/shared/AppInput";
@@ -13,9 +13,7 @@ import {
   type VehicleCreateData,
   FUEL_OPTIONS,
   TRANSMISSION_OPTIONS,
-  STATUS_OPTIONS,
 } from "../data/vehicle.schema";
-import { CheckboxRow } from "./CheckBoxRow";
 import { ProviderSelectField } from "./ProviderSelectField";
 import { SectionCard } from "./SectionCard";
 
@@ -196,90 +194,6 @@ export function VehicleForm({
             />
           )}
         />
-      </SectionCard>
-
-      <SectionCard
-        icon={
-          <DollarSign className="size-4 text-brand-600 dark:text-silver-300" />
-        }
-        title="Precificação"
-        description="Valores de venda e status inicial do veículo"
-      >
-        <AppInput
-          label="Preço antigo"
-          type="number"
-          hint="Opcional"
-          placeholder="Ex.: 120000"
-          error={errors.oldPrice?.message}
-          {...register("oldPrice")}
-        />
-        <AppInput
-          label="Preço"
-          type="number"
-          placeholder="Ex.: 110000"
-          error={errors.price?.message}
-          {...register("price")}
-        />
-        <Controller
-          name="status"
-          control={control}
-          render={({ field }) => (
-            <AppSearchSelect
-              label="Status"
-              options={STATUS_OPTIONS}
-              value={field.value}
-              onChange={field.onChange}
-              placeholder="Selecione..."
-              error={errors.status?.message}
-            />
-          )}
-        />
-      </SectionCard>
-
-      <SectionCard
-        icon={<Globe className="size-4 text-brand-600 dark:text-silver-300" />}
-        title="Publicação"
-        description="Onde este veículo ficará visível"
-        columns={1}
-      >
-        <div className="flex flex-col gap-3">
-          <Controller
-            name="isPublished"
-            control={control}
-            render={({ field }) => (
-              <CheckboxRow
-                label="Publicar no site (público)"
-                description="Veículo aparece no site institucional."
-                checked={field.value}
-                onChange={field.onChange}
-              />
-            )}
-          />
-          <Controller
-            name="isB2bVisible"
-            control={control}
-            render={({ field }) => (
-              <CheckboxRow
-                label="Publicar para empresas (B2B)"
-                description="Disponível no catálogo B2B."
-                checked={field.value}
-                onChange={field.onChange}
-              />
-            )}
-          />
-          <Controller
-            name="isB2cVisible"
-            control={control}
-            render={({ field }) => (
-              <CheckboxRow
-                label="Publicar para clientes (B2C)"
-                description="Disponível no catálogo B2C."
-                checked={field.value}
-                onChange={field.onChange}
-              />
-            )}
-          />
-        </div>
       </SectionCard>
 
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">

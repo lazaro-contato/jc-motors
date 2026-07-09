@@ -22,14 +22,14 @@ export const vehicleCreateSchema = z.object({
                    }),
   categoryId:      z.string().min(1, "Selecione a categoria"),
   oldPrice:        z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().positive().optional()),
-  price:           z.coerce.number().positive("Preço inválido"),
+  price:           z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().positive("Preço inválido").optional()),
   isPublished:     z.boolean().default(false),
   isB2bVisible:    z.boolean().default(false),
   isB2cVisible:    z.boolean().default(false),
   status:          z.enum(
                      ["AWAITING_RELEASE", "IN_TRANSIT", "IN_YARD", "AVAILABLE", "RESERVED", "SOLD", "IN_PREPARATION"],
                      { errorMap: () => ({ message: "Selecione o status" }) },
-                   ),
+                   ).optional(),
 })
 
 export type VehicleCreateData = z.infer<typeof vehicleCreateSchema>
@@ -38,6 +38,11 @@ export type VehicleCreateData = z.infer<typeof vehicleCreateSchema>
 
 export const vehicleEditSchema = vehicleCreateSchema.extend({
   providerId:       z.string().optional(),
+  price:            z.coerce.number().positive("Preço inválido"),
+  status:           z.enum(
+                      ["AWAITING_RELEASE", "IN_TRANSIT", "IN_YARD", "AVAILABLE", "RESERVED", "SOLD", "IN_PREPARATION"],
+                      { errorMap: () => ({ message: "Selecione o status" }) },
+                    ),
   optionals:        z.array(z.string()).default([]),
   negotiationNotes: z.string().optional(),
   discount:         z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().min(0).optional()),
