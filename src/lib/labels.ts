@@ -1,6 +1,7 @@
 import type { FuelType, TransmissionType, VehicleStatus } from "@/types/vehicles"
 import type { CustomerType } from "@/types/customers"
 import type { TransactionStatus, TransactionType } from "@/types/financial"
+import type { Decisao, RiscoCompra, StatusKm } from "@/types/calculator"
 
 export type LabelVariant =
   | "default"
@@ -81,3 +82,43 @@ export const transactionStatusVariants = {
   OVERDUE: "danger",
   CANCELLED: "default",
 } as const satisfies Record<TransactionStatus, LabelVariant>
+
+/* ── Calculadora ─────────────────────────────────────────────────────────── */
+
+export const riscoCompraLabels = {
+  BAIXO: "Baixo",
+  MEDIO: "Médio",
+  ALTO: "Alto",
+} as const satisfies Record<RiscoCompra, string>
+
+export const riscoCompraVariants = {
+  BAIXO: "success",
+  MEDIO: "warning",
+  ALTO: "danger",
+} as const satisfies Record<RiscoCompra, LabelVariant>
+
+export const statusKmLabels = {
+  APROVADO: "Aprovado",
+  REPROVADO: "Reprovado",
+} as const satisfies Record<StatusKm, string>
+
+export const statusKmVariants = {
+  APROVADO: "success",
+  REPROVADO: "danger",
+} as const satisfies Record<StatusKm, LabelVariant>
+
+export const decisaoLabels = {
+  COMPRAR: "Comprar",
+  NEGOCIAR: "Negociar",
+  SEM_MARGEM: "Sem Margem",
+  FORA_SHOWROOM: "Fora Showroom",
+  NAO_COMPRAR: "Não Comprar",
+} as const satisfies Record<Decisao, string>
+
+export const decisaoVariants = {
+  COMPRAR: "success",
+  NEGOCIAR: "warning",
+  SEM_MARGEM: "default",
+  FORA_SHOWROOM: "warning",
+  NAO_COMPRAR: "danger",
+} as const satisfies Record<Decisao, LabelVariant>

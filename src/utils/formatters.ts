@@ -19,3 +19,12 @@ export function formatDateTime(value: string): string {
 export function formatMileage(value: number): string {
   return new Intl.NumberFormat('pt-BR').format(value) + ' km'
 }
+
+/** Recebe o valor em decimal (0.08 → "8,0%"). */
+export function formatPercent(value: number, digits = 1): string {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'percent',
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  }).format(value)
+}
