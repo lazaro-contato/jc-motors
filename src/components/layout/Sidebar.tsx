@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import {
+  Calculator,
   Car,
   ChevronLeft,
   ClipboardList,
@@ -39,6 +40,11 @@ const navGroups: NavGroup[] = [
         label: "Dashboard",
         to: "/",
         icon: <LayoutDashboard className="size-[18px]" />,
+      },
+      {
+        label: "Calculadora",
+        to: "/calculator",
+        icon: <Calculator className="size-[18px]" />,
       },
     ],
   },

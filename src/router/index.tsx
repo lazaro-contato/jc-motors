@@ -21,6 +21,7 @@ import { SaleCreatePage } from '@/features/sales/pages/SaleCreatePage'
 import { MyTasksPage } from '@/features/workflow/pages/MyTasksPage'
 import { OptionalsPage } from '@/features/optionals/pages/OptionalsPage'
 import { ProfileCreatePage } from '@/features/optionals/pages/ProfileCreatePage'
+import { CalculatorPage } from '@/features/calculator/pages/CalculatorPage'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -151,6 +152,12 @@ const profileCreateRoute = createRoute({
   component: ProfileCreatePage,
 })
 
+const calculatorRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: '/calculator',
+  component: CalculatorPage,
+})
+
 const routeTree = rootRoute.addChildren([
   loginRoute,
   appRoute.addChildren([
@@ -172,6 +179,7 @@ const routeTree = rootRoute.addChildren([
     myTasksRoute,
     optionalsRoute,
     profileCreateRoute,
+    calculatorRoute,
   ]),
 ])
 
